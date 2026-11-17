@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": [
+    "libs/**/*",
+    "apps/api-gateway/**/*",
+    "apps/auth-service/**/*",
+    "apps/user-service/**/*",
+    "apps/social-graph-service/**/*",
+    "apps/post-service/**/*",
+    "apps/interaction-service/**/*",
+    "apps/feed-service/**/*",
+    "apps/media-service/**/*",
+    "apps/reels-service/**/*",
+    "apps/notification-service/**/*",
+    "apps/search-service/**/*"
+  ]
+}

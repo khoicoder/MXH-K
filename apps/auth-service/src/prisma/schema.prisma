@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("AUTH_DATABASE_URL")
+}
+
+enum AccountStatus {
+  ACTIVE
+  SUSPENDED
+  DEACTIVATED
+}
+
+model Account {
+  id              String        @id @default(uuid())
+  email           String        @unique
+  passwordHash    String?
+  googleId        String?       @unique
+  status          AccountStatus @default(ACTIVE)
+  isEmailVerified Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  sessions        Session[]
+
+  @@map("accounts")
+}
+
+model Session {
+  id               String         @id @default(uuid())
+  userId           String
+  deviceId         String
+  deviceName       String
+  userAgent        String
+  ipAddress        String
+  tokenFamilyId    String         @default(uuid())
+  expiresAt        DateTime
+  lastUsedAt       DateTime       @default(now())
+  revokedAt        DateTime?
+  revokeReason     String?
+  createdAt        DateTime       @default(now())
+
+  account          Account        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshTokens    RefreshToken[]
+
+  @@index([userId])
+  @@index([tokenFamilyId])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+model RefreshToken {
+  id            String    @id @default(uuid())
+  sessionId     String
+  tokenFamilyId String
+  tokenHash     String    @unique
+  isRevoked     Boolean   @default(false)
+  expiresAt     DateTime
+  createdAt     DateTime  @default(now())
+
+  session       Session   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([tokenHash])
+  @@index([tokenFamilyId])
+  @@map("refresh_tokens")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(uuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@map("password_reset_tokens")
+}

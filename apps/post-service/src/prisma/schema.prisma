@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POST_DATABASE_URL")
+}
+
+enum PostVisibility {
+  PUBLIC
+  FRIENDS_ONLY
+  PRIVATE
+}
+
+model Post {
+  id           String         @id @default(uuid())
+  authorId     String
+  content      String
+  visibility   PostVisibility @default(PUBLIC)
+  isPinned     Boolean        @default(false)
+  sharedPostId String?
+  mediaCount   Int            @default(0)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  deletedAt    DateTime?
+
+  media        PostMedia[]
+  hashtags     PostHashtag[]
+  saves        SavedPost[]
+
+  @@index([authorId, createdAt(sort: Desc)])
+  @@index([visibility])
+  @@index([createdAt(sort: Desc)])
+  @@map("posts")
+}
+
+model PostMedia {
+  id         String   @id @default(uuid())
+  postId     String
+  mediaId    String
+  mediaType  String   // IMAGE, VIDEO
+  url        String
+  orderIndex Int      @default(0)
+
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+  @@map("post_media")
+}
+
+model Hashtag {
+  id         String        @id @default(uuid())
+  tag        String        @unique
+  postCount  Int           @default(1)
+  lastUsedAt DateTime      @default(now())
+
+  posts      PostHashtag[]
+
+  @@map("hashtags")
+}
+
+model PostHashtag {
+  postId    String
+  hashtagId String
+
+  post      Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  hashtag   Hashtag @relation(fields: [hashtagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, hashtagId])
+  @@map("post_hashtags")
+}
+
+model SavedPost {
+  id        String   @id @default(uuid())
+  userId    String
+  postId    String
+  savedAt   DateTime @default(now())
+
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+  @@index([userId, savedAt(sort: Desc)])
+  @@map("saved_posts")
+}

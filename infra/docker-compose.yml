@@ -1,0 +1,79 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mxh-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_secure_pass
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/01-init-databases.sql:/docker-entrypoint-initdb.d/01-init-databases.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mxh-data-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: mxh-redis
+    restart: always
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "redis_secure_pass"]
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "redis_secure_pass", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mxh-data-network
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: mxh-rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbit_admin
+      RABBITMQ_DEFAULT_PASS: rabbit_secure_pass
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mxh-data-network
+
+  s3-storage:
+    image: adobe/s3mock:latest
+    container_name: mxh-s3-storage
+    restart: always
+    environment:
+      initialBuckets: mxh-media,mxh-reels,mxh-avatars
+    ports:
+      - "9090:9090"
+    networks:
+      - mxh-data-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:
+
+networks:
+  mxh-data-network:
+    name: mxh-data-network
+    driver: bridge

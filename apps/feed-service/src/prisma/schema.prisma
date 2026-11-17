@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("FEED_DATABASE_URL")
+}
+
+model FeedItem {
+  id          String   @id @default(uuid())
+  recipientId String
+  postId      String
+  authorId    String
+  score       Float    @default(0.0)
+  reason      String   @default("RECOMMENDED") // FRIEND, FOLLOWING, TRENDING
+  createdAt   DateTime @default(now())
+
+  @@unique([recipientId, postId])
+  @@index([recipientId, score(sort: Desc), createdAt(sort: Desc)])
+  @@map("feed_items")
+}
+
+model HiddenPost {
+  id        String   @id @default(uuid())
+  userId    String
+  postId    String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, postId])
+  @@index([userId])
+  @@map("hidden_posts")
+}

@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("REELS_DATABASE_URL")
+}
+
+model Reel {
+  id            String    @id @default(uuid())
+  creatorId     String
+  caption       String
+  videoUrl      String
+  thumbnailUrl  String?
+  durationSec   Int       @default(15)
+  viewsCount    Int       @default(0)
+  likesCount    Int       @default(0)
+  commentsCount Int       @default(0)
+  sharesCount   Int       @default(0)
+  createdAt     DateTime  @default(now())
+  deletedAt     DateTime?
+
+  views     ReelView[]
+  bookmarks ReelBookmark[]
+
+  @@index([creatorId])
+  @@index([viewsCount(sort: Desc)])
+  @@index([createdAt(sort: Desc)])
+  @@map("reels")
+}
+
+model ReelView {
+  id               String   @id @default(uuid())
+  reelId           String
+  viewerId         String
+  watchDurationSec Int
+  completed        Boolean  @default(false)
+  createdAt        DateTime @default(now())
+
+  reel Reel @relation(fields: [reelId], references: [id], onDelete: Cascade)
+
+  @@index([reelId])
+  @@index([viewerId])
+  @@map("reel_views")
+}
+
+model ReelBookmark {
+  id        String   @id @default(uuid())
+  userId    String
+  reelId    String
+  createdAt DateTime @default(now())
+
+  reel Reel @relation(fields: [reelId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, reelId])
+  @@map("reel_bookmarks")
+}

@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment variables & secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+
+# Build outputs & cache
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+.turbo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Prisma generated clients (optional if generated on install/build)
+# keep schema, ignore heavy client binaries if needed or keep client if needed for runtime
+
+# OS files & Local notes
+yêu cầu.txt
+*.txt
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

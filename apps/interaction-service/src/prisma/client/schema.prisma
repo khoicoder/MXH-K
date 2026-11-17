@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("INTERACTION_DATABASE_URL")
+}
+
+enum ReactionType {
+  LIKE
+  LOVE
+  HAHA
+  WOW
+  SAD
+  ANGRY
+}
+
+model Reaction {
+  id         String       @id @default(uuid())
+  userId     String
+  targetType String // POST, COMMENT, REEL
+  targetId   String
+  type       ReactionType
+  createdAt  DateTime     @default(now())
+
+  @@unique([userId, targetType, targetId])
+  @@index([targetType, targetId])
+  @@index([userId])
+  @@map("reactions")
+}
+
+model Comment {
+  id              String    @id @default(uuid())
+  postId          String
+  authorId        String
+  parentCommentId String?
+  depth           Int       @default(0) // 0: root comment, 1: reply, 2: nested reply (clamped at 2 or 3)
+  content         String
+  repliesCount    Int       @default(0)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+
+  @@index([postId, createdAt(sort: Asc)])
+  @@index([parentCommentId])
+  @@map("comments")
+}
+
+model Report {
+  id         String   @id @default(uuid())
+  reporterId String
+  targetType String // POST, COMMENT, USER
+  targetId   String
+  reason     String
+  status     String   @default("PENDING") // PENDING, RESOLVED, DISMISSED
+  createdAt  DateTime @default(now())
+
+  @@index([status])
+  @@map("reports")
+}
