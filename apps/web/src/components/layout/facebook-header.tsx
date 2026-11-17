@@ -49,9 +49,10 @@ export function FacebookHeader() {
       .catch(() => {});
 
     // Connect to notification socket for real-time updates
-    const socket = io('http://localhost:4000/notifications', {
+    const socketBase = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:4000';
+    const socket = io(`${socketBase}/notifications`, {
       query: { userId: user.id },
-      transports: ['websocket', 'polling'],
+      transports: ['polling', 'websocket'],
     });
 
     socket.on('new_notification', () => {

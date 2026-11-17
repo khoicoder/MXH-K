@@ -99,7 +99,7 @@ export function PostCard({ post }: { post: PostItem }) {
     try {
       const socketUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:4000';
       socket = io(`${socketUrl}/interactions`, {
-        transports: ['websocket', 'polling'],
+        transports: ['polling', 'websocket'],
         timeout: 5000,
       });
 
