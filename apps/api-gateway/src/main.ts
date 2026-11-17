@@ -1,5 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import * as express from 'express';
+import * as path from 'path';
+import * as fs from 'fs';
 const cookieParser = require('cookie-parser');
 
 async function bootstrap() {
@@ -12,6 +15,14 @@ async function bootstrap() {
   });
 
   app.use(cookieParser());
+
+  // Static uploads directory for media files
+  const uploadsDir = path.join(process.cwd(), 'uploads');
+  if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+  }
+  app.use('/api/uploads', express.static(uploadsDir));
+
   app.setGlobalPrefix('api');
 
   const port = process.env.GATEWAY_PORT || 4000;

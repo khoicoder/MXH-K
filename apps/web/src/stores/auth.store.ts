@@ -7,6 +7,7 @@ export interface AuthUser {
   username?: string;
   displayName?: string;
   avatarUrl?: string;
+  coverUrl?: string;
   bio?: string;
 }
 

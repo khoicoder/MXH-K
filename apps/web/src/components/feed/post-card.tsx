@@ -25,6 +25,7 @@ export interface PostItem {
   isPinned?: boolean;
   createdAt: string;
   media?: Array<{ id: string; url: string; mediaType: string }>;
+  mediaUrls?: string[];
   hashtags?: string[];
   reactionsCount?: number;
   commentsCount?: number;
@@ -319,18 +320,52 @@ export function PostCard({ post }: { post: PostItem }) {
       </div>
 
       {/* 3. Media Grid */}
-      {post.media && post.media.length > 0 && (
-        <div className="w-full bg-slate-100 dark:bg-black/40 overflow-hidden">
-          {post.media.map((m, idx) => (
-            <img
-              key={m.id || idx}
-              src={m.url}
-              alt="Ảnh đính kèm"
-              className="w-full max-h-[500px] object-cover"
-            />
-          ))}
-        </div>
-      )}
+      {(() => {
+        const rawMedia: string[] = (post.media && post.media.length > 0)
+          ? post.media.map((m: any) => typeof m === 'string' ? m : m.url)
+          : (post.mediaUrls || []);
+        if (rawMedia.length === 0) return null;
+
+        if (rawMedia.length === 1) {
+          return (
+            <div className="w-full bg-slate-100 dark:bg-black/40 overflow-hidden">
+              <img
+                src={rawMedia[0]}
+                alt="Ảnh bài viết"
+                className="w-full max-h-[550px] object-cover hover:opacity-95 transition-opacity"
+              />
+            </div>
+          );
+        }
+
+        if (rawMedia.length === 2) {
+          return (
+            <div className="grid grid-cols-2 gap-1 w-full bg-slate-100 dark:bg-black/40 overflow-hidden">
+              {rawMedia.map((url: string, idx: number) => (
+                <img
+                  key={idx}
+                  src={url}
+                  alt={`Ảnh ${idx + 1}`}
+                  className="w-full h-64 object-cover"
+                />
+              ))}
+            </div>
+          );
+        }
+
+        return (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 w-full bg-slate-100 dark:bg-black/40 overflow-hidden">
+            {rawMedia.map((url: string, idx: number) => (
+              <img
+                key={idx}
+                src={url}
+                alt={`Ảnh ${idx + 1}`}
+                className="w-full h-48 object-cover"
+              />
+            ))}
+          </div>
+        );
+      })()}
 
       {/* 4. Reaction Count & Comments Counter */}
       <div className="px-3.5 py-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-neutral-800">

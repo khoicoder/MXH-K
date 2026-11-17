@@ -38,6 +38,7 @@ export class JwtAuthGuard implements CanActivate {
       path.startsWith('/api/auth/refresh') ||
       path.startsWith('/api/auth/google') ||
       path.startsWith('/api/docs') ||
+      path.startsWith('/api/uploads') ||
       path.startsWith('/api/search') ||
       (path.startsWith('/api/users') && request.method === 'GET' && !path.startsWith('/api/users/me')) ||
       (path.startsWith('/api/feed/explore') && request.method === 'GET') ||

@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { User, Bookmark, Grid, Edit3, Camera, Plus, MapPin, Briefcase, Calendar, Globe, Sparkles, Loader2, Users } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { User, Bookmark, Grid, Edit3, Camera, Plus, MapPin, Briefcase, Calendar, Globe, Sparkles, Loader2, Users, UploadCloud } from 'lucide-react';
 import { apiClient } from '../../../lib/api-client';
 import { useAuthStore } from '../../../stores/auth.store';
 import { PostCard, PostItem } from '../../../components/feed/post-card';
@@ -9,6 +9,8 @@ import { PostComposer } from '../../../components/feed/post-composer';
 
 export default function ProfilePage() {
   const { user, setUser } = useAuthStore();
+  const avatarInputRef = useRef<HTMLInputElement>(null);
+  const coverInputRef = useRef<HTMLInputElement>(null);
   const [profile, setProfile] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<'posts' | 'about' | 'friends' | 'saved'>('posts');
   const [posts, setPosts] = useState<PostItem[]>([]);
@@ -17,11 +19,14 @@ export default function ProfilePage() {
   const [isLoadingPosts, setIsLoadingPosts] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+  const [isUploadingCover, setIsUploadingCover] = useState(false);
 
   // Edit states
   const [editDisplayName, setEditDisplayName] = useState(user?.displayName || '');
   const [editBio, setEditBio] = useState(user?.bio || 'Yêu thích công nghệ, kết nối và chia sẻ trên MXH-K.');
   const [editAvatarUrl, setEditAvatarUrl] = useState(user?.avatarUrl || '');
+  const [editCoverUrl, setEditCoverUrl] = useState(user?.coverUrl || '');
 
   const fetchProfile = async () => {
     try {
@@ -31,9 +36,11 @@ export default function ProfilePage() {
       setEditDisplayName(p.displayName || user?.displayName || '');
       setEditBio(p.bio || 'Yêu thích công nghệ, kết nối và chia sẻ trên MXH-K.');
       setEditAvatarUrl(p.avatarUrl || user?.avatarUrl || '');
+      setEditCoverUrl(p.coverUrl || user?.coverUrl || '');
       setUser({
         displayName: p.displayName,
         avatarUrl: p.avatarUrl,
+        coverUrl: p.coverUrl,
         username: p.username,
         bio: p.bio,
       });
@@ -93,12 +100,14 @@ export default function ProfilePage() {
         displayName: editDisplayName.trim(),
         bio: editBio.trim(),
         avatarUrl: editAvatarUrl.trim() || null,
+        coverUrl: editCoverUrl.trim() || null,
       });
 
       setUser({
         displayName: editDisplayName.trim(),
         bio: editBio.trim(),
         avatarUrl: editAvatarUrl.trim() || undefined,
+        coverUrl: editCoverUrl.trim() || undefined,
       });
 
       setIsEditing(false);
@@ -111,27 +120,110 @@ export default function ProfilePage() {
     }
   };
 
+  const handleAvatarFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingAvatar(true);
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const res: any = await apiClient.post('/api/media/upload', formData);
+      const uploadedUrl = res.url;
+      if (uploadedUrl) {
+        await apiClient.patch('/api/users/me', {
+          avatarUrl: uploadedUrl,
+        });
+
+        setUser({
+          avatarUrl: uploadedUrl,
+        });
+
+        setEditAvatarUrl(uploadedUrl);
+        setProfile((prev: any) => ({ ...prev, avatarUrl: uploadedUrl }));
+        alert('Cập nhật ảnh đại diện từ máy tính thành công!');
+        fetchUserPosts();
+      }
+    } catch (err: any) {
+      alert(err.response?.data?.message || 'Không thể tải ảnh đại diện lên');
+    } finally {
+      setIsUploadingAvatar(false);
+      if (avatarInputRef.current) avatarInputRef.current.value = '';
+    }
+  };
+
+  const handleCoverFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingCover(true);
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const res: any = await apiClient.post('/api/media/upload', formData);
+      const uploadedUrl = res.url;
+      if (uploadedUrl) {
+        await apiClient.patch('/api/users/me', {
+          coverUrl: uploadedUrl,
+        });
+
+        setUser({
+          coverUrl: uploadedUrl,
+        });
+
+        setEditCoverUrl(uploadedUrl);
+        setProfile((prev: any) => ({ ...prev, coverUrl: uploadedUrl }));
+        alert('Cập nhật ảnh bìa từ máy tính thành công!');
+      }
+    } catch (err: any) {
+      alert(err.response?.data?.message || 'Không thể tải ảnh bìa lên');
+    } finally {
+      setIsUploadingCover(false);
+      if (coverInputRef.current) coverInputRef.current.value = '';
+    }
+  };
+
   const currentDisplayName = user?.displayName || profile?.displayName || editDisplayName || 'Người dùng MXH-K';
   const currentBio = user?.bio || profile?.bio || editBio;
   const currentAvatar = user?.avatarUrl || profile?.avatarUrl || editAvatarUrl;
+  const currentCover = user?.coverUrl || profile?.coverUrl || editCoverUrl;
 
   return (
     <div className="space-y-4 select-none">
+      {/* Hidden file inputs for local uploads */}
+      <input
+        type="file"
+        ref={avatarInputRef}
+        accept="image/*"
+        onChange={handleAvatarFileSelect}
+        className="hidden"
+      />
+      <input
+        type="file"
+        ref={coverInputRef}
+        accept="image/*"
+        onChange={handleCoverFileSelect}
+        className="hidden"
+      />
+
       {/* 1. Header Profile: Cover Photo & Avatar Card (Chuẩn Facebook) */}
       <div className="bg-white dark:bg-[#242526] rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 dark:border-neutral-800">
         {/* Cover Photo */}
         <div className="relative h-44 sm:h-56 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
           <img
-            src={profile?.coverUrl || 'https://images.unsplash.com/photo-1707343843437-caacff5cfa74?w=1200&auto=format&fit=crop&q=80'}
+            src={currentCover || 'https://images.unsplash.com/photo-1707343843437-caacff5cfa74?w=1200&auto=format&fit=crop&q=80'}
             alt="Cover"
             className="w-full h-full object-cover"
           />
           <button
-            onClick={() => setIsEditing(true)}
+            onClick={() => coverInputRef.current?.click()}
+            disabled={isUploadingCover}
             className="absolute bottom-3 right-3 px-3 py-1.5 bg-white/90 dark:bg-black/70 hover:bg-white text-slate-800 dark:text-white rounded-lg text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer"
           >
-            <Camera className="w-4 h-4" />
-            <span className="hidden sm:inline">Chỉnh sửa trang cá nhân</span>
+            {isUploadingCover ? <Loader2 className="w-4 h-4 animate-spin text-blue-600" /> : <Camera className="w-4 h-4" />}
+            <span>{isUploadingCover ? 'Đang tải lên...' : 'Chỉnh sửa ảnh bìa'}</span>
           </button>
         </div>
 
@@ -148,10 +240,16 @@ export default function ProfilePage() {
                   </div>
                 )}
                 <button
-                  onClick={() => setIsEditing(true)}
-                  className="absolute bottom-2 right-2 p-2 bg-[#e4e6eb] hover:bg-[#d8dadf] text-slate-800 rounded-full shadow cursor-pointer"
+                  onClick={() => avatarInputRef.current?.click()}
+                  disabled={isUploadingAvatar}
+                  title="Tải ảnh đại diện từ máy tính"
+                  className="absolute bottom-2 right-2 p-2 bg-[#e4e6eb] hover:bg-[#d8dadf] text-slate-800 rounded-full shadow cursor-pointer transition-transform hover:scale-105"
                 >
-                  <Camera className="w-4 h-4" />
+                  {isUploadingAvatar ? (
+                    <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                  ) : (
+                    <Camera className="w-4 h-4" />
+                  )}
                 </button>
               </div>
 
@@ -204,14 +302,46 @@ export default function ProfilePage() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Link Ảnh đại diện (URL)</label>
-                <input
-                  type="url"
-                  value={editAvatarUrl}
-                  onChange={(e) => setEditAvatarUrl(e.target.value)}
-                  placeholder="https://example.com/my-photo.jpg"
-                  className="w-full bg-white dark:bg-[#242526] border border-slate-300 dark:border-neutral-700 rounded-lg px-3 py-1.5 text-xs outline-none focus:border-blue-500"
-                />
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Ảnh đại diện (Avatar)</label>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="text"
+                    value={editAvatarUrl}
+                    onChange={(e) => setEditAvatarUrl(e.target.value)}
+                    placeholder="URL ảnh hoặc tải trực tiếp từ máy..."
+                    className="flex-1 bg-white dark:bg-[#242526] border border-slate-300 dark:border-neutral-700 rounded-lg px-3 py-1.5 text-xs outline-none focus:border-blue-500"
+                  />
+                  <button
+                    type="button"
+                    disabled={isUploadingAvatar}
+                    onClick={() => avatarInputRef.current?.click()}
+                    className="px-3 py-1.5 bg-[#e4e6eb] hover:bg-[#d8dadf] dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50] text-slate-800 dark:text-slate-200 text-xs font-bold rounded-lg cursor-pointer flex items-center gap-1 shrink-0"
+                  >
+                    {isUploadingAvatar ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Camera className="w-3.5 h-3.5" />}
+                    <span>{isUploadingAvatar ? 'Đang tải...' : 'Chọn từ máy'}</span>
+                  </button>
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Ảnh bìa (Cover)</label>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="text"
+                    value={editCoverUrl}
+                    onChange={(e) => setEditCoverUrl(e.target.value)}
+                    placeholder="URL ảnh bìa hoặc tải từ máy..."
+                    className="flex-1 bg-white dark:bg-[#242526] border border-slate-300 dark:border-neutral-700 rounded-lg px-3 py-1.5 text-xs outline-none focus:border-blue-500"
+                  />
+                  <button
+                    type="button"
+                    disabled={isUploadingCover}
+                    onClick={() => coverInputRef.current?.click()}
+                    className="px-3 py-1.5 bg-[#e4e6eb] hover:bg-[#d8dadf] dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50] text-slate-800 dark:text-slate-200 text-xs font-bold rounded-lg cursor-pointer flex items-center gap-1 shrink-0"
+                  >
+                    {isUploadingCover ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Camera className="w-3.5 h-3.5" />}
+                    <span>{isUploadingCover ? 'Đang tải...' : 'Chọn từ máy'}</span>
+                  </button>
+                </div>
               </div>
               <div className="flex justify-end gap-2 pt-1">
                 <button
