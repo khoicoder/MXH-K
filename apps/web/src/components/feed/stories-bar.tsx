@@ -35,10 +35,10 @@ export function StoriesBar() {
   ];
 
   return (
-    <div className="flex gap-2.5 overflow-x-auto pb-1 mb-4 select-none scrollbar-none">
+    <div className="flex gap-2 sm:gap-2.5 overflow-x-auto pb-1 mb-3 sm:mb-4 px-2 sm:px-0 select-none scrollbar-none snap-x">
       {/* 1. Create Story Card */}
-      <div className="relative w-28 sm:w-32 h-48 sm:h-52 rounded-2xl bg-white dark:bg-[#242526] border border-slate-200/80 dark:border-neutral-800 shadow-sm overflow-hidden flex flex-col shrink-0 cursor-pointer group hover:opacity-95 transition-all">
-        <div className="h-36 sm:h-40 overflow-hidden bg-slate-100 dark:bg-slate-800">
+      <div className="relative w-24 sm:w-32 h-40 sm:h-52 rounded-xl sm:rounded-2xl bg-white dark:bg-[#242526] border border-slate-200/80 dark:border-neutral-800 shadow-sm overflow-hidden flex flex-col shrink-0 cursor-pointer group hover:opacity-95 transition-all snap-start">
+        <div className="h-28 sm:h-40 overflow-hidden bg-slate-100 dark:bg-slate-800">
           {user?.avatarUrl ? (
             <img
               src={user.avatarUrl}
@@ -65,7 +65,7 @@ export function StoriesBar() {
       {stories.map((story) => (
         <div
           key={story.id}
-          className="relative w-28 sm:w-32 h-48 sm:h-52 rounded-2xl overflow-hidden shrink-0 cursor-pointer group shadow-sm hover:shadow-md transition-all"
+          className="relative w-24 sm:w-32 h-40 sm:h-52 rounded-xl sm:rounded-2xl overflow-hidden shrink-0 cursor-pointer group shadow-sm hover:shadow-md transition-all snap-start"
         >
           {/* Background Story Image */}
           <img

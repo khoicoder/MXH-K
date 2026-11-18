@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Sparkles, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
+import { Sparkles, ArrowRight, Loader2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { apiClient } from '../../../lib/api-client';
 import { useAuthStore } from '../../../stores/auth.store';
 import { GoogleSignInButton } from '../../../components/ui/google-signin-button';
@@ -14,6 +14,7 @@ export default function LoginPage() {
   const { setAuth } = useAuthStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -52,9 +53,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50 dark:bg-slate-950">
-      <div className="max-w-md w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl">
-        <div className="text-center mb-8">
+    <div className="min-h-screen flex items-center justify-center p-3 sm:p-4 bg-slate-50 dark:bg-slate-950 w-full max-w-full overflow-x-hidden">
+      <div className="max-w-md w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-xl">
+        <div className="text-center mb-6 sm:mb-8">
           <Logo variant="full" size="lg" className="justify-center mb-4" />
           <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
             Đăng Nhập MXH-K
@@ -76,7 +77,7 @@ export default function LoginPage() {
           
           <div className="relative flex items-center justify-center my-4">
             <div className="border-t border-slate-200 dark:border-slate-800 w-full"></div>
-            <span className="bg-white dark:bg-slate-900 px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <span className="bg-white dark:bg-slate-900 px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider text-center">
               Hoặc tiếp tục bằng Email
             </span>
             <div className="border-t border-slate-200 dark:border-slate-800 w-full"></div>
@@ -90,6 +91,9 @@ export default function LoginPage() {
             </label>
             <input
               type="email"
+              inputMode="email"
+              autoComplete="email"
+              autoCapitalize="none"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -102,20 +106,30 @@ export default function LoginPage() {
             <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
               Mật khẩu
             </label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-white outline-none focus:border-blue-600 transition-colors"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                autoComplete="current-password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl px-4 pr-10 py-2.5 text-xs text-slate-900 dark:text-white outline-none focus:border-blue-600 transition-colors"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full mt-2 py-3 bg-[#1877f2] hover:bg-blue-700 disabled:opacity-50 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
+            className="w-full mt-2 py-3 min-h-[44px] bg-[#1877f2] hover:bg-blue-700 disabled:opacity-50 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all active:scale-[0.98] cursor-pointer touch-manipulation"
           >
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />

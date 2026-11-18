@@ -120,14 +120,15 @@ export function FacebookHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 h-14 bg-white dark:bg-[#242526] border-b border-slate-200/80 dark:border-neutral-800 shadow-[0_1px_3px_rgba(0,0,0,0.06)] px-4 flex items-center justify-between">
+    <header className="sticky top-0 z-50 h-14 bg-white dark:bg-[#242526] border-b border-slate-200/80 dark:border-neutral-800 shadow-[0_1px_3px_rgba(0,0,0,0.06)] px-2 sm:px-4 flex items-center justify-between select-none">
       {/* 1. LEFT: Brand Logo & Facebook-style Pill Search */}
-      <div className="flex items-center gap-3 w-1/4 min-w-[220px]">
-        <Link href="/" className="shrink-0 hover:opacity-95 transition-opacity">
+      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <Link href="/" className="shrink-0 hover:opacity-95 transition-opacity flex items-center">
           <Logo variant="icon" size="md" />
         </Link>
 
-        <form onSubmit={handleSearchSubmit} className="relative hidden sm:block flex-1 max-w-[240px]">
+        {/* Desktop search bar */}
+        <form onSubmit={handleSearchSubmit} className="relative hidden sm:block w-48 lg:w-60">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
@@ -137,10 +138,19 @@ export function FacebookHeader() {
             className="w-full bg-[#f0f2f5] dark:bg-[#3a3b3c] border-none rounded-full pl-9 pr-4 py-2 text-xs text-slate-800 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
           />
         </form>
+
+        {/* Mobile search icon button */}
+        <Link
+          href="/explore"
+          className="sm:hidden w-10 h-10 rounded-full bg-[#f0f2f5] dark:bg-[#3a3b3c] flex items-center justify-center text-slate-600 dark:text-slate-200"
+          title="Tìm kiếm"
+        >
+          <Search className="w-5 h-5" />
+        </Link>
       </div>
 
-      {/* 2. CENTER: Large Facebook Navigation Tabs */}
-      <nav className="flex items-center justify-center flex-1 max-w-2xl h-full px-2">
+      {/* 2. CENTER: Large Facebook Navigation Tabs (Hidden on mobile, mobile uses BottomNav) */}
+      <nav className="hidden md:flex items-center justify-center flex-1 max-w-2xl h-full px-2">
         {navTabs.map((tab) => {
           const isActive = pathname === tab.href;
           const Icon = tab.icon;
@@ -171,7 +181,7 @@ export function FacebookHeader() {
       </nav>
 
       {/* 3. RIGHT: Quick Actions & Profile Dropdown */}
-      <div className="flex items-center justify-end gap-2 w-1/4 min-w-[220px]" ref={menuRef}>
+      <div className="flex items-center justify-end gap-1.5 sm:gap-2 shrink-0" ref={menuRef}>
         {/* Quick Create Button */}
         <button
           onClick={() => router.push('/')}

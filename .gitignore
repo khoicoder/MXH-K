@@ -19,6 +19,7 @@ out/
 uploads/
 backups/
 scratch/
+~$*.docx
 *.tsbuildinfo
 .turbo
 

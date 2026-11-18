@@ -79,7 +79,7 @@ export function PostComposer({ onPostCreated }: PostComposerProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-[#242526] rounded-2xl p-4 shadow-[0_1px_2px_rgba(0,0,0,0.08)] border border-slate-200/80 dark:border-neutral-800 mb-4 select-none">
+    <div className="bg-white dark:bg-[#242526] rounded-none sm:rounded-2xl p-3 sm:p-4 shadow-none sm:shadow-[0_1px_2px_rgba(0,0,0,0.08)] border-y sm:border border-slate-200/80 dark:border-neutral-800 mb-3 sm:mb-4 select-none">
       {/* Hidden file input for native file browsing */}
       <input
         type="file"
@@ -91,8 +91,8 @@ export function PostComposer({ onPostCreated }: PostComposerProps) {
       />
 
       {/* 1. Top Row: Avatar + Facebook-style Input Pill */}
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0 overflow-hidden shadow-sm">
+      <div className="flex items-center gap-2.5 sm:gap-3">
+        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0 overflow-hidden shadow-sm">
           {user?.avatarUrl ? (
             <img src={user.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
           ) : (
@@ -102,30 +102,30 @@ export function PostComposer({ onPostCreated }: PostComposerProps) {
 
         <button
           onClick={() => setIsOpen(true)}
-          className="flex-1 bg-[#f0f2f5] hover:bg-[#e4e6eb] dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50] rounded-full px-4 py-2.5 text-left text-xs text-slate-500 dark:text-slate-400 font-normal transition-colors cursor-pointer"
+          className="flex-1 bg-[#f0f2f5] hover:bg-[#e4e6eb] dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50] rounded-full px-3.5 sm:px-4 py-2.5 text-left text-xs text-slate-500 dark:text-slate-400 font-normal transition-colors cursor-pointer truncate"
         >
           {user?.displayName ? `${user.displayName} ơi, bạn đang nghĩ gì thế?` : 'Bạn đang nghĩ gì thế?'}
         </button>
       </div>
 
-      <div className="border-t border-slate-100 dark:border-neutral-800 my-3" />
+      <div className="border-t border-slate-100 dark:border-neutral-800 my-2.5 sm:my-3" />
 
       {/* 2. Bottom Row: 3 Facebook Action Buttons */}
-      <div className="flex items-center justify-between px-2">
+      <div className="flex items-center justify-between px-1">
         <button
           onClick={() => alert('Tính năng Phát trực tiếp (Live) đang chuẩn bị ra mắt!')}
-          className="flex items-center justify-center gap-2 flex-1 py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 transition-colors cursor-pointer"
+          className="flex items-center justify-center gap-1.5 sm:gap-2 flex-1 py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-xl text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-300 transition-colors cursor-pointer min-h-[40px]"
         >
-          <Video className="w-5 h-5 text-red-500 shrink-0" />
-          <span>Video trực tiếp</span>
+          <Video className="w-4 h-4 sm:w-5 sm:h-5 text-red-500 shrink-0" />
+          <span className="truncate">Trực tiếp</span>
         </button>
 
         <button
           onClick={handleOpenPhotoPicker}
-          className="flex items-center justify-center gap-2 flex-1 py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 transition-colors cursor-pointer"
+          className="flex items-center justify-center gap-1.5 sm:gap-2 flex-1 py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-xl text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-300 transition-colors cursor-pointer min-h-[40px]"
         >
-          <Image className="w-5 h-5 text-emerald-500 shrink-0" />
-          <span>Ảnh/video</span>
+          <Image className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 shrink-0" />
+          <span className="truncate">Ảnh/video</span>
         </button>
 
         <button
@@ -133,17 +133,17 @@ export function PostComposer({ onPostCreated }: PostComposerProps) {
             setIsOpen(true);
             setContent((c) => (c ? `${c} đang cảm thấy hào hứng! 🎉` : 'Đang cảm thấy hào hứng! 🎉 '));
           }}
-          className="flex items-center justify-center gap-2 flex-1 py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 transition-colors cursor-pointer"
+          className="flex items-center justify-center gap-1.5 sm:gap-2 flex-1 py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-xl text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-300 transition-colors cursor-pointer min-h-[40px]"
         >
-          <Smile className="w-5 h-5 text-amber-500 shrink-0" />
-          <span>Cảm xúc/hoạt động</span>
+          <Smile className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 shrink-0" />
+          <span className="truncate">Cảm xúc</span>
         </button>
       </div>
 
       {/* 3. Facebook Modal Tạo Bài Viết */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-white dark:bg-[#242526] w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 dark:border-neutral-800 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-2 sm:p-4">
+          <div className="bg-white dark:bg-[#242526] w-full max-w-lg max-h-[92vh] flex flex-col rounded-2xl shadow-2xl border border-slate-200 dark:border-neutral-800 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             {/* Modal Header */}
             <div className="relative px-4 py-3.5 border-b border-slate-100 dark:border-neutral-800 text-center">
               <h3 className="font-bold text-base text-slate-900 dark:text-white">Tạo bài viết</h3>

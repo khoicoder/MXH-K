@@ -273,11 +273,11 @@ export function PostCard({ post }: { post: PostItem }) {
   const authorInitial = (post.authorName?.[0] || 'U').toUpperCase();
 
   return (
-    <article className="bg-white dark:bg-[#242526] rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.08)] border border-slate-200/80 dark:border-neutral-800 mb-4 overflow-hidden select-none">
+    <article className="bg-white dark:bg-[#242526] rounded-none sm:rounded-2xl shadow-none sm:shadow-[0_1px_2px_rgba(0,0,0,0.08)] border-y sm:border border-slate-200/80 dark:border-neutral-800 mb-2 sm:mb-4 overflow-hidden select-none">
       {/* 1. Header: Author, Vietnamese Time, Privacy & Menu */}
-      <div className="flex items-center justify-between p-3.5">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 text-white font-bold flex items-center justify-center text-sm shrink-0 overflow-hidden shadow-sm">
+      <div className="flex items-center justify-between p-3 sm:p-3.5">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 text-white font-bold flex items-center justify-center text-sm shrink-0 overflow-hidden shadow-sm">
             {post.authorAvatar ? (
               <img src={post.authorAvatar} alt="Avatar" className="w-full h-full object-cover" />
             ) : (
@@ -302,19 +302,19 @@ export function PostCard({ post }: { post: PostItem }) {
           <button
             onClick={handleToggleSave}
             title={isSaved ? 'Bỏ lưu' : 'Lưu bài viết'}
-            className="p-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-full text-slate-500 transition-colors cursor-pointer"
+            className="w-9 h-9 flex items-center justify-center hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-full text-slate-500 transition-colors cursor-pointer"
           >
             <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-blue-600 text-blue-600' : ''}`} />
           </button>
-          <button className="p-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-full text-slate-500 transition-colors cursor-pointer">
+          <button className="w-9 h-9 flex items-center justify-center hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-full text-slate-500 transition-colors cursor-pointer">
             <MoreHorizontal className="w-4 h-4" />
           </button>
         </div>
       </div>
 
       {/* 2. Post Content */}
-      <div className="px-3.5 pb-3">
-        <p className="text-xs text-slate-900 dark:text-slate-100 whitespace-pre-line leading-relaxed">
+      <div className="px-3 sm:px-3.5 pb-3">
+        <p className="text-xs text-slate-900 dark:text-slate-100 whitespace-pre-line leading-relaxed break-words">
           {renderFormattedContent(post.content)}
         </p>
       </div>
@@ -427,7 +427,7 @@ export function PostCard({ post }: { post: PostItem }) {
             setShowComments(!showComments);
             if (!showComments) fetchComments();
           }}
-          className="flex items-center justify-center gap-2 flex-1 py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 transition-colors cursor-pointer"
+          className="flex items-center justify-center gap-1.5 sm:gap-2 flex-1 min-h-[44px] py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 transition-all active:scale-95 cursor-pointer touch-manipulation"
         >
           <MessageCircle className="w-4 h-4 text-slate-500" />
           <span>Bình luận</span>
@@ -435,7 +435,7 @@ export function PostCard({ post }: { post: PostItem }) {
 
         <button
           onClick={() => alert('Đã sao chép liên kết bài viết vào bộ nhớ tạm!')}
-          className="flex items-center justify-center gap-2 flex-1 py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 transition-colors cursor-pointer"
+          className="flex items-center justify-center gap-1.5 sm:gap-2 flex-1 min-h-[44px] py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c] rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 transition-all active:scale-95 cursor-pointer touch-manipulation"
         >
           <Share2 className="w-4 h-4 text-slate-500" />
           <span>Chia sẻ</span>

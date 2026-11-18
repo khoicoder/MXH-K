@@ -209,9 +209,9 @@ export default function ProfilePage() {
       />
 
       {/* 1. Header Profile: Cover Photo & Avatar Card (Chuẩn Facebook) */}
-      <div className="bg-white dark:bg-[#242526] rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 dark:border-neutral-800">
+      <div className="bg-white dark:bg-[#242526] rounded-none sm:rounded-2xl overflow-hidden shadow-none sm:shadow-sm border-y sm:border border-slate-200/80 dark:border-neutral-800">
         {/* Cover Photo */}
-        <div className="relative h-44 sm:h-56 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
+        <div className="relative h-36 sm:h-56 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
           <img
             src={currentCover || 'https://images.unsplash.com/photo-1707343843437-caacff5cfa74?w=1200&auto=format&fit=crop&q=80'}
             alt="Cover"
@@ -220,22 +220,23 @@ export default function ProfilePage() {
           <button
             onClick={() => coverInputRef.current?.click()}
             disabled={isUploadingCover}
-            className="absolute bottom-3 right-3 px-3 py-1.5 bg-white/90 dark:bg-black/70 hover:bg-white text-slate-800 dark:text-white rounded-lg text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer"
+            className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-white/90 dark:bg-black/70 hover:bg-white text-slate-800 dark:text-white rounded-lg text-[11px] sm:text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer"
           >
-            {isUploadingCover ? <Loader2 className="w-4 h-4 animate-spin text-blue-600" /> : <Camera className="w-4 h-4" />}
-            <span>{isUploadingCover ? 'Đang tải lên...' : 'Chỉnh sửa ảnh bìa'}</span>
+            {isUploadingCover ? <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600" /> : <Camera className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+            <span className="hidden sm:inline">{isUploadingCover ? 'Đang tải lên...' : 'Chỉnh sửa ảnh bìa'}</span>
+            <span className="sm:hidden">Ảnh bìa</span>
           </button>
         </div>
 
         {/* Avatar & Profile Info */}
-        <div className="px-6 pb-4">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between -mt-16 sm:-mt-20 gap-4 mb-4">
-            <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4 text-center sm:text-left">
-              <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-full border-4 border-white dark:border-[#242526] overflow-hidden bg-blue-600 shadow-xl shrink-0">
+        <div className="px-3 sm:px-6 pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between -mt-12 sm:-mt-20 gap-3 sm:gap-4 mb-4">
+            <div className="flex flex-col sm:flex-row items-center sm:items-end gap-3 sm:gap-4 text-center sm:text-left">
+              <div className="relative w-24 h-24 sm:w-36 sm:h-36 rounded-full border-4 border-white dark:border-[#242526] overflow-hidden bg-blue-600 shadow-xl shrink-0">
                 {currentAvatar ? (
                   <img src={currentAvatar} alt="Avatar" className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-white text-4xl font-black">
+                  <div className="w-full h-full flex items-center justify-center text-white text-3xl sm:text-4xl font-black">
                     {(currentDisplayName[0] || 'U').toUpperCase()}
                   </div>
                 )}
@@ -243,18 +244,18 @@ export default function ProfilePage() {
                   onClick={() => avatarInputRef.current?.click()}
                   disabled={isUploadingAvatar}
                   title="Tải ảnh đại diện từ máy tính"
-                  className="absolute bottom-2 right-2 p-2 bg-[#e4e6eb] hover:bg-[#d8dadf] text-slate-800 rounded-full shadow cursor-pointer transition-transform hover:scale-105"
+                  className="absolute bottom-1 sm:bottom-2 right-1 sm:right-2 p-1.5 sm:p-2 bg-[#e4e6eb] hover:bg-[#d8dadf] text-slate-800 rounded-full shadow cursor-pointer transition-transform hover:scale-105"
                 >
                   {isUploadingAvatar ? (
-                    <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600" />
                   ) : (
-                    <Camera className="w-4 h-4" />
+                    <Camera className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   )}
                 </button>
               </div>
 
               <div className="space-y-1">
-                <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+                <h1 className="text-lg sm:text-2xl font-black text-slate-900 dark:text-white">
                   {currentDisplayName}
                 </h1>
                 <p className="text-xs text-slate-500 font-medium">
@@ -265,10 +266,10 @@ export default function ProfilePage() {
             </div>
 
             {/* Profile Action Buttons */}
-            <div className="flex items-center justify-center sm:justify-end gap-2 shrink-0">
+            <div className="flex items-center justify-center sm:justify-end gap-2 shrink-0 w-full sm:w-auto">
               <button
                 onClick={() => setIsEditing(!isEditing)}
-                className="px-4 py-2 bg-[#e4e6eb] hover:bg-[#d8dadf] dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50] text-slate-800 dark:text-slate-100 font-bold text-xs rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer"
+                className="w-full sm:w-auto px-4 py-2 bg-[#e4e6eb] hover:bg-[#d8dadf] dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50] text-slate-800 dark:text-slate-100 font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer min-h-[40px]"
               >
                 <Edit3 className="w-4 h-4" />
                 <span>Chỉnh sửa hồ sơ</span>
