@@ -38,6 +38,36 @@ export type PostHashtag = $Result.DefaultSelection<Prisma.$PostHashtagPayload>
  * 
  */
 export type SavedPost = $Result.DefaultSelection<Prisma.$SavedPostPayload>
+/**
+ * Model Story
+ * 
+ */
+export type Story = $Result.DefaultSelection<Prisma.$StoryPayload>
+/**
+ * Model StoryMedia
+ * 
+ */
+export type StoryMedia = $Result.DefaultSelection<Prisma.$StoryMediaPayload>
+/**
+ * Model StoryView
+ * 
+ */
+export type StoryView = $Result.DefaultSelection<Prisma.$StoryViewPayload>
+/**
+ * Model StoryReaction
+ * 
+ */
+export type StoryReaction = $Result.DefaultSelection<Prisma.$StoryReactionPayload>
+/**
+ * Model StoryAudience
+ * 
+ */
+export type StoryAudience = $Result.DefaultSelection<Prisma.$StoryAudiencePayload>
+/**
+ * Model CloseFriend
+ * 
+ */
+export type CloseFriend = $Result.DefaultSelection<Prisma.$CloseFriendPayload>
 
 /**
  * Enums
@@ -51,11 +81,40 @@ export namespace $Enums {
 
 export type PostVisibility = (typeof PostVisibility)[keyof typeof PostVisibility]
 
+
+export const StoryType: {
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO',
+  TEXT: 'TEXT'
+};
+
+export type StoryType = (typeof StoryType)[keyof typeof StoryType]
+
+
+export const StoryVisibility: {
+  PUBLIC: 'PUBLIC',
+  FRIENDS: 'FRIENDS',
+  FRIENDS_EXCEPT: 'FRIENDS_EXCEPT',
+  CLOSE_FRIENDS: 'CLOSE_FRIENDS',
+  ONLY_ME: 'ONLY_ME',
+  CUSTOM: 'CUSTOM'
+};
+
+export type StoryVisibility = (typeof StoryVisibility)[keyof typeof StoryVisibility]
+
 }
 
 export type PostVisibility = $Enums.PostVisibility
 
 export const PostVisibility: typeof $Enums.PostVisibility
+
+export type StoryType = $Enums.StoryType
+
+export const StoryType: typeof $Enums.StoryType
+
+export type StoryVisibility = $Enums.StoryVisibility
+
+export const StoryVisibility: typeof $Enums.StoryVisibility
 
 /**
  * ##  Prisma Client ʲˢ
@@ -229,6 +288,66 @@ export class PrismaClient<
     * ```
     */
   get savedPost(): Prisma.SavedPostDelegate<ExtArgs>;
+
+  /**
+   * `prisma.story`: Exposes CRUD operations for the **Story** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Stories
+    * const stories = await prisma.story.findMany()
+    * ```
+    */
+  get story(): Prisma.StoryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.storyMedia`: Exposes CRUD operations for the **StoryMedia** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StoryMedias
+    * const storyMedias = await prisma.storyMedia.findMany()
+    * ```
+    */
+  get storyMedia(): Prisma.StoryMediaDelegate<ExtArgs>;
+
+  /**
+   * `prisma.storyView`: Exposes CRUD operations for the **StoryView** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StoryViews
+    * const storyViews = await prisma.storyView.findMany()
+    * ```
+    */
+  get storyView(): Prisma.StoryViewDelegate<ExtArgs>;
+
+  /**
+   * `prisma.storyReaction`: Exposes CRUD operations for the **StoryReaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StoryReactions
+    * const storyReactions = await prisma.storyReaction.findMany()
+    * ```
+    */
+  get storyReaction(): Prisma.StoryReactionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.storyAudience`: Exposes CRUD operations for the **StoryAudience** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StoryAudiences
+    * const storyAudiences = await prisma.storyAudience.findMany()
+    * ```
+    */
+  get storyAudience(): Prisma.StoryAudienceDelegate<ExtArgs>;
+
+  /**
+   * `prisma.closeFriend`: Exposes CRUD operations for the **CloseFriend** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CloseFriends
+    * const closeFriends = await prisma.closeFriend.findMany()
+    * ```
+    */
+  get closeFriend(): Prisma.CloseFriendDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -674,7 +793,13 @@ export namespace Prisma {
     PostMedia: 'PostMedia',
     Hashtag: 'Hashtag',
     PostHashtag: 'PostHashtag',
-    SavedPost: 'SavedPost'
+    SavedPost: 'SavedPost',
+    Story: 'Story',
+    StoryMedia: 'StoryMedia',
+    StoryView: 'StoryView',
+    StoryReaction: 'StoryReaction',
+    StoryAudience: 'StoryAudience',
+    CloseFriend: 'CloseFriend'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -690,7 +815,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "post" | "postMedia" | "hashtag" | "postHashtag" | "savedPost"
+      modelProps: "post" | "postMedia" | "hashtag" | "postHashtag" | "savedPost" | "story" | "storyMedia" | "storyView" | "storyReaction" | "storyAudience" | "closeFriend"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1044,6 +1169,426 @@ export namespace Prisma {
           }
         }
       }
+      Story: {
+        payload: Prisma.$StoryPayload<ExtArgs>
+        fields: Prisma.StoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>
+          }
+          findFirst: {
+            args: Prisma.StoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>
+          }
+          findMany: {
+            args: Prisma.StoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>[]
+          }
+          create: {
+            args: Prisma.StoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>
+          }
+          createMany: {
+            args: Prisma.StoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>[]
+          }
+          delete: {
+            args: Prisma.StoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>
+          }
+          update: {
+            args: Prisma.StoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.StoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>
+          }
+          aggregate: {
+            args: Prisma.StoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStory>
+          }
+          groupBy: {
+            args: Prisma.StoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StoryCountArgs<ExtArgs>
+            result: $Utils.Optional<StoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      StoryMedia: {
+        payload: Prisma.$StoryMediaPayload<ExtArgs>
+        fields: Prisma.StoryMediaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StoryMediaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryMediaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StoryMediaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryMediaPayload>
+          }
+          findFirst: {
+            args: Prisma.StoryMediaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryMediaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StoryMediaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryMediaPayload>
+          }
+          findMany: {
+            args: Prisma.StoryMediaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryMediaPayload>[]
+          }
+          create: {
+            args: Prisma.StoryMediaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryMediaPayload>
+          }
+          createMany: {
+            args: Prisma.StoryMediaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StoryMediaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryMediaPayload>[]
+          }
+          delete: {
+            args: Prisma.StoryMediaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryMediaPayload>
+          }
+          update: {
+            args: Prisma.StoryMediaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryMediaPayload>
+          }
+          deleteMany: {
+            args: Prisma.StoryMediaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StoryMediaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StoryMediaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryMediaPayload>
+          }
+          aggregate: {
+            args: Prisma.StoryMediaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStoryMedia>
+          }
+          groupBy: {
+            args: Prisma.StoryMediaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StoryMediaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StoryMediaCountArgs<ExtArgs>
+            result: $Utils.Optional<StoryMediaCountAggregateOutputType> | number
+          }
+        }
+      }
+      StoryView: {
+        payload: Prisma.$StoryViewPayload<ExtArgs>
+        fields: Prisma.StoryViewFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StoryViewFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryViewPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StoryViewFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryViewPayload>
+          }
+          findFirst: {
+            args: Prisma.StoryViewFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryViewPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StoryViewFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryViewPayload>
+          }
+          findMany: {
+            args: Prisma.StoryViewFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryViewPayload>[]
+          }
+          create: {
+            args: Prisma.StoryViewCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryViewPayload>
+          }
+          createMany: {
+            args: Prisma.StoryViewCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StoryViewCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryViewPayload>[]
+          }
+          delete: {
+            args: Prisma.StoryViewDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryViewPayload>
+          }
+          update: {
+            args: Prisma.StoryViewUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryViewPayload>
+          }
+          deleteMany: {
+            args: Prisma.StoryViewDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StoryViewUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StoryViewUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryViewPayload>
+          }
+          aggregate: {
+            args: Prisma.StoryViewAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStoryView>
+          }
+          groupBy: {
+            args: Prisma.StoryViewGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StoryViewGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StoryViewCountArgs<ExtArgs>
+            result: $Utils.Optional<StoryViewCountAggregateOutputType> | number
+          }
+        }
+      }
+      StoryReaction: {
+        payload: Prisma.$StoryReactionPayload<ExtArgs>
+        fields: Prisma.StoryReactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StoryReactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryReactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StoryReactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryReactionPayload>
+          }
+          findFirst: {
+            args: Prisma.StoryReactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryReactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StoryReactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryReactionPayload>
+          }
+          findMany: {
+            args: Prisma.StoryReactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryReactionPayload>[]
+          }
+          create: {
+            args: Prisma.StoryReactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryReactionPayload>
+          }
+          createMany: {
+            args: Prisma.StoryReactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StoryReactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryReactionPayload>[]
+          }
+          delete: {
+            args: Prisma.StoryReactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryReactionPayload>
+          }
+          update: {
+            args: Prisma.StoryReactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryReactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.StoryReactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StoryReactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StoryReactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryReactionPayload>
+          }
+          aggregate: {
+            args: Prisma.StoryReactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStoryReaction>
+          }
+          groupBy: {
+            args: Prisma.StoryReactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StoryReactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StoryReactionCountArgs<ExtArgs>
+            result: $Utils.Optional<StoryReactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      StoryAudience: {
+        payload: Prisma.$StoryAudiencePayload<ExtArgs>
+        fields: Prisma.StoryAudienceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StoryAudienceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryAudiencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StoryAudienceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryAudiencePayload>
+          }
+          findFirst: {
+            args: Prisma.StoryAudienceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryAudiencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StoryAudienceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryAudiencePayload>
+          }
+          findMany: {
+            args: Prisma.StoryAudienceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryAudiencePayload>[]
+          }
+          create: {
+            args: Prisma.StoryAudienceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryAudiencePayload>
+          }
+          createMany: {
+            args: Prisma.StoryAudienceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StoryAudienceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryAudiencePayload>[]
+          }
+          delete: {
+            args: Prisma.StoryAudienceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryAudiencePayload>
+          }
+          update: {
+            args: Prisma.StoryAudienceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryAudiencePayload>
+          }
+          deleteMany: {
+            args: Prisma.StoryAudienceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StoryAudienceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StoryAudienceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryAudiencePayload>
+          }
+          aggregate: {
+            args: Prisma.StoryAudienceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStoryAudience>
+          }
+          groupBy: {
+            args: Prisma.StoryAudienceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StoryAudienceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StoryAudienceCountArgs<ExtArgs>
+            result: $Utils.Optional<StoryAudienceCountAggregateOutputType> | number
+          }
+        }
+      }
+      CloseFriend: {
+        payload: Prisma.$CloseFriendPayload<ExtArgs>
+        fields: Prisma.CloseFriendFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CloseFriendFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CloseFriendPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CloseFriendFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CloseFriendPayload>
+          }
+          findFirst: {
+            args: Prisma.CloseFriendFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CloseFriendPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CloseFriendFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CloseFriendPayload>
+          }
+          findMany: {
+            args: Prisma.CloseFriendFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CloseFriendPayload>[]
+          }
+          create: {
+            args: Prisma.CloseFriendCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CloseFriendPayload>
+          }
+          createMany: {
+            args: Prisma.CloseFriendCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CloseFriendCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CloseFriendPayload>[]
+          }
+          delete: {
+            args: Prisma.CloseFriendDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CloseFriendPayload>
+          }
+          update: {
+            args: Prisma.CloseFriendUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CloseFriendPayload>
+          }
+          deleteMany: {
+            args: Prisma.CloseFriendDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CloseFriendUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CloseFriendUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CloseFriendPayload>
+          }
+          aggregate: {
+            args: Prisma.CloseFriendAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCloseFriend>
+          }
+          groupBy: {
+            args: Prisma.CloseFriendGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CloseFriendGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CloseFriendCountArgs<ExtArgs>
+            result: $Utils.Optional<CloseFriendCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1277,6 +1822,64 @@ export namespace Prisma {
    */
   export type HashtagCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PostHashtagWhereInput
+  }
+
+
+  /**
+   * Count Type StoryCountOutputType
+   */
+
+  export type StoryCountOutputType = {
+    media: number
+    views: number
+    reactions: number
+    audiences: number
+  }
+
+  export type StoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    media?: boolean | StoryCountOutputTypeCountMediaArgs
+    views?: boolean | StoryCountOutputTypeCountViewsArgs
+    reactions?: boolean | StoryCountOutputTypeCountReactionsArgs
+    audiences?: boolean | StoryCountOutputTypeCountAudiencesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * StoryCountOutputType without action
+   */
+  export type StoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryCountOutputType
+     */
+    select?: StoryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * StoryCountOutputType without action
+   */
+  export type StoryCountOutputTypeCountMediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoryMediaWhereInput
+  }
+
+  /**
+   * StoryCountOutputType without action
+   */
+  export type StoryCountOutputTypeCountViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoryViewWhereInput
+  }
+
+  /**
+   * StoryCountOutputType without action
+   */
+  export type StoryCountOutputTypeCountReactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoryReactionWhereInput
+  }
+
+  /**
+   * StoryCountOutputType without action
+   */
+  export type StoryCountOutputTypeCountAudiencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoryAudienceWhereInput
   }
 
 
@@ -6148,6 +6751,5758 @@ export namespace Prisma {
 
 
   /**
+   * Model Story
+   */
+
+  export type AggregateStory = {
+    _count: StoryCountAggregateOutputType | null
+    _min: StoryMinAggregateOutputType | null
+    _max: StoryMaxAggregateOutputType | null
+  }
+
+  export type StoryMinAggregateOutputType = {
+    id: string | null
+    authorId: string | null
+    type: $Enums.StoryType | null
+    content: string | null
+    backgroundColor: string | null
+    fontStyle: string | null
+    visibility: $Enums.StoryVisibility | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    expiresAt: Date | null
+    deletedAt: Date | null
+  }
+
+  export type StoryMaxAggregateOutputType = {
+    id: string | null
+    authorId: string | null
+    type: $Enums.StoryType | null
+    content: string | null
+    backgroundColor: string | null
+    fontStyle: string | null
+    visibility: $Enums.StoryVisibility | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    expiresAt: Date | null
+    deletedAt: Date | null
+  }
+
+  export type StoryCountAggregateOutputType = {
+    id: number
+    authorId: number
+    type: number
+    content: number
+    backgroundColor: number
+    fontStyle: number
+    visibility: number
+    createdAt: number
+    updatedAt: number
+    expiresAt: number
+    deletedAt: number
+    _all: number
+  }
+
+
+  export type StoryMinAggregateInputType = {
+    id?: true
+    authorId?: true
+    type?: true
+    content?: true
+    backgroundColor?: true
+    fontStyle?: true
+    visibility?: true
+    createdAt?: true
+    updatedAt?: true
+    expiresAt?: true
+    deletedAt?: true
+  }
+
+  export type StoryMaxAggregateInputType = {
+    id?: true
+    authorId?: true
+    type?: true
+    content?: true
+    backgroundColor?: true
+    fontStyle?: true
+    visibility?: true
+    createdAt?: true
+    updatedAt?: true
+    expiresAt?: true
+    deletedAt?: true
+  }
+
+  export type StoryCountAggregateInputType = {
+    id?: true
+    authorId?: true
+    type?: true
+    content?: true
+    backgroundColor?: true
+    fontStyle?: true
+    visibility?: true
+    createdAt?: true
+    updatedAt?: true
+    expiresAt?: true
+    deletedAt?: true
+    _all?: true
+  }
+
+  export type StoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Story to aggregate.
+     */
+    where?: StoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stories to fetch.
+     */
+    orderBy?: StoryOrderByWithRelationInput | StoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Stories
+    **/
+    _count?: true | StoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StoryMaxAggregateInputType
+  }
+
+  export type GetStoryAggregateType<T extends StoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateStory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStory[P]>
+      : GetScalarType<T[P], AggregateStory[P]>
+  }
+
+
+
+
+  export type StoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoryWhereInput
+    orderBy?: StoryOrderByWithAggregationInput | StoryOrderByWithAggregationInput[]
+    by: StoryScalarFieldEnum[] | StoryScalarFieldEnum
+    having?: StoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StoryCountAggregateInputType | true
+    _min?: StoryMinAggregateInputType
+    _max?: StoryMaxAggregateInputType
+  }
+
+  export type StoryGroupByOutputType = {
+    id: string
+    authorId: string
+    type: $Enums.StoryType
+    content: string | null
+    backgroundColor: string | null
+    fontStyle: string | null
+    visibility: $Enums.StoryVisibility
+    createdAt: Date
+    updatedAt: Date
+    expiresAt: Date
+    deletedAt: Date | null
+    _count: StoryCountAggregateOutputType | null
+    _min: StoryMinAggregateOutputType | null
+    _max: StoryMaxAggregateOutputType | null
+  }
+
+  type GetStoryGroupByPayload<T extends StoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StoryGroupByOutputType[P]>
+            : GetScalarType<T[P], StoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    authorId?: boolean
+    type?: boolean
+    content?: boolean
+    backgroundColor?: boolean
+    fontStyle?: boolean
+    visibility?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    expiresAt?: boolean
+    deletedAt?: boolean
+    media?: boolean | Story$mediaArgs<ExtArgs>
+    views?: boolean | Story$viewsArgs<ExtArgs>
+    reactions?: boolean | Story$reactionsArgs<ExtArgs>
+    audiences?: boolean | Story$audiencesArgs<ExtArgs>
+    _count?: boolean | StoryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["story"]>
+
+  export type StorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    authorId?: boolean
+    type?: boolean
+    content?: boolean
+    backgroundColor?: boolean
+    fontStyle?: boolean
+    visibility?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    expiresAt?: boolean
+    deletedAt?: boolean
+  }, ExtArgs["result"]["story"]>
+
+  export type StorySelectScalar = {
+    id?: boolean
+    authorId?: boolean
+    type?: boolean
+    content?: boolean
+    backgroundColor?: boolean
+    fontStyle?: boolean
+    visibility?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    expiresAt?: boolean
+    deletedAt?: boolean
+  }
+
+  export type StoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    media?: boolean | Story$mediaArgs<ExtArgs>
+    views?: boolean | Story$viewsArgs<ExtArgs>
+    reactions?: boolean | Story$reactionsArgs<ExtArgs>
+    audiences?: boolean | Story$audiencesArgs<ExtArgs>
+    _count?: boolean | StoryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type StoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $StoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Story"
+    objects: {
+      media: Prisma.$StoryMediaPayload<ExtArgs>[]
+      views: Prisma.$StoryViewPayload<ExtArgs>[]
+      reactions: Prisma.$StoryReactionPayload<ExtArgs>[]
+      audiences: Prisma.$StoryAudiencePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      authorId: string
+      type: $Enums.StoryType
+      content: string | null
+      backgroundColor: string | null
+      fontStyle: string | null
+      visibility: $Enums.StoryVisibility
+      createdAt: Date
+      updatedAt: Date
+      expiresAt: Date
+      deletedAt: Date | null
+    }, ExtArgs["result"]["story"]>
+    composites: {}
+  }
+
+  type StoryGetPayload<S extends boolean | null | undefined | StoryDefaultArgs> = $Result.GetResult<Prisma.$StoryPayload, S>
+
+  type StoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StoryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StoryCountAggregateInputType | true
+    }
+
+  export interface StoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Story'], meta: { name: 'Story' } }
+    /**
+     * Find zero or one Story that matches the filter.
+     * @param {StoryFindUniqueArgs} args - Arguments to find a Story
+     * @example
+     * // Get one Story
+     * const story = await prisma.story.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StoryFindUniqueArgs>(args: SelectSubset<T, StoryFindUniqueArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Story that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StoryFindUniqueOrThrowArgs} args - Arguments to find a Story
+     * @example
+     * // Get one Story
+     * const story = await prisma.story.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StoryFindUniqueOrThrowArgs>(args: SelectSubset<T, StoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Story that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryFindFirstArgs} args - Arguments to find a Story
+     * @example
+     * // Get one Story
+     * const story = await prisma.story.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StoryFindFirstArgs>(args?: SelectSubset<T, StoryFindFirstArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Story that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryFindFirstOrThrowArgs} args - Arguments to find a Story
+     * @example
+     * // Get one Story
+     * const story = await prisma.story.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StoryFindFirstOrThrowArgs>(args?: SelectSubset<T, StoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Stories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Stories
+     * const stories = await prisma.story.findMany()
+     * 
+     * // Get first 10 Stories
+     * const stories = await prisma.story.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const storyWithIdOnly = await prisma.story.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StoryFindManyArgs>(args?: SelectSubset<T, StoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Story.
+     * @param {StoryCreateArgs} args - Arguments to create a Story.
+     * @example
+     * // Create one Story
+     * const Story = await prisma.story.create({
+     *   data: {
+     *     // ... data to create a Story
+     *   }
+     * })
+     * 
+     */
+    create<T extends StoryCreateArgs>(args: SelectSubset<T, StoryCreateArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Stories.
+     * @param {StoryCreateManyArgs} args - Arguments to create many Stories.
+     * @example
+     * // Create many Stories
+     * const story = await prisma.story.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StoryCreateManyArgs>(args?: SelectSubset<T, StoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Stories and returns the data saved in the database.
+     * @param {StoryCreateManyAndReturnArgs} args - Arguments to create many Stories.
+     * @example
+     * // Create many Stories
+     * const story = await prisma.story.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Stories and only return the `id`
+     * const storyWithIdOnly = await prisma.story.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StoryCreateManyAndReturnArgs>(args?: SelectSubset<T, StoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Story.
+     * @param {StoryDeleteArgs} args - Arguments to delete one Story.
+     * @example
+     * // Delete one Story
+     * const Story = await prisma.story.delete({
+     *   where: {
+     *     // ... filter to delete one Story
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StoryDeleteArgs>(args: SelectSubset<T, StoryDeleteArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Story.
+     * @param {StoryUpdateArgs} args - Arguments to update one Story.
+     * @example
+     * // Update one Story
+     * const story = await prisma.story.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StoryUpdateArgs>(args: SelectSubset<T, StoryUpdateArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Stories.
+     * @param {StoryDeleteManyArgs} args - Arguments to filter Stories to delete.
+     * @example
+     * // Delete a few Stories
+     * const { count } = await prisma.story.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StoryDeleteManyArgs>(args?: SelectSubset<T, StoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Stories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Stories
+     * const story = await prisma.story.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StoryUpdateManyArgs>(args: SelectSubset<T, StoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Story.
+     * @param {StoryUpsertArgs} args - Arguments to update or create a Story.
+     * @example
+     * // Update or create a Story
+     * const story = await prisma.story.upsert({
+     *   create: {
+     *     // ... data to create a Story
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Story we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StoryUpsertArgs>(args: SelectSubset<T, StoryUpsertArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Stories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryCountArgs} args - Arguments to filter Stories to count.
+     * @example
+     * // Count the number of Stories
+     * const count = await prisma.story.count({
+     *   where: {
+     *     // ... the filter for the Stories we want to count
+     *   }
+     * })
+    **/
+    count<T extends StoryCountArgs>(
+      args?: Subset<T, StoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Story.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StoryAggregateArgs>(args: Subset<T, StoryAggregateArgs>): Prisma.PrismaPromise<GetStoryAggregateType<T>>
+
+    /**
+     * Group by Story.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StoryGroupByArgs['orderBy'] }
+        : { orderBy?: StoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Story model
+   */
+  readonly fields: StoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Story.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    media<T extends Story$mediaArgs<ExtArgs> = {}>(args?: Subset<T, Story$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryMediaPayload<ExtArgs>, T, "findMany"> | Null>
+    views<T extends Story$viewsArgs<ExtArgs> = {}>(args?: Subset<T, Story$viewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "findMany"> | Null>
+    reactions<T extends Story$reactionsArgs<ExtArgs> = {}>(args?: Subset<T, Story$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryReactionPayload<ExtArgs>, T, "findMany"> | Null>
+    audiences<T extends Story$audiencesArgs<ExtArgs> = {}>(args?: Subset<T, Story$audiencesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryAudiencePayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Story model
+   */ 
+  interface StoryFieldRefs {
+    readonly id: FieldRef<"Story", 'String'>
+    readonly authorId: FieldRef<"Story", 'String'>
+    readonly type: FieldRef<"Story", 'StoryType'>
+    readonly content: FieldRef<"Story", 'String'>
+    readonly backgroundColor: FieldRef<"Story", 'String'>
+    readonly fontStyle: FieldRef<"Story", 'String'>
+    readonly visibility: FieldRef<"Story", 'StoryVisibility'>
+    readonly createdAt: FieldRef<"Story", 'DateTime'>
+    readonly updatedAt: FieldRef<"Story", 'DateTime'>
+    readonly expiresAt: FieldRef<"Story", 'DateTime'>
+    readonly deletedAt: FieldRef<"Story", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Story findUnique
+   */
+  export type StoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Story to fetch.
+     */
+    where: StoryWhereUniqueInput
+  }
+
+  /**
+   * Story findUniqueOrThrow
+   */
+  export type StoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Story to fetch.
+     */
+    where: StoryWhereUniqueInput
+  }
+
+  /**
+   * Story findFirst
+   */
+  export type StoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Story to fetch.
+     */
+    where?: StoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stories to fetch.
+     */
+    orderBy?: StoryOrderByWithRelationInput | StoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Stories.
+     */
+    cursor?: StoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Stories.
+     */
+    distinct?: StoryScalarFieldEnum | StoryScalarFieldEnum[]
+  }
+
+  /**
+   * Story findFirstOrThrow
+   */
+  export type StoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Story to fetch.
+     */
+    where?: StoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stories to fetch.
+     */
+    orderBy?: StoryOrderByWithRelationInput | StoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Stories.
+     */
+    cursor?: StoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Stories.
+     */
+    distinct?: StoryScalarFieldEnum | StoryScalarFieldEnum[]
+  }
+
+  /**
+   * Story findMany
+   */
+  export type StoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Stories to fetch.
+     */
+    where?: StoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stories to fetch.
+     */
+    orderBy?: StoryOrderByWithRelationInput | StoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Stories.
+     */
+    cursor?: StoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stories.
+     */
+    skip?: number
+    distinct?: StoryScalarFieldEnum | StoryScalarFieldEnum[]
+  }
+
+  /**
+   * Story create
+   */
+  export type StoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Story.
+     */
+    data: XOR<StoryCreateInput, StoryUncheckedCreateInput>
+  }
+
+  /**
+   * Story createMany
+   */
+  export type StoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Stories.
+     */
+    data: StoryCreateManyInput | StoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Story createManyAndReturn
+   */
+  export type StoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Stories.
+     */
+    data: StoryCreateManyInput | StoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Story update
+   */
+  export type StoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Story.
+     */
+    data: XOR<StoryUpdateInput, StoryUncheckedUpdateInput>
+    /**
+     * Choose, which Story to update.
+     */
+    where: StoryWhereUniqueInput
+  }
+
+  /**
+   * Story updateMany
+   */
+  export type StoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Stories.
+     */
+    data: XOR<StoryUpdateManyMutationInput, StoryUncheckedUpdateManyInput>
+    /**
+     * Filter which Stories to update
+     */
+    where?: StoryWhereInput
+  }
+
+  /**
+   * Story upsert
+   */
+  export type StoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Story to update in case it exists.
+     */
+    where: StoryWhereUniqueInput
+    /**
+     * In case the Story found by the `where` argument doesn't exist, create a new Story with this data.
+     */
+    create: XOR<StoryCreateInput, StoryUncheckedCreateInput>
+    /**
+     * In case the Story was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StoryUpdateInput, StoryUncheckedUpdateInput>
+  }
+
+  /**
+   * Story delete
+   */
+  export type StoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * Filter which Story to delete.
+     */
+    where: StoryWhereUniqueInput
+  }
+
+  /**
+   * Story deleteMany
+   */
+  export type StoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Stories to delete
+     */
+    where?: StoryWhereInput
+  }
+
+  /**
+   * Story.media
+   */
+  export type Story$mediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryMedia
+     */
+    select?: StoryMediaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryMediaInclude<ExtArgs> | null
+    where?: StoryMediaWhereInput
+    orderBy?: StoryMediaOrderByWithRelationInput | StoryMediaOrderByWithRelationInput[]
+    cursor?: StoryMediaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StoryMediaScalarFieldEnum | StoryMediaScalarFieldEnum[]
+  }
+
+  /**
+   * Story.views
+   */
+  export type Story$viewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryView
+     */
+    select?: StoryViewSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryViewInclude<ExtArgs> | null
+    where?: StoryViewWhereInput
+    orderBy?: StoryViewOrderByWithRelationInput | StoryViewOrderByWithRelationInput[]
+    cursor?: StoryViewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StoryViewScalarFieldEnum | StoryViewScalarFieldEnum[]
+  }
+
+  /**
+   * Story.reactions
+   */
+  export type Story$reactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryReaction
+     */
+    select?: StoryReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryReactionInclude<ExtArgs> | null
+    where?: StoryReactionWhereInput
+    orderBy?: StoryReactionOrderByWithRelationInput | StoryReactionOrderByWithRelationInput[]
+    cursor?: StoryReactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StoryReactionScalarFieldEnum | StoryReactionScalarFieldEnum[]
+  }
+
+  /**
+   * Story.audiences
+   */
+  export type Story$audiencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryAudience
+     */
+    select?: StoryAudienceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryAudienceInclude<ExtArgs> | null
+    where?: StoryAudienceWhereInput
+    orderBy?: StoryAudienceOrderByWithRelationInput | StoryAudienceOrderByWithRelationInput[]
+    cursor?: StoryAudienceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StoryAudienceScalarFieldEnum | StoryAudienceScalarFieldEnum[]
+  }
+
+  /**
+   * Story without action
+   */
+  export type StoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StoryMedia
+   */
+
+  export type AggregateStoryMedia = {
+    _count: StoryMediaCountAggregateOutputType | null
+    _avg: StoryMediaAvgAggregateOutputType | null
+    _sum: StoryMediaSumAggregateOutputType | null
+    _min: StoryMediaMinAggregateOutputType | null
+    _max: StoryMediaMaxAggregateOutputType | null
+  }
+
+  export type StoryMediaAvgAggregateOutputType = {
+    fileSize: number | null
+    duration: number | null
+  }
+
+  export type StoryMediaSumAggregateOutputType = {
+    fileSize: number | null
+    duration: number | null
+  }
+
+  export type StoryMediaMinAggregateOutputType = {
+    id: string | null
+    storyId: string | null
+    mediaType: string | null
+    url: string | null
+    mimeType: string | null
+    fileSize: number | null
+    duration: number | null
+    createdAt: Date | null
+  }
+
+  export type StoryMediaMaxAggregateOutputType = {
+    id: string | null
+    storyId: string | null
+    mediaType: string | null
+    url: string | null
+    mimeType: string | null
+    fileSize: number | null
+    duration: number | null
+    createdAt: Date | null
+  }
+
+  export type StoryMediaCountAggregateOutputType = {
+    id: number
+    storyId: number
+    mediaType: number
+    url: number
+    mimeType: number
+    fileSize: number
+    duration: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type StoryMediaAvgAggregateInputType = {
+    fileSize?: true
+    duration?: true
+  }
+
+  export type StoryMediaSumAggregateInputType = {
+    fileSize?: true
+    duration?: true
+  }
+
+  export type StoryMediaMinAggregateInputType = {
+    id?: true
+    storyId?: true
+    mediaType?: true
+    url?: true
+    mimeType?: true
+    fileSize?: true
+    duration?: true
+    createdAt?: true
+  }
+
+  export type StoryMediaMaxAggregateInputType = {
+    id?: true
+    storyId?: true
+    mediaType?: true
+    url?: true
+    mimeType?: true
+    fileSize?: true
+    duration?: true
+    createdAt?: true
+  }
+
+  export type StoryMediaCountAggregateInputType = {
+    id?: true
+    storyId?: true
+    mediaType?: true
+    url?: true
+    mimeType?: true
+    fileSize?: true
+    duration?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type StoryMediaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StoryMedia to aggregate.
+     */
+    where?: StoryMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryMedias to fetch.
+     */
+    orderBy?: StoryMediaOrderByWithRelationInput | StoryMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StoryMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryMedias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StoryMedias
+    **/
+    _count?: true | StoryMediaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StoryMediaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StoryMediaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StoryMediaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StoryMediaMaxAggregateInputType
+  }
+
+  export type GetStoryMediaAggregateType<T extends StoryMediaAggregateArgs> = {
+        [P in keyof T & keyof AggregateStoryMedia]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStoryMedia[P]>
+      : GetScalarType<T[P], AggregateStoryMedia[P]>
+  }
+
+
+
+
+  export type StoryMediaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoryMediaWhereInput
+    orderBy?: StoryMediaOrderByWithAggregationInput | StoryMediaOrderByWithAggregationInput[]
+    by: StoryMediaScalarFieldEnum[] | StoryMediaScalarFieldEnum
+    having?: StoryMediaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StoryMediaCountAggregateInputType | true
+    _avg?: StoryMediaAvgAggregateInputType
+    _sum?: StoryMediaSumAggregateInputType
+    _min?: StoryMediaMinAggregateInputType
+    _max?: StoryMediaMaxAggregateInputType
+  }
+
+  export type StoryMediaGroupByOutputType = {
+    id: string
+    storyId: string
+    mediaType: string
+    url: string
+    mimeType: string | null
+    fileSize: number | null
+    duration: number | null
+    createdAt: Date
+    _count: StoryMediaCountAggregateOutputType | null
+    _avg: StoryMediaAvgAggregateOutputType | null
+    _sum: StoryMediaSumAggregateOutputType | null
+    _min: StoryMediaMinAggregateOutputType | null
+    _max: StoryMediaMaxAggregateOutputType | null
+  }
+
+  type GetStoryMediaGroupByPayload<T extends StoryMediaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StoryMediaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StoryMediaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StoryMediaGroupByOutputType[P]>
+            : GetScalarType<T[P], StoryMediaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StoryMediaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storyId?: boolean
+    mediaType?: boolean
+    url?: boolean
+    mimeType?: boolean
+    fileSize?: boolean
+    duration?: boolean
+    createdAt?: boolean
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["storyMedia"]>
+
+  export type StoryMediaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storyId?: boolean
+    mediaType?: boolean
+    url?: boolean
+    mimeType?: boolean
+    fileSize?: boolean
+    duration?: boolean
+    createdAt?: boolean
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["storyMedia"]>
+
+  export type StoryMediaSelectScalar = {
+    id?: boolean
+    storyId?: boolean
+    mediaType?: boolean
+    url?: boolean
+    mimeType?: boolean
+    fileSize?: boolean
+    duration?: boolean
+    createdAt?: boolean
+  }
+
+  export type StoryMediaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }
+  export type StoryMediaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }
+
+  export type $StoryMediaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StoryMedia"
+    objects: {
+      story: Prisma.$StoryPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      storyId: string
+      mediaType: string
+      url: string
+      mimeType: string | null
+      fileSize: number | null
+      duration: number | null
+      createdAt: Date
+    }, ExtArgs["result"]["storyMedia"]>
+    composites: {}
+  }
+
+  type StoryMediaGetPayload<S extends boolean | null | undefined | StoryMediaDefaultArgs> = $Result.GetResult<Prisma.$StoryMediaPayload, S>
+
+  type StoryMediaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StoryMediaFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StoryMediaCountAggregateInputType | true
+    }
+
+  export interface StoryMediaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StoryMedia'], meta: { name: 'StoryMedia' } }
+    /**
+     * Find zero or one StoryMedia that matches the filter.
+     * @param {StoryMediaFindUniqueArgs} args - Arguments to find a StoryMedia
+     * @example
+     * // Get one StoryMedia
+     * const storyMedia = await prisma.storyMedia.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StoryMediaFindUniqueArgs>(args: SelectSubset<T, StoryMediaFindUniqueArgs<ExtArgs>>): Prisma__StoryMediaClient<$Result.GetResult<Prisma.$StoryMediaPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one StoryMedia that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StoryMediaFindUniqueOrThrowArgs} args - Arguments to find a StoryMedia
+     * @example
+     * // Get one StoryMedia
+     * const storyMedia = await prisma.storyMedia.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StoryMediaFindUniqueOrThrowArgs>(args: SelectSubset<T, StoryMediaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StoryMediaClient<$Result.GetResult<Prisma.$StoryMediaPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first StoryMedia that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryMediaFindFirstArgs} args - Arguments to find a StoryMedia
+     * @example
+     * // Get one StoryMedia
+     * const storyMedia = await prisma.storyMedia.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StoryMediaFindFirstArgs>(args?: SelectSubset<T, StoryMediaFindFirstArgs<ExtArgs>>): Prisma__StoryMediaClient<$Result.GetResult<Prisma.$StoryMediaPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first StoryMedia that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryMediaFindFirstOrThrowArgs} args - Arguments to find a StoryMedia
+     * @example
+     * // Get one StoryMedia
+     * const storyMedia = await prisma.storyMedia.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StoryMediaFindFirstOrThrowArgs>(args?: SelectSubset<T, StoryMediaFindFirstOrThrowArgs<ExtArgs>>): Prisma__StoryMediaClient<$Result.GetResult<Prisma.$StoryMediaPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more StoryMedias that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryMediaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StoryMedias
+     * const storyMedias = await prisma.storyMedia.findMany()
+     * 
+     * // Get first 10 StoryMedias
+     * const storyMedias = await prisma.storyMedia.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const storyMediaWithIdOnly = await prisma.storyMedia.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StoryMediaFindManyArgs>(args?: SelectSubset<T, StoryMediaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryMediaPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a StoryMedia.
+     * @param {StoryMediaCreateArgs} args - Arguments to create a StoryMedia.
+     * @example
+     * // Create one StoryMedia
+     * const StoryMedia = await prisma.storyMedia.create({
+     *   data: {
+     *     // ... data to create a StoryMedia
+     *   }
+     * })
+     * 
+     */
+    create<T extends StoryMediaCreateArgs>(args: SelectSubset<T, StoryMediaCreateArgs<ExtArgs>>): Prisma__StoryMediaClient<$Result.GetResult<Prisma.$StoryMediaPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many StoryMedias.
+     * @param {StoryMediaCreateManyArgs} args - Arguments to create many StoryMedias.
+     * @example
+     * // Create many StoryMedias
+     * const storyMedia = await prisma.storyMedia.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StoryMediaCreateManyArgs>(args?: SelectSubset<T, StoryMediaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StoryMedias and returns the data saved in the database.
+     * @param {StoryMediaCreateManyAndReturnArgs} args - Arguments to create many StoryMedias.
+     * @example
+     * // Create many StoryMedias
+     * const storyMedia = await prisma.storyMedia.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StoryMedias and only return the `id`
+     * const storyMediaWithIdOnly = await prisma.storyMedia.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StoryMediaCreateManyAndReturnArgs>(args?: SelectSubset<T, StoryMediaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryMediaPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a StoryMedia.
+     * @param {StoryMediaDeleteArgs} args - Arguments to delete one StoryMedia.
+     * @example
+     * // Delete one StoryMedia
+     * const StoryMedia = await prisma.storyMedia.delete({
+     *   where: {
+     *     // ... filter to delete one StoryMedia
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StoryMediaDeleteArgs>(args: SelectSubset<T, StoryMediaDeleteArgs<ExtArgs>>): Prisma__StoryMediaClient<$Result.GetResult<Prisma.$StoryMediaPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one StoryMedia.
+     * @param {StoryMediaUpdateArgs} args - Arguments to update one StoryMedia.
+     * @example
+     * // Update one StoryMedia
+     * const storyMedia = await prisma.storyMedia.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StoryMediaUpdateArgs>(args: SelectSubset<T, StoryMediaUpdateArgs<ExtArgs>>): Prisma__StoryMediaClient<$Result.GetResult<Prisma.$StoryMediaPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more StoryMedias.
+     * @param {StoryMediaDeleteManyArgs} args - Arguments to filter StoryMedias to delete.
+     * @example
+     * // Delete a few StoryMedias
+     * const { count } = await prisma.storyMedia.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StoryMediaDeleteManyArgs>(args?: SelectSubset<T, StoryMediaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StoryMedias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryMediaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StoryMedias
+     * const storyMedia = await prisma.storyMedia.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StoryMediaUpdateManyArgs>(args: SelectSubset<T, StoryMediaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StoryMedia.
+     * @param {StoryMediaUpsertArgs} args - Arguments to update or create a StoryMedia.
+     * @example
+     * // Update or create a StoryMedia
+     * const storyMedia = await prisma.storyMedia.upsert({
+     *   create: {
+     *     // ... data to create a StoryMedia
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StoryMedia we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StoryMediaUpsertArgs>(args: SelectSubset<T, StoryMediaUpsertArgs<ExtArgs>>): Prisma__StoryMediaClient<$Result.GetResult<Prisma.$StoryMediaPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of StoryMedias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryMediaCountArgs} args - Arguments to filter StoryMedias to count.
+     * @example
+     * // Count the number of StoryMedias
+     * const count = await prisma.storyMedia.count({
+     *   where: {
+     *     // ... the filter for the StoryMedias we want to count
+     *   }
+     * })
+    **/
+    count<T extends StoryMediaCountArgs>(
+      args?: Subset<T, StoryMediaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StoryMediaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StoryMedia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryMediaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StoryMediaAggregateArgs>(args: Subset<T, StoryMediaAggregateArgs>): Prisma.PrismaPromise<GetStoryMediaAggregateType<T>>
+
+    /**
+     * Group by StoryMedia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryMediaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StoryMediaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StoryMediaGroupByArgs['orderBy'] }
+        : { orderBy?: StoryMediaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StoryMediaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStoryMediaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StoryMedia model
+   */
+  readonly fields: StoryMediaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StoryMedia.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StoryMediaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    story<T extends StoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoryDefaultArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StoryMedia model
+   */ 
+  interface StoryMediaFieldRefs {
+    readonly id: FieldRef<"StoryMedia", 'String'>
+    readonly storyId: FieldRef<"StoryMedia", 'String'>
+    readonly mediaType: FieldRef<"StoryMedia", 'String'>
+    readonly url: FieldRef<"StoryMedia", 'String'>
+    readonly mimeType: FieldRef<"StoryMedia", 'String'>
+    readonly fileSize: FieldRef<"StoryMedia", 'Int'>
+    readonly duration: FieldRef<"StoryMedia", 'Float'>
+    readonly createdAt: FieldRef<"StoryMedia", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StoryMedia findUnique
+   */
+  export type StoryMediaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryMedia
+     */
+    select?: StoryMediaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryMedia to fetch.
+     */
+    where: StoryMediaWhereUniqueInput
+  }
+
+  /**
+   * StoryMedia findUniqueOrThrow
+   */
+  export type StoryMediaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryMedia
+     */
+    select?: StoryMediaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryMedia to fetch.
+     */
+    where: StoryMediaWhereUniqueInput
+  }
+
+  /**
+   * StoryMedia findFirst
+   */
+  export type StoryMediaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryMedia
+     */
+    select?: StoryMediaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryMedia to fetch.
+     */
+    where?: StoryMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryMedias to fetch.
+     */
+    orderBy?: StoryMediaOrderByWithRelationInput | StoryMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StoryMedias.
+     */
+    cursor?: StoryMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryMedias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StoryMedias.
+     */
+    distinct?: StoryMediaScalarFieldEnum | StoryMediaScalarFieldEnum[]
+  }
+
+  /**
+   * StoryMedia findFirstOrThrow
+   */
+  export type StoryMediaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryMedia
+     */
+    select?: StoryMediaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryMedia to fetch.
+     */
+    where?: StoryMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryMedias to fetch.
+     */
+    orderBy?: StoryMediaOrderByWithRelationInput | StoryMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StoryMedias.
+     */
+    cursor?: StoryMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryMedias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StoryMedias.
+     */
+    distinct?: StoryMediaScalarFieldEnum | StoryMediaScalarFieldEnum[]
+  }
+
+  /**
+   * StoryMedia findMany
+   */
+  export type StoryMediaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryMedia
+     */
+    select?: StoryMediaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryMedias to fetch.
+     */
+    where?: StoryMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryMedias to fetch.
+     */
+    orderBy?: StoryMediaOrderByWithRelationInput | StoryMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StoryMedias.
+     */
+    cursor?: StoryMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryMedias.
+     */
+    skip?: number
+    distinct?: StoryMediaScalarFieldEnum | StoryMediaScalarFieldEnum[]
+  }
+
+  /**
+   * StoryMedia create
+   */
+  export type StoryMediaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryMedia
+     */
+    select?: StoryMediaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryMediaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StoryMedia.
+     */
+    data: XOR<StoryMediaCreateInput, StoryMediaUncheckedCreateInput>
+  }
+
+  /**
+   * StoryMedia createMany
+   */
+  export type StoryMediaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StoryMedias.
+     */
+    data: StoryMediaCreateManyInput | StoryMediaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StoryMedia createManyAndReturn
+   */
+  export type StoryMediaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryMedia
+     */
+    select?: StoryMediaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many StoryMedias.
+     */
+    data: StoryMediaCreateManyInput | StoryMediaCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryMediaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StoryMedia update
+   */
+  export type StoryMediaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryMedia
+     */
+    select?: StoryMediaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryMediaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StoryMedia.
+     */
+    data: XOR<StoryMediaUpdateInput, StoryMediaUncheckedUpdateInput>
+    /**
+     * Choose, which StoryMedia to update.
+     */
+    where: StoryMediaWhereUniqueInput
+  }
+
+  /**
+   * StoryMedia updateMany
+   */
+  export type StoryMediaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StoryMedias.
+     */
+    data: XOR<StoryMediaUpdateManyMutationInput, StoryMediaUncheckedUpdateManyInput>
+    /**
+     * Filter which StoryMedias to update
+     */
+    where?: StoryMediaWhereInput
+  }
+
+  /**
+   * StoryMedia upsert
+   */
+  export type StoryMediaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryMedia
+     */
+    select?: StoryMediaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryMediaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StoryMedia to update in case it exists.
+     */
+    where: StoryMediaWhereUniqueInput
+    /**
+     * In case the StoryMedia found by the `where` argument doesn't exist, create a new StoryMedia with this data.
+     */
+    create: XOR<StoryMediaCreateInput, StoryMediaUncheckedCreateInput>
+    /**
+     * In case the StoryMedia was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StoryMediaUpdateInput, StoryMediaUncheckedUpdateInput>
+  }
+
+  /**
+   * StoryMedia delete
+   */
+  export type StoryMediaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryMedia
+     */
+    select?: StoryMediaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryMediaInclude<ExtArgs> | null
+    /**
+     * Filter which StoryMedia to delete.
+     */
+    where: StoryMediaWhereUniqueInput
+  }
+
+  /**
+   * StoryMedia deleteMany
+   */
+  export type StoryMediaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StoryMedias to delete
+     */
+    where?: StoryMediaWhereInput
+  }
+
+  /**
+   * StoryMedia without action
+   */
+  export type StoryMediaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryMedia
+     */
+    select?: StoryMediaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryMediaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StoryView
+   */
+
+  export type AggregateStoryView = {
+    _count: StoryViewCountAggregateOutputType | null
+    _min: StoryViewMinAggregateOutputType | null
+    _max: StoryViewMaxAggregateOutputType | null
+  }
+
+  export type StoryViewMinAggregateOutputType = {
+    id: string | null
+    storyId: string | null
+    viewerId: string | null
+    viewedAt: Date | null
+  }
+
+  export type StoryViewMaxAggregateOutputType = {
+    id: string | null
+    storyId: string | null
+    viewerId: string | null
+    viewedAt: Date | null
+  }
+
+  export type StoryViewCountAggregateOutputType = {
+    id: number
+    storyId: number
+    viewerId: number
+    viewedAt: number
+    _all: number
+  }
+
+
+  export type StoryViewMinAggregateInputType = {
+    id?: true
+    storyId?: true
+    viewerId?: true
+    viewedAt?: true
+  }
+
+  export type StoryViewMaxAggregateInputType = {
+    id?: true
+    storyId?: true
+    viewerId?: true
+    viewedAt?: true
+  }
+
+  export type StoryViewCountAggregateInputType = {
+    id?: true
+    storyId?: true
+    viewerId?: true
+    viewedAt?: true
+    _all?: true
+  }
+
+  export type StoryViewAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StoryView to aggregate.
+     */
+    where?: StoryViewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryViews to fetch.
+     */
+    orderBy?: StoryViewOrderByWithRelationInput | StoryViewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StoryViewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryViews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryViews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StoryViews
+    **/
+    _count?: true | StoryViewCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StoryViewMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StoryViewMaxAggregateInputType
+  }
+
+  export type GetStoryViewAggregateType<T extends StoryViewAggregateArgs> = {
+        [P in keyof T & keyof AggregateStoryView]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStoryView[P]>
+      : GetScalarType<T[P], AggregateStoryView[P]>
+  }
+
+
+
+
+  export type StoryViewGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoryViewWhereInput
+    orderBy?: StoryViewOrderByWithAggregationInput | StoryViewOrderByWithAggregationInput[]
+    by: StoryViewScalarFieldEnum[] | StoryViewScalarFieldEnum
+    having?: StoryViewScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StoryViewCountAggregateInputType | true
+    _min?: StoryViewMinAggregateInputType
+    _max?: StoryViewMaxAggregateInputType
+  }
+
+  export type StoryViewGroupByOutputType = {
+    id: string
+    storyId: string
+    viewerId: string
+    viewedAt: Date
+    _count: StoryViewCountAggregateOutputType | null
+    _min: StoryViewMinAggregateOutputType | null
+    _max: StoryViewMaxAggregateOutputType | null
+  }
+
+  type GetStoryViewGroupByPayload<T extends StoryViewGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StoryViewGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StoryViewGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StoryViewGroupByOutputType[P]>
+            : GetScalarType<T[P], StoryViewGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StoryViewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storyId?: boolean
+    viewerId?: boolean
+    viewedAt?: boolean
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["storyView"]>
+
+  export type StoryViewSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storyId?: boolean
+    viewerId?: boolean
+    viewedAt?: boolean
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["storyView"]>
+
+  export type StoryViewSelectScalar = {
+    id?: boolean
+    storyId?: boolean
+    viewerId?: boolean
+    viewedAt?: boolean
+  }
+
+  export type StoryViewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }
+  export type StoryViewIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }
+
+  export type $StoryViewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StoryView"
+    objects: {
+      story: Prisma.$StoryPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      storyId: string
+      viewerId: string
+      viewedAt: Date
+    }, ExtArgs["result"]["storyView"]>
+    composites: {}
+  }
+
+  type StoryViewGetPayload<S extends boolean | null | undefined | StoryViewDefaultArgs> = $Result.GetResult<Prisma.$StoryViewPayload, S>
+
+  type StoryViewCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StoryViewFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StoryViewCountAggregateInputType | true
+    }
+
+  export interface StoryViewDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StoryView'], meta: { name: 'StoryView' } }
+    /**
+     * Find zero or one StoryView that matches the filter.
+     * @param {StoryViewFindUniqueArgs} args - Arguments to find a StoryView
+     * @example
+     * // Get one StoryView
+     * const storyView = await prisma.storyView.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StoryViewFindUniqueArgs>(args: SelectSubset<T, StoryViewFindUniqueArgs<ExtArgs>>): Prisma__StoryViewClient<$Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one StoryView that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StoryViewFindUniqueOrThrowArgs} args - Arguments to find a StoryView
+     * @example
+     * // Get one StoryView
+     * const storyView = await prisma.storyView.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StoryViewFindUniqueOrThrowArgs>(args: SelectSubset<T, StoryViewFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StoryViewClient<$Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first StoryView that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryViewFindFirstArgs} args - Arguments to find a StoryView
+     * @example
+     * // Get one StoryView
+     * const storyView = await prisma.storyView.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StoryViewFindFirstArgs>(args?: SelectSubset<T, StoryViewFindFirstArgs<ExtArgs>>): Prisma__StoryViewClient<$Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first StoryView that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryViewFindFirstOrThrowArgs} args - Arguments to find a StoryView
+     * @example
+     * // Get one StoryView
+     * const storyView = await prisma.storyView.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StoryViewFindFirstOrThrowArgs>(args?: SelectSubset<T, StoryViewFindFirstOrThrowArgs<ExtArgs>>): Prisma__StoryViewClient<$Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more StoryViews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryViewFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StoryViews
+     * const storyViews = await prisma.storyView.findMany()
+     * 
+     * // Get first 10 StoryViews
+     * const storyViews = await prisma.storyView.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const storyViewWithIdOnly = await prisma.storyView.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StoryViewFindManyArgs>(args?: SelectSubset<T, StoryViewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a StoryView.
+     * @param {StoryViewCreateArgs} args - Arguments to create a StoryView.
+     * @example
+     * // Create one StoryView
+     * const StoryView = await prisma.storyView.create({
+     *   data: {
+     *     // ... data to create a StoryView
+     *   }
+     * })
+     * 
+     */
+    create<T extends StoryViewCreateArgs>(args: SelectSubset<T, StoryViewCreateArgs<ExtArgs>>): Prisma__StoryViewClient<$Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many StoryViews.
+     * @param {StoryViewCreateManyArgs} args - Arguments to create many StoryViews.
+     * @example
+     * // Create many StoryViews
+     * const storyView = await prisma.storyView.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StoryViewCreateManyArgs>(args?: SelectSubset<T, StoryViewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StoryViews and returns the data saved in the database.
+     * @param {StoryViewCreateManyAndReturnArgs} args - Arguments to create many StoryViews.
+     * @example
+     * // Create many StoryViews
+     * const storyView = await prisma.storyView.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StoryViews and only return the `id`
+     * const storyViewWithIdOnly = await prisma.storyView.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StoryViewCreateManyAndReturnArgs>(args?: SelectSubset<T, StoryViewCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a StoryView.
+     * @param {StoryViewDeleteArgs} args - Arguments to delete one StoryView.
+     * @example
+     * // Delete one StoryView
+     * const StoryView = await prisma.storyView.delete({
+     *   where: {
+     *     // ... filter to delete one StoryView
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StoryViewDeleteArgs>(args: SelectSubset<T, StoryViewDeleteArgs<ExtArgs>>): Prisma__StoryViewClient<$Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one StoryView.
+     * @param {StoryViewUpdateArgs} args - Arguments to update one StoryView.
+     * @example
+     * // Update one StoryView
+     * const storyView = await prisma.storyView.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StoryViewUpdateArgs>(args: SelectSubset<T, StoryViewUpdateArgs<ExtArgs>>): Prisma__StoryViewClient<$Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more StoryViews.
+     * @param {StoryViewDeleteManyArgs} args - Arguments to filter StoryViews to delete.
+     * @example
+     * // Delete a few StoryViews
+     * const { count } = await prisma.storyView.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StoryViewDeleteManyArgs>(args?: SelectSubset<T, StoryViewDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StoryViews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryViewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StoryViews
+     * const storyView = await prisma.storyView.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StoryViewUpdateManyArgs>(args: SelectSubset<T, StoryViewUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StoryView.
+     * @param {StoryViewUpsertArgs} args - Arguments to update or create a StoryView.
+     * @example
+     * // Update or create a StoryView
+     * const storyView = await prisma.storyView.upsert({
+     *   create: {
+     *     // ... data to create a StoryView
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StoryView we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StoryViewUpsertArgs>(args: SelectSubset<T, StoryViewUpsertArgs<ExtArgs>>): Prisma__StoryViewClient<$Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of StoryViews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryViewCountArgs} args - Arguments to filter StoryViews to count.
+     * @example
+     * // Count the number of StoryViews
+     * const count = await prisma.storyView.count({
+     *   where: {
+     *     // ... the filter for the StoryViews we want to count
+     *   }
+     * })
+    **/
+    count<T extends StoryViewCountArgs>(
+      args?: Subset<T, StoryViewCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StoryViewCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StoryView.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryViewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StoryViewAggregateArgs>(args: Subset<T, StoryViewAggregateArgs>): Prisma.PrismaPromise<GetStoryViewAggregateType<T>>
+
+    /**
+     * Group by StoryView.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryViewGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StoryViewGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StoryViewGroupByArgs['orderBy'] }
+        : { orderBy?: StoryViewGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StoryViewGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStoryViewGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StoryView model
+   */
+  readonly fields: StoryViewFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StoryView.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StoryViewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    story<T extends StoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoryDefaultArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StoryView model
+   */ 
+  interface StoryViewFieldRefs {
+    readonly id: FieldRef<"StoryView", 'String'>
+    readonly storyId: FieldRef<"StoryView", 'String'>
+    readonly viewerId: FieldRef<"StoryView", 'String'>
+    readonly viewedAt: FieldRef<"StoryView", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StoryView findUnique
+   */
+  export type StoryViewFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryView
+     */
+    select?: StoryViewSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryViewInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryView to fetch.
+     */
+    where: StoryViewWhereUniqueInput
+  }
+
+  /**
+   * StoryView findUniqueOrThrow
+   */
+  export type StoryViewFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryView
+     */
+    select?: StoryViewSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryViewInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryView to fetch.
+     */
+    where: StoryViewWhereUniqueInput
+  }
+
+  /**
+   * StoryView findFirst
+   */
+  export type StoryViewFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryView
+     */
+    select?: StoryViewSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryViewInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryView to fetch.
+     */
+    where?: StoryViewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryViews to fetch.
+     */
+    orderBy?: StoryViewOrderByWithRelationInput | StoryViewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StoryViews.
+     */
+    cursor?: StoryViewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryViews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryViews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StoryViews.
+     */
+    distinct?: StoryViewScalarFieldEnum | StoryViewScalarFieldEnum[]
+  }
+
+  /**
+   * StoryView findFirstOrThrow
+   */
+  export type StoryViewFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryView
+     */
+    select?: StoryViewSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryViewInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryView to fetch.
+     */
+    where?: StoryViewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryViews to fetch.
+     */
+    orderBy?: StoryViewOrderByWithRelationInput | StoryViewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StoryViews.
+     */
+    cursor?: StoryViewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryViews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryViews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StoryViews.
+     */
+    distinct?: StoryViewScalarFieldEnum | StoryViewScalarFieldEnum[]
+  }
+
+  /**
+   * StoryView findMany
+   */
+  export type StoryViewFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryView
+     */
+    select?: StoryViewSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryViewInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryViews to fetch.
+     */
+    where?: StoryViewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryViews to fetch.
+     */
+    orderBy?: StoryViewOrderByWithRelationInput | StoryViewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StoryViews.
+     */
+    cursor?: StoryViewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryViews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryViews.
+     */
+    skip?: number
+    distinct?: StoryViewScalarFieldEnum | StoryViewScalarFieldEnum[]
+  }
+
+  /**
+   * StoryView create
+   */
+  export type StoryViewCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryView
+     */
+    select?: StoryViewSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryViewInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StoryView.
+     */
+    data: XOR<StoryViewCreateInput, StoryViewUncheckedCreateInput>
+  }
+
+  /**
+   * StoryView createMany
+   */
+  export type StoryViewCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StoryViews.
+     */
+    data: StoryViewCreateManyInput | StoryViewCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StoryView createManyAndReturn
+   */
+  export type StoryViewCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryView
+     */
+    select?: StoryViewSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many StoryViews.
+     */
+    data: StoryViewCreateManyInput | StoryViewCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryViewIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StoryView update
+   */
+  export type StoryViewUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryView
+     */
+    select?: StoryViewSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryViewInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StoryView.
+     */
+    data: XOR<StoryViewUpdateInput, StoryViewUncheckedUpdateInput>
+    /**
+     * Choose, which StoryView to update.
+     */
+    where: StoryViewWhereUniqueInput
+  }
+
+  /**
+   * StoryView updateMany
+   */
+  export type StoryViewUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StoryViews.
+     */
+    data: XOR<StoryViewUpdateManyMutationInput, StoryViewUncheckedUpdateManyInput>
+    /**
+     * Filter which StoryViews to update
+     */
+    where?: StoryViewWhereInput
+  }
+
+  /**
+   * StoryView upsert
+   */
+  export type StoryViewUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryView
+     */
+    select?: StoryViewSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryViewInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StoryView to update in case it exists.
+     */
+    where: StoryViewWhereUniqueInput
+    /**
+     * In case the StoryView found by the `where` argument doesn't exist, create a new StoryView with this data.
+     */
+    create: XOR<StoryViewCreateInput, StoryViewUncheckedCreateInput>
+    /**
+     * In case the StoryView was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StoryViewUpdateInput, StoryViewUncheckedUpdateInput>
+  }
+
+  /**
+   * StoryView delete
+   */
+  export type StoryViewDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryView
+     */
+    select?: StoryViewSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryViewInclude<ExtArgs> | null
+    /**
+     * Filter which StoryView to delete.
+     */
+    where: StoryViewWhereUniqueInput
+  }
+
+  /**
+   * StoryView deleteMany
+   */
+  export type StoryViewDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StoryViews to delete
+     */
+    where?: StoryViewWhereInput
+  }
+
+  /**
+   * StoryView without action
+   */
+  export type StoryViewDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryView
+     */
+    select?: StoryViewSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryViewInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StoryReaction
+   */
+
+  export type AggregateStoryReaction = {
+    _count: StoryReactionCountAggregateOutputType | null
+    _min: StoryReactionMinAggregateOutputType | null
+    _max: StoryReactionMaxAggregateOutputType | null
+  }
+
+  export type StoryReactionMinAggregateOutputType = {
+    id: string | null
+    storyId: string | null
+    userId: string | null
+    reactionType: string | null
+    createdAt: Date | null
+  }
+
+  export type StoryReactionMaxAggregateOutputType = {
+    id: string | null
+    storyId: string | null
+    userId: string | null
+    reactionType: string | null
+    createdAt: Date | null
+  }
+
+  export type StoryReactionCountAggregateOutputType = {
+    id: number
+    storyId: number
+    userId: number
+    reactionType: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type StoryReactionMinAggregateInputType = {
+    id?: true
+    storyId?: true
+    userId?: true
+    reactionType?: true
+    createdAt?: true
+  }
+
+  export type StoryReactionMaxAggregateInputType = {
+    id?: true
+    storyId?: true
+    userId?: true
+    reactionType?: true
+    createdAt?: true
+  }
+
+  export type StoryReactionCountAggregateInputType = {
+    id?: true
+    storyId?: true
+    userId?: true
+    reactionType?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type StoryReactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StoryReaction to aggregate.
+     */
+    where?: StoryReactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryReactions to fetch.
+     */
+    orderBy?: StoryReactionOrderByWithRelationInput | StoryReactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StoryReactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryReactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryReactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StoryReactions
+    **/
+    _count?: true | StoryReactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StoryReactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StoryReactionMaxAggregateInputType
+  }
+
+  export type GetStoryReactionAggregateType<T extends StoryReactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateStoryReaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStoryReaction[P]>
+      : GetScalarType<T[P], AggregateStoryReaction[P]>
+  }
+
+
+
+
+  export type StoryReactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoryReactionWhereInput
+    orderBy?: StoryReactionOrderByWithAggregationInput | StoryReactionOrderByWithAggregationInput[]
+    by: StoryReactionScalarFieldEnum[] | StoryReactionScalarFieldEnum
+    having?: StoryReactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StoryReactionCountAggregateInputType | true
+    _min?: StoryReactionMinAggregateInputType
+    _max?: StoryReactionMaxAggregateInputType
+  }
+
+  export type StoryReactionGroupByOutputType = {
+    id: string
+    storyId: string
+    userId: string
+    reactionType: string
+    createdAt: Date
+    _count: StoryReactionCountAggregateOutputType | null
+    _min: StoryReactionMinAggregateOutputType | null
+    _max: StoryReactionMaxAggregateOutputType | null
+  }
+
+  type GetStoryReactionGroupByPayload<T extends StoryReactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StoryReactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StoryReactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StoryReactionGroupByOutputType[P]>
+            : GetScalarType<T[P], StoryReactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StoryReactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storyId?: boolean
+    userId?: boolean
+    reactionType?: boolean
+    createdAt?: boolean
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["storyReaction"]>
+
+  export type StoryReactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storyId?: boolean
+    userId?: boolean
+    reactionType?: boolean
+    createdAt?: boolean
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["storyReaction"]>
+
+  export type StoryReactionSelectScalar = {
+    id?: boolean
+    storyId?: boolean
+    userId?: boolean
+    reactionType?: boolean
+    createdAt?: boolean
+  }
+
+  export type StoryReactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }
+  export type StoryReactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }
+
+  export type $StoryReactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StoryReaction"
+    objects: {
+      story: Prisma.$StoryPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      storyId: string
+      userId: string
+      reactionType: string
+      createdAt: Date
+    }, ExtArgs["result"]["storyReaction"]>
+    composites: {}
+  }
+
+  type StoryReactionGetPayload<S extends boolean | null | undefined | StoryReactionDefaultArgs> = $Result.GetResult<Prisma.$StoryReactionPayload, S>
+
+  type StoryReactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StoryReactionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StoryReactionCountAggregateInputType | true
+    }
+
+  export interface StoryReactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StoryReaction'], meta: { name: 'StoryReaction' } }
+    /**
+     * Find zero or one StoryReaction that matches the filter.
+     * @param {StoryReactionFindUniqueArgs} args - Arguments to find a StoryReaction
+     * @example
+     * // Get one StoryReaction
+     * const storyReaction = await prisma.storyReaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StoryReactionFindUniqueArgs>(args: SelectSubset<T, StoryReactionFindUniqueArgs<ExtArgs>>): Prisma__StoryReactionClient<$Result.GetResult<Prisma.$StoryReactionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one StoryReaction that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StoryReactionFindUniqueOrThrowArgs} args - Arguments to find a StoryReaction
+     * @example
+     * // Get one StoryReaction
+     * const storyReaction = await prisma.storyReaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StoryReactionFindUniqueOrThrowArgs>(args: SelectSubset<T, StoryReactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StoryReactionClient<$Result.GetResult<Prisma.$StoryReactionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first StoryReaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryReactionFindFirstArgs} args - Arguments to find a StoryReaction
+     * @example
+     * // Get one StoryReaction
+     * const storyReaction = await prisma.storyReaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StoryReactionFindFirstArgs>(args?: SelectSubset<T, StoryReactionFindFirstArgs<ExtArgs>>): Prisma__StoryReactionClient<$Result.GetResult<Prisma.$StoryReactionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first StoryReaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryReactionFindFirstOrThrowArgs} args - Arguments to find a StoryReaction
+     * @example
+     * // Get one StoryReaction
+     * const storyReaction = await prisma.storyReaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StoryReactionFindFirstOrThrowArgs>(args?: SelectSubset<T, StoryReactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__StoryReactionClient<$Result.GetResult<Prisma.$StoryReactionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more StoryReactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryReactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StoryReactions
+     * const storyReactions = await prisma.storyReaction.findMany()
+     * 
+     * // Get first 10 StoryReactions
+     * const storyReactions = await prisma.storyReaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const storyReactionWithIdOnly = await prisma.storyReaction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StoryReactionFindManyArgs>(args?: SelectSubset<T, StoryReactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryReactionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a StoryReaction.
+     * @param {StoryReactionCreateArgs} args - Arguments to create a StoryReaction.
+     * @example
+     * // Create one StoryReaction
+     * const StoryReaction = await prisma.storyReaction.create({
+     *   data: {
+     *     // ... data to create a StoryReaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends StoryReactionCreateArgs>(args: SelectSubset<T, StoryReactionCreateArgs<ExtArgs>>): Prisma__StoryReactionClient<$Result.GetResult<Prisma.$StoryReactionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many StoryReactions.
+     * @param {StoryReactionCreateManyArgs} args - Arguments to create many StoryReactions.
+     * @example
+     * // Create many StoryReactions
+     * const storyReaction = await prisma.storyReaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StoryReactionCreateManyArgs>(args?: SelectSubset<T, StoryReactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StoryReactions and returns the data saved in the database.
+     * @param {StoryReactionCreateManyAndReturnArgs} args - Arguments to create many StoryReactions.
+     * @example
+     * // Create many StoryReactions
+     * const storyReaction = await prisma.storyReaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StoryReactions and only return the `id`
+     * const storyReactionWithIdOnly = await prisma.storyReaction.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StoryReactionCreateManyAndReturnArgs>(args?: SelectSubset<T, StoryReactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryReactionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a StoryReaction.
+     * @param {StoryReactionDeleteArgs} args - Arguments to delete one StoryReaction.
+     * @example
+     * // Delete one StoryReaction
+     * const StoryReaction = await prisma.storyReaction.delete({
+     *   where: {
+     *     // ... filter to delete one StoryReaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StoryReactionDeleteArgs>(args: SelectSubset<T, StoryReactionDeleteArgs<ExtArgs>>): Prisma__StoryReactionClient<$Result.GetResult<Prisma.$StoryReactionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one StoryReaction.
+     * @param {StoryReactionUpdateArgs} args - Arguments to update one StoryReaction.
+     * @example
+     * // Update one StoryReaction
+     * const storyReaction = await prisma.storyReaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StoryReactionUpdateArgs>(args: SelectSubset<T, StoryReactionUpdateArgs<ExtArgs>>): Prisma__StoryReactionClient<$Result.GetResult<Prisma.$StoryReactionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more StoryReactions.
+     * @param {StoryReactionDeleteManyArgs} args - Arguments to filter StoryReactions to delete.
+     * @example
+     * // Delete a few StoryReactions
+     * const { count } = await prisma.storyReaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StoryReactionDeleteManyArgs>(args?: SelectSubset<T, StoryReactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StoryReactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryReactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StoryReactions
+     * const storyReaction = await prisma.storyReaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StoryReactionUpdateManyArgs>(args: SelectSubset<T, StoryReactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StoryReaction.
+     * @param {StoryReactionUpsertArgs} args - Arguments to update or create a StoryReaction.
+     * @example
+     * // Update or create a StoryReaction
+     * const storyReaction = await prisma.storyReaction.upsert({
+     *   create: {
+     *     // ... data to create a StoryReaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StoryReaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StoryReactionUpsertArgs>(args: SelectSubset<T, StoryReactionUpsertArgs<ExtArgs>>): Prisma__StoryReactionClient<$Result.GetResult<Prisma.$StoryReactionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of StoryReactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryReactionCountArgs} args - Arguments to filter StoryReactions to count.
+     * @example
+     * // Count the number of StoryReactions
+     * const count = await prisma.storyReaction.count({
+     *   where: {
+     *     // ... the filter for the StoryReactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends StoryReactionCountArgs>(
+      args?: Subset<T, StoryReactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StoryReactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StoryReaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryReactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StoryReactionAggregateArgs>(args: Subset<T, StoryReactionAggregateArgs>): Prisma.PrismaPromise<GetStoryReactionAggregateType<T>>
+
+    /**
+     * Group by StoryReaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryReactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StoryReactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StoryReactionGroupByArgs['orderBy'] }
+        : { orderBy?: StoryReactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StoryReactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStoryReactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StoryReaction model
+   */
+  readonly fields: StoryReactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StoryReaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StoryReactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    story<T extends StoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoryDefaultArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StoryReaction model
+   */ 
+  interface StoryReactionFieldRefs {
+    readonly id: FieldRef<"StoryReaction", 'String'>
+    readonly storyId: FieldRef<"StoryReaction", 'String'>
+    readonly userId: FieldRef<"StoryReaction", 'String'>
+    readonly reactionType: FieldRef<"StoryReaction", 'String'>
+    readonly createdAt: FieldRef<"StoryReaction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StoryReaction findUnique
+   */
+  export type StoryReactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryReaction
+     */
+    select?: StoryReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryReaction to fetch.
+     */
+    where: StoryReactionWhereUniqueInput
+  }
+
+  /**
+   * StoryReaction findUniqueOrThrow
+   */
+  export type StoryReactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryReaction
+     */
+    select?: StoryReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryReaction to fetch.
+     */
+    where: StoryReactionWhereUniqueInput
+  }
+
+  /**
+   * StoryReaction findFirst
+   */
+  export type StoryReactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryReaction
+     */
+    select?: StoryReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryReaction to fetch.
+     */
+    where?: StoryReactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryReactions to fetch.
+     */
+    orderBy?: StoryReactionOrderByWithRelationInput | StoryReactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StoryReactions.
+     */
+    cursor?: StoryReactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryReactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryReactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StoryReactions.
+     */
+    distinct?: StoryReactionScalarFieldEnum | StoryReactionScalarFieldEnum[]
+  }
+
+  /**
+   * StoryReaction findFirstOrThrow
+   */
+  export type StoryReactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryReaction
+     */
+    select?: StoryReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryReaction to fetch.
+     */
+    where?: StoryReactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryReactions to fetch.
+     */
+    orderBy?: StoryReactionOrderByWithRelationInput | StoryReactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StoryReactions.
+     */
+    cursor?: StoryReactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryReactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryReactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StoryReactions.
+     */
+    distinct?: StoryReactionScalarFieldEnum | StoryReactionScalarFieldEnum[]
+  }
+
+  /**
+   * StoryReaction findMany
+   */
+  export type StoryReactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryReaction
+     */
+    select?: StoryReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryReactions to fetch.
+     */
+    where?: StoryReactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryReactions to fetch.
+     */
+    orderBy?: StoryReactionOrderByWithRelationInput | StoryReactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StoryReactions.
+     */
+    cursor?: StoryReactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryReactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryReactions.
+     */
+    skip?: number
+    distinct?: StoryReactionScalarFieldEnum | StoryReactionScalarFieldEnum[]
+  }
+
+  /**
+   * StoryReaction create
+   */
+  export type StoryReactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryReaction
+     */
+    select?: StoryReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryReactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StoryReaction.
+     */
+    data: XOR<StoryReactionCreateInput, StoryReactionUncheckedCreateInput>
+  }
+
+  /**
+   * StoryReaction createMany
+   */
+  export type StoryReactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StoryReactions.
+     */
+    data: StoryReactionCreateManyInput | StoryReactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StoryReaction createManyAndReturn
+   */
+  export type StoryReactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryReaction
+     */
+    select?: StoryReactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many StoryReactions.
+     */
+    data: StoryReactionCreateManyInput | StoryReactionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryReactionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StoryReaction update
+   */
+  export type StoryReactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryReaction
+     */
+    select?: StoryReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryReactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StoryReaction.
+     */
+    data: XOR<StoryReactionUpdateInput, StoryReactionUncheckedUpdateInput>
+    /**
+     * Choose, which StoryReaction to update.
+     */
+    where: StoryReactionWhereUniqueInput
+  }
+
+  /**
+   * StoryReaction updateMany
+   */
+  export type StoryReactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StoryReactions.
+     */
+    data: XOR<StoryReactionUpdateManyMutationInput, StoryReactionUncheckedUpdateManyInput>
+    /**
+     * Filter which StoryReactions to update
+     */
+    where?: StoryReactionWhereInput
+  }
+
+  /**
+   * StoryReaction upsert
+   */
+  export type StoryReactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryReaction
+     */
+    select?: StoryReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryReactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StoryReaction to update in case it exists.
+     */
+    where: StoryReactionWhereUniqueInput
+    /**
+     * In case the StoryReaction found by the `where` argument doesn't exist, create a new StoryReaction with this data.
+     */
+    create: XOR<StoryReactionCreateInput, StoryReactionUncheckedCreateInput>
+    /**
+     * In case the StoryReaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StoryReactionUpdateInput, StoryReactionUncheckedUpdateInput>
+  }
+
+  /**
+   * StoryReaction delete
+   */
+  export type StoryReactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryReaction
+     */
+    select?: StoryReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryReactionInclude<ExtArgs> | null
+    /**
+     * Filter which StoryReaction to delete.
+     */
+    where: StoryReactionWhereUniqueInput
+  }
+
+  /**
+   * StoryReaction deleteMany
+   */
+  export type StoryReactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StoryReactions to delete
+     */
+    where?: StoryReactionWhereInput
+  }
+
+  /**
+   * StoryReaction without action
+   */
+  export type StoryReactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryReaction
+     */
+    select?: StoryReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryReactionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StoryAudience
+   */
+
+  export type AggregateStoryAudience = {
+    _count: StoryAudienceCountAggregateOutputType | null
+    _min: StoryAudienceMinAggregateOutputType | null
+    _max: StoryAudienceMaxAggregateOutputType | null
+  }
+
+  export type StoryAudienceMinAggregateOutputType = {
+    id: string | null
+    storyId: string | null
+    userId: string | null
+    type: string | null
+    createdAt: Date | null
+  }
+
+  export type StoryAudienceMaxAggregateOutputType = {
+    id: string | null
+    storyId: string | null
+    userId: string | null
+    type: string | null
+    createdAt: Date | null
+  }
+
+  export type StoryAudienceCountAggregateOutputType = {
+    id: number
+    storyId: number
+    userId: number
+    type: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type StoryAudienceMinAggregateInputType = {
+    id?: true
+    storyId?: true
+    userId?: true
+    type?: true
+    createdAt?: true
+  }
+
+  export type StoryAudienceMaxAggregateInputType = {
+    id?: true
+    storyId?: true
+    userId?: true
+    type?: true
+    createdAt?: true
+  }
+
+  export type StoryAudienceCountAggregateInputType = {
+    id?: true
+    storyId?: true
+    userId?: true
+    type?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type StoryAudienceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StoryAudience to aggregate.
+     */
+    where?: StoryAudienceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryAudiences to fetch.
+     */
+    orderBy?: StoryAudienceOrderByWithRelationInput | StoryAudienceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StoryAudienceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryAudiences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryAudiences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StoryAudiences
+    **/
+    _count?: true | StoryAudienceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StoryAudienceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StoryAudienceMaxAggregateInputType
+  }
+
+  export type GetStoryAudienceAggregateType<T extends StoryAudienceAggregateArgs> = {
+        [P in keyof T & keyof AggregateStoryAudience]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStoryAudience[P]>
+      : GetScalarType<T[P], AggregateStoryAudience[P]>
+  }
+
+
+
+
+  export type StoryAudienceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoryAudienceWhereInput
+    orderBy?: StoryAudienceOrderByWithAggregationInput | StoryAudienceOrderByWithAggregationInput[]
+    by: StoryAudienceScalarFieldEnum[] | StoryAudienceScalarFieldEnum
+    having?: StoryAudienceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StoryAudienceCountAggregateInputType | true
+    _min?: StoryAudienceMinAggregateInputType
+    _max?: StoryAudienceMaxAggregateInputType
+  }
+
+  export type StoryAudienceGroupByOutputType = {
+    id: string
+    storyId: string
+    userId: string
+    type: string
+    createdAt: Date
+    _count: StoryAudienceCountAggregateOutputType | null
+    _min: StoryAudienceMinAggregateOutputType | null
+    _max: StoryAudienceMaxAggregateOutputType | null
+  }
+
+  type GetStoryAudienceGroupByPayload<T extends StoryAudienceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StoryAudienceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StoryAudienceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StoryAudienceGroupByOutputType[P]>
+            : GetScalarType<T[P], StoryAudienceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StoryAudienceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storyId?: boolean
+    userId?: boolean
+    type?: boolean
+    createdAt?: boolean
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["storyAudience"]>
+
+  export type StoryAudienceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storyId?: boolean
+    userId?: boolean
+    type?: boolean
+    createdAt?: boolean
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["storyAudience"]>
+
+  export type StoryAudienceSelectScalar = {
+    id?: boolean
+    storyId?: boolean
+    userId?: boolean
+    type?: boolean
+    createdAt?: boolean
+  }
+
+  export type StoryAudienceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }
+  export type StoryAudienceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    story?: boolean | StoryDefaultArgs<ExtArgs>
+  }
+
+  export type $StoryAudiencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StoryAudience"
+    objects: {
+      story: Prisma.$StoryPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      storyId: string
+      userId: string
+      type: string
+      createdAt: Date
+    }, ExtArgs["result"]["storyAudience"]>
+    composites: {}
+  }
+
+  type StoryAudienceGetPayload<S extends boolean | null | undefined | StoryAudienceDefaultArgs> = $Result.GetResult<Prisma.$StoryAudiencePayload, S>
+
+  type StoryAudienceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StoryAudienceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StoryAudienceCountAggregateInputType | true
+    }
+
+  export interface StoryAudienceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StoryAudience'], meta: { name: 'StoryAudience' } }
+    /**
+     * Find zero or one StoryAudience that matches the filter.
+     * @param {StoryAudienceFindUniqueArgs} args - Arguments to find a StoryAudience
+     * @example
+     * // Get one StoryAudience
+     * const storyAudience = await prisma.storyAudience.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StoryAudienceFindUniqueArgs>(args: SelectSubset<T, StoryAudienceFindUniqueArgs<ExtArgs>>): Prisma__StoryAudienceClient<$Result.GetResult<Prisma.$StoryAudiencePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one StoryAudience that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StoryAudienceFindUniqueOrThrowArgs} args - Arguments to find a StoryAudience
+     * @example
+     * // Get one StoryAudience
+     * const storyAudience = await prisma.storyAudience.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StoryAudienceFindUniqueOrThrowArgs>(args: SelectSubset<T, StoryAudienceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StoryAudienceClient<$Result.GetResult<Prisma.$StoryAudiencePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first StoryAudience that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryAudienceFindFirstArgs} args - Arguments to find a StoryAudience
+     * @example
+     * // Get one StoryAudience
+     * const storyAudience = await prisma.storyAudience.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StoryAudienceFindFirstArgs>(args?: SelectSubset<T, StoryAudienceFindFirstArgs<ExtArgs>>): Prisma__StoryAudienceClient<$Result.GetResult<Prisma.$StoryAudiencePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first StoryAudience that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryAudienceFindFirstOrThrowArgs} args - Arguments to find a StoryAudience
+     * @example
+     * // Get one StoryAudience
+     * const storyAudience = await prisma.storyAudience.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StoryAudienceFindFirstOrThrowArgs>(args?: SelectSubset<T, StoryAudienceFindFirstOrThrowArgs<ExtArgs>>): Prisma__StoryAudienceClient<$Result.GetResult<Prisma.$StoryAudiencePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more StoryAudiences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryAudienceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StoryAudiences
+     * const storyAudiences = await prisma.storyAudience.findMany()
+     * 
+     * // Get first 10 StoryAudiences
+     * const storyAudiences = await prisma.storyAudience.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const storyAudienceWithIdOnly = await prisma.storyAudience.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StoryAudienceFindManyArgs>(args?: SelectSubset<T, StoryAudienceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryAudiencePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a StoryAudience.
+     * @param {StoryAudienceCreateArgs} args - Arguments to create a StoryAudience.
+     * @example
+     * // Create one StoryAudience
+     * const StoryAudience = await prisma.storyAudience.create({
+     *   data: {
+     *     // ... data to create a StoryAudience
+     *   }
+     * })
+     * 
+     */
+    create<T extends StoryAudienceCreateArgs>(args: SelectSubset<T, StoryAudienceCreateArgs<ExtArgs>>): Prisma__StoryAudienceClient<$Result.GetResult<Prisma.$StoryAudiencePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many StoryAudiences.
+     * @param {StoryAudienceCreateManyArgs} args - Arguments to create many StoryAudiences.
+     * @example
+     * // Create many StoryAudiences
+     * const storyAudience = await prisma.storyAudience.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StoryAudienceCreateManyArgs>(args?: SelectSubset<T, StoryAudienceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StoryAudiences and returns the data saved in the database.
+     * @param {StoryAudienceCreateManyAndReturnArgs} args - Arguments to create many StoryAudiences.
+     * @example
+     * // Create many StoryAudiences
+     * const storyAudience = await prisma.storyAudience.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StoryAudiences and only return the `id`
+     * const storyAudienceWithIdOnly = await prisma.storyAudience.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StoryAudienceCreateManyAndReturnArgs>(args?: SelectSubset<T, StoryAudienceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryAudiencePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a StoryAudience.
+     * @param {StoryAudienceDeleteArgs} args - Arguments to delete one StoryAudience.
+     * @example
+     * // Delete one StoryAudience
+     * const StoryAudience = await prisma.storyAudience.delete({
+     *   where: {
+     *     // ... filter to delete one StoryAudience
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StoryAudienceDeleteArgs>(args: SelectSubset<T, StoryAudienceDeleteArgs<ExtArgs>>): Prisma__StoryAudienceClient<$Result.GetResult<Prisma.$StoryAudiencePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one StoryAudience.
+     * @param {StoryAudienceUpdateArgs} args - Arguments to update one StoryAudience.
+     * @example
+     * // Update one StoryAudience
+     * const storyAudience = await prisma.storyAudience.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StoryAudienceUpdateArgs>(args: SelectSubset<T, StoryAudienceUpdateArgs<ExtArgs>>): Prisma__StoryAudienceClient<$Result.GetResult<Prisma.$StoryAudiencePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more StoryAudiences.
+     * @param {StoryAudienceDeleteManyArgs} args - Arguments to filter StoryAudiences to delete.
+     * @example
+     * // Delete a few StoryAudiences
+     * const { count } = await prisma.storyAudience.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StoryAudienceDeleteManyArgs>(args?: SelectSubset<T, StoryAudienceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StoryAudiences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryAudienceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StoryAudiences
+     * const storyAudience = await prisma.storyAudience.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StoryAudienceUpdateManyArgs>(args: SelectSubset<T, StoryAudienceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StoryAudience.
+     * @param {StoryAudienceUpsertArgs} args - Arguments to update or create a StoryAudience.
+     * @example
+     * // Update or create a StoryAudience
+     * const storyAudience = await prisma.storyAudience.upsert({
+     *   create: {
+     *     // ... data to create a StoryAudience
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StoryAudience we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StoryAudienceUpsertArgs>(args: SelectSubset<T, StoryAudienceUpsertArgs<ExtArgs>>): Prisma__StoryAudienceClient<$Result.GetResult<Prisma.$StoryAudiencePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of StoryAudiences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryAudienceCountArgs} args - Arguments to filter StoryAudiences to count.
+     * @example
+     * // Count the number of StoryAudiences
+     * const count = await prisma.storyAudience.count({
+     *   where: {
+     *     // ... the filter for the StoryAudiences we want to count
+     *   }
+     * })
+    **/
+    count<T extends StoryAudienceCountArgs>(
+      args?: Subset<T, StoryAudienceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StoryAudienceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StoryAudience.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryAudienceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StoryAudienceAggregateArgs>(args: Subset<T, StoryAudienceAggregateArgs>): Prisma.PrismaPromise<GetStoryAudienceAggregateType<T>>
+
+    /**
+     * Group by StoryAudience.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryAudienceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StoryAudienceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StoryAudienceGroupByArgs['orderBy'] }
+        : { orderBy?: StoryAudienceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StoryAudienceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStoryAudienceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StoryAudience model
+   */
+  readonly fields: StoryAudienceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StoryAudience.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StoryAudienceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    story<T extends StoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoryDefaultArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StoryAudience model
+   */ 
+  interface StoryAudienceFieldRefs {
+    readonly id: FieldRef<"StoryAudience", 'String'>
+    readonly storyId: FieldRef<"StoryAudience", 'String'>
+    readonly userId: FieldRef<"StoryAudience", 'String'>
+    readonly type: FieldRef<"StoryAudience", 'String'>
+    readonly createdAt: FieldRef<"StoryAudience", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StoryAudience findUnique
+   */
+  export type StoryAudienceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryAudience
+     */
+    select?: StoryAudienceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryAudienceInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryAudience to fetch.
+     */
+    where: StoryAudienceWhereUniqueInput
+  }
+
+  /**
+   * StoryAudience findUniqueOrThrow
+   */
+  export type StoryAudienceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryAudience
+     */
+    select?: StoryAudienceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryAudienceInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryAudience to fetch.
+     */
+    where: StoryAudienceWhereUniqueInput
+  }
+
+  /**
+   * StoryAudience findFirst
+   */
+  export type StoryAudienceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryAudience
+     */
+    select?: StoryAudienceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryAudienceInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryAudience to fetch.
+     */
+    where?: StoryAudienceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryAudiences to fetch.
+     */
+    orderBy?: StoryAudienceOrderByWithRelationInput | StoryAudienceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StoryAudiences.
+     */
+    cursor?: StoryAudienceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryAudiences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryAudiences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StoryAudiences.
+     */
+    distinct?: StoryAudienceScalarFieldEnum | StoryAudienceScalarFieldEnum[]
+  }
+
+  /**
+   * StoryAudience findFirstOrThrow
+   */
+  export type StoryAudienceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryAudience
+     */
+    select?: StoryAudienceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryAudienceInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryAudience to fetch.
+     */
+    where?: StoryAudienceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryAudiences to fetch.
+     */
+    orderBy?: StoryAudienceOrderByWithRelationInput | StoryAudienceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StoryAudiences.
+     */
+    cursor?: StoryAudienceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryAudiences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryAudiences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StoryAudiences.
+     */
+    distinct?: StoryAudienceScalarFieldEnum | StoryAudienceScalarFieldEnum[]
+  }
+
+  /**
+   * StoryAudience findMany
+   */
+  export type StoryAudienceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryAudience
+     */
+    select?: StoryAudienceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryAudienceInclude<ExtArgs> | null
+    /**
+     * Filter, which StoryAudiences to fetch.
+     */
+    where?: StoryAudienceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StoryAudiences to fetch.
+     */
+    orderBy?: StoryAudienceOrderByWithRelationInput | StoryAudienceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StoryAudiences.
+     */
+    cursor?: StoryAudienceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StoryAudiences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StoryAudiences.
+     */
+    skip?: number
+    distinct?: StoryAudienceScalarFieldEnum | StoryAudienceScalarFieldEnum[]
+  }
+
+  /**
+   * StoryAudience create
+   */
+  export type StoryAudienceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryAudience
+     */
+    select?: StoryAudienceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryAudienceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StoryAudience.
+     */
+    data: XOR<StoryAudienceCreateInput, StoryAudienceUncheckedCreateInput>
+  }
+
+  /**
+   * StoryAudience createMany
+   */
+  export type StoryAudienceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StoryAudiences.
+     */
+    data: StoryAudienceCreateManyInput | StoryAudienceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StoryAudience createManyAndReturn
+   */
+  export type StoryAudienceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryAudience
+     */
+    select?: StoryAudienceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many StoryAudiences.
+     */
+    data: StoryAudienceCreateManyInput | StoryAudienceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryAudienceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StoryAudience update
+   */
+  export type StoryAudienceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryAudience
+     */
+    select?: StoryAudienceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryAudienceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StoryAudience.
+     */
+    data: XOR<StoryAudienceUpdateInput, StoryAudienceUncheckedUpdateInput>
+    /**
+     * Choose, which StoryAudience to update.
+     */
+    where: StoryAudienceWhereUniqueInput
+  }
+
+  /**
+   * StoryAudience updateMany
+   */
+  export type StoryAudienceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StoryAudiences.
+     */
+    data: XOR<StoryAudienceUpdateManyMutationInput, StoryAudienceUncheckedUpdateManyInput>
+    /**
+     * Filter which StoryAudiences to update
+     */
+    where?: StoryAudienceWhereInput
+  }
+
+  /**
+   * StoryAudience upsert
+   */
+  export type StoryAudienceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryAudience
+     */
+    select?: StoryAudienceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryAudienceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StoryAudience to update in case it exists.
+     */
+    where: StoryAudienceWhereUniqueInput
+    /**
+     * In case the StoryAudience found by the `where` argument doesn't exist, create a new StoryAudience with this data.
+     */
+    create: XOR<StoryAudienceCreateInput, StoryAudienceUncheckedCreateInput>
+    /**
+     * In case the StoryAudience was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StoryAudienceUpdateInput, StoryAudienceUncheckedUpdateInput>
+  }
+
+  /**
+   * StoryAudience delete
+   */
+  export type StoryAudienceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryAudience
+     */
+    select?: StoryAudienceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryAudienceInclude<ExtArgs> | null
+    /**
+     * Filter which StoryAudience to delete.
+     */
+    where: StoryAudienceWhereUniqueInput
+  }
+
+  /**
+   * StoryAudience deleteMany
+   */
+  export type StoryAudienceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StoryAudiences to delete
+     */
+    where?: StoryAudienceWhereInput
+  }
+
+  /**
+   * StoryAudience without action
+   */
+  export type StoryAudienceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryAudience
+     */
+    select?: StoryAudienceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryAudienceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CloseFriend
+   */
+
+  export type AggregateCloseFriend = {
+    _count: CloseFriendCountAggregateOutputType | null
+    _min: CloseFriendMinAggregateOutputType | null
+    _max: CloseFriendMaxAggregateOutputType | null
+  }
+
+  export type CloseFriendMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    friendId: string | null
+    createdAt: Date | null
+  }
+
+  export type CloseFriendMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    friendId: string | null
+    createdAt: Date | null
+  }
+
+  export type CloseFriendCountAggregateOutputType = {
+    id: number
+    userId: number
+    friendId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CloseFriendMinAggregateInputType = {
+    id?: true
+    userId?: true
+    friendId?: true
+    createdAt?: true
+  }
+
+  export type CloseFriendMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    friendId?: true
+    createdAt?: true
+  }
+
+  export type CloseFriendCountAggregateInputType = {
+    id?: true
+    userId?: true
+    friendId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CloseFriendAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CloseFriend to aggregate.
+     */
+    where?: CloseFriendWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CloseFriends to fetch.
+     */
+    orderBy?: CloseFriendOrderByWithRelationInput | CloseFriendOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CloseFriendWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CloseFriends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CloseFriends.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CloseFriends
+    **/
+    _count?: true | CloseFriendCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CloseFriendMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CloseFriendMaxAggregateInputType
+  }
+
+  export type GetCloseFriendAggregateType<T extends CloseFriendAggregateArgs> = {
+        [P in keyof T & keyof AggregateCloseFriend]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCloseFriend[P]>
+      : GetScalarType<T[P], AggregateCloseFriend[P]>
+  }
+
+
+
+
+  export type CloseFriendGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CloseFriendWhereInput
+    orderBy?: CloseFriendOrderByWithAggregationInput | CloseFriendOrderByWithAggregationInput[]
+    by: CloseFriendScalarFieldEnum[] | CloseFriendScalarFieldEnum
+    having?: CloseFriendScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CloseFriendCountAggregateInputType | true
+    _min?: CloseFriendMinAggregateInputType
+    _max?: CloseFriendMaxAggregateInputType
+  }
+
+  export type CloseFriendGroupByOutputType = {
+    id: string
+    userId: string
+    friendId: string
+    createdAt: Date
+    _count: CloseFriendCountAggregateOutputType | null
+    _min: CloseFriendMinAggregateOutputType | null
+    _max: CloseFriendMaxAggregateOutputType | null
+  }
+
+  type GetCloseFriendGroupByPayload<T extends CloseFriendGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CloseFriendGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CloseFriendGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CloseFriendGroupByOutputType[P]>
+            : GetScalarType<T[P], CloseFriendGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CloseFriendSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    friendId?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["closeFriend"]>
+
+  export type CloseFriendSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    friendId?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["closeFriend"]>
+
+  export type CloseFriendSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    friendId?: boolean
+    createdAt?: boolean
+  }
+
+
+  export type $CloseFriendPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CloseFriend"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      friendId: string
+      createdAt: Date
+    }, ExtArgs["result"]["closeFriend"]>
+    composites: {}
+  }
+
+  type CloseFriendGetPayload<S extends boolean | null | undefined | CloseFriendDefaultArgs> = $Result.GetResult<Prisma.$CloseFriendPayload, S>
+
+  type CloseFriendCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CloseFriendFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CloseFriendCountAggregateInputType | true
+    }
+
+  export interface CloseFriendDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CloseFriend'], meta: { name: 'CloseFriend' } }
+    /**
+     * Find zero or one CloseFriend that matches the filter.
+     * @param {CloseFriendFindUniqueArgs} args - Arguments to find a CloseFriend
+     * @example
+     * // Get one CloseFriend
+     * const closeFriend = await prisma.closeFriend.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CloseFriendFindUniqueArgs>(args: SelectSubset<T, CloseFriendFindUniqueArgs<ExtArgs>>): Prisma__CloseFriendClient<$Result.GetResult<Prisma.$CloseFriendPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CloseFriend that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CloseFriendFindUniqueOrThrowArgs} args - Arguments to find a CloseFriend
+     * @example
+     * // Get one CloseFriend
+     * const closeFriend = await prisma.closeFriend.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CloseFriendFindUniqueOrThrowArgs>(args: SelectSubset<T, CloseFriendFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CloseFriendClient<$Result.GetResult<Prisma.$CloseFriendPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CloseFriend that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CloseFriendFindFirstArgs} args - Arguments to find a CloseFriend
+     * @example
+     * // Get one CloseFriend
+     * const closeFriend = await prisma.closeFriend.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CloseFriendFindFirstArgs>(args?: SelectSubset<T, CloseFriendFindFirstArgs<ExtArgs>>): Prisma__CloseFriendClient<$Result.GetResult<Prisma.$CloseFriendPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CloseFriend that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CloseFriendFindFirstOrThrowArgs} args - Arguments to find a CloseFriend
+     * @example
+     * // Get one CloseFriend
+     * const closeFriend = await prisma.closeFriend.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CloseFriendFindFirstOrThrowArgs>(args?: SelectSubset<T, CloseFriendFindFirstOrThrowArgs<ExtArgs>>): Prisma__CloseFriendClient<$Result.GetResult<Prisma.$CloseFriendPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CloseFriends that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CloseFriendFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CloseFriends
+     * const closeFriends = await prisma.closeFriend.findMany()
+     * 
+     * // Get first 10 CloseFriends
+     * const closeFriends = await prisma.closeFriend.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const closeFriendWithIdOnly = await prisma.closeFriend.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CloseFriendFindManyArgs>(args?: SelectSubset<T, CloseFriendFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CloseFriendPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CloseFriend.
+     * @param {CloseFriendCreateArgs} args - Arguments to create a CloseFriend.
+     * @example
+     * // Create one CloseFriend
+     * const CloseFriend = await prisma.closeFriend.create({
+     *   data: {
+     *     // ... data to create a CloseFriend
+     *   }
+     * })
+     * 
+     */
+    create<T extends CloseFriendCreateArgs>(args: SelectSubset<T, CloseFriendCreateArgs<ExtArgs>>): Prisma__CloseFriendClient<$Result.GetResult<Prisma.$CloseFriendPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CloseFriends.
+     * @param {CloseFriendCreateManyArgs} args - Arguments to create many CloseFriends.
+     * @example
+     * // Create many CloseFriends
+     * const closeFriend = await prisma.closeFriend.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CloseFriendCreateManyArgs>(args?: SelectSubset<T, CloseFriendCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CloseFriends and returns the data saved in the database.
+     * @param {CloseFriendCreateManyAndReturnArgs} args - Arguments to create many CloseFriends.
+     * @example
+     * // Create many CloseFriends
+     * const closeFriend = await prisma.closeFriend.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CloseFriends and only return the `id`
+     * const closeFriendWithIdOnly = await prisma.closeFriend.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CloseFriendCreateManyAndReturnArgs>(args?: SelectSubset<T, CloseFriendCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CloseFriendPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CloseFriend.
+     * @param {CloseFriendDeleteArgs} args - Arguments to delete one CloseFriend.
+     * @example
+     * // Delete one CloseFriend
+     * const CloseFriend = await prisma.closeFriend.delete({
+     *   where: {
+     *     // ... filter to delete one CloseFriend
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CloseFriendDeleteArgs>(args: SelectSubset<T, CloseFriendDeleteArgs<ExtArgs>>): Prisma__CloseFriendClient<$Result.GetResult<Prisma.$CloseFriendPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CloseFriend.
+     * @param {CloseFriendUpdateArgs} args - Arguments to update one CloseFriend.
+     * @example
+     * // Update one CloseFriend
+     * const closeFriend = await prisma.closeFriend.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CloseFriendUpdateArgs>(args: SelectSubset<T, CloseFriendUpdateArgs<ExtArgs>>): Prisma__CloseFriendClient<$Result.GetResult<Prisma.$CloseFriendPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CloseFriends.
+     * @param {CloseFriendDeleteManyArgs} args - Arguments to filter CloseFriends to delete.
+     * @example
+     * // Delete a few CloseFriends
+     * const { count } = await prisma.closeFriend.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CloseFriendDeleteManyArgs>(args?: SelectSubset<T, CloseFriendDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CloseFriends.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CloseFriendUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CloseFriends
+     * const closeFriend = await prisma.closeFriend.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CloseFriendUpdateManyArgs>(args: SelectSubset<T, CloseFriendUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CloseFriend.
+     * @param {CloseFriendUpsertArgs} args - Arguments to update or create a CloseFriend.
+     * @example
+     * // Update or create a CloseFriend
+     * const closeFriend = await prisma.closeFriend.upsert({
+     *   create: {
+     *     // ... data to create a CloseFriend
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CloseFriend we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CloseFriendUpsertArgs>(args: SelectSubset<T, CloseFriendUpsertArgs<ExtArgs>>): Prisma__CloseFriendClient<$Result.GetResult<Prisma.$CloseFriendPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CloseFriends.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CloseFriendCountArgs} args - Arguments to filter CloseFriends to count.
+     * @example
+     * // Count the number of CloseFriends
+     * const count = await prisma.closeFriend.count({
+     *   where: {
+     *     // ... the filter for the CloseFriends we want to count
+     *   }
+     * })
+    **/
+    count<T extends CloseFriendCountArgs>(
+      args?: Subset<T, CloseFriendCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CloseFriendCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CloseFriend.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CloseFriendAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CloseFriendAggregateArgs>(args: Subset<T, CloseFriendAggregateArgs>): Prisma.PrismaPromise<GetCloseFriendAggregateType<T>>
+
+    /**
+     * Group by CloseFriend.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CloseFriendGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CloseFriendGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CloseFriendGroupByArgs['orderBy'] }
+        : { orderBy?: CloseFriendGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CloseFriendGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCloseFriendGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CloseFriend model
+   */
+  readonly fields: CloseFriendFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CloseFriend.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CloseFriendClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CloseFriend model
+   */ 
+  interface CloseFriendFieldRefs {
+    readonly id: FieldRef<"CloseFriend", 'String'>
+    readonly userId: FieldRef<"CloseFriend", 'String'>
+    readonly friendId: FieldRef<"CloseFriend", 'String'>
+    readonly createdAt: FieldRef<"CloseFriend", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CloseFriend findUnique
+   */
+  export type CloseFriendFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CloseFriend
+     */
+    select?: CloseFriendSelect<ExtArgs> | null
+    /**
+     * Filter, which CloseFriend to fetch.
+     */
+    where: CloseFriendWhereUniqueInput
+  }
+
+  /**
+   * CloseFriend findUniqueOrThrow
+   */
+  export type CloseFriendFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CloseFriend
+     */
+    select?: CloseFriendSelect<ExtArgs> | null
+    /**
+     * Filter, which CloseFriend to fetch.
+     */
+    where: CloseFriendWhereUniqueInput
+  }
+
+  /**
+   * CloseFriend findFirst
+   */
+  export type CloseFriendFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CloseFriend
+     */
+    select?: CloseFriendSelect<ExtArgs> | null
+    /**
+     * Filter, which CloseFriend to fetch.
+     */
+    where?: CloseFriendWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CloseFriends to fetch.
+     */
+    orderBy?: CloseFriendOrderByWithRelationInput | CloseFriendOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CloseFriends.
+     */
+    cursor?: CloseFriendWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CloseFriends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CloseFriends.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CloseFriends.
+     */
+    distinct?: CloseFriendScalarFieldEnum | CloseFriendScalarFieldEnum[]
+  }
+
+  /**
+   * CloseFriend findFirstOrThrow
+   */
+  export type CloseFriendFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CloseFriend
+     */
+    select?: CloseFriendSelect<ExtArgs> | null
+    /**
+     * Filter, which CloseFriend to fetch.
+     */
+    where?: CloseFriendWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CloseFriends to fetch.
+     */
+    orderBy?: CloseFriendOrderByWithRelationInput | CloseFriendOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CloseFriends.
+     */
+    cursor?: CloseFriendWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CloseFriends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CloseFriends.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CloseFriends.
+     */
+    distinct?: CloseFriendScalarFieldEnum | CloseFriendScalarFieldEnum[]
+  }
+
+  /**
+   * CloseFriend findMany
+   */
+  export type CloseFriendFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CloseFriend
+     */
+    select?: CloseFriendSelect<ExtArgs> | null
+    /**
+     * Filter, which CloseFriends to fetch.
+     */
+    where?: CloseFriendWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CloseFriends to fetch.
+     */
+    orderBy?: CloseFriendOrderByWithRelationInput | CloseFriendOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CloseFriends.
+     */
+    cursor?: CloseFriendWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CloseFriends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CloseFriends.
+     */
+    skip?: number
+    distinct?: CloseFriendScalarFieldEnum | CloseFriendScalarFieldEnum[]
+  }
+
+  /**
+   * CloseFriend create
+   */
+  export type CloseFriendCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CloseFriend
+     */
+    select?: CloseFriendSelect<ExtArgs> | null
+    /**
+     * The data needed to create a CloseFriend.
+     */
+    data: XOR<CloseFriendCreateInput, CloseFriendUncheckedCreateInput>
+  }
+
+  /**
+   * CloseFriend createMany
+   */
+  export type CloseFriendCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CloseFriends.
+     */
+    data: CloseFriendCreateManyInput | CloseFriendCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CloseFriend createManyAndReturn
+   */
+  export type CloseFriendCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CloseFriend
+     */
+    select?: CloseFriendSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CloseFriends.
+     */
+    data: CloseFriendCreateManyInput | CloseFriendCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CloseFriend update
+   */
+  export type CloseFriendUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CloseFriend
+     */
+    select?: CloseFriendSelect<ExtArgs> | null
+    /**
+     * The data needed to update a CloseFriend.
+     */
+    data: XOR<CloseFriendUpdateInput, CloseFriendUncheckedUpdateInput>
+    /**
+     * Choose, which CloseFriend to update.
+     */
+    where: CloseFriendWhereUniqueInput
+  }
+
+  /**
+   * CloseFriend updateMany
+   */
+  export type CloseFriendUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CloseFriends.
+     */
+    data: XOR<CloseFriendUpdateManyMutationInput, CloseFriendUncheckedUpdateManyInput>
+    /**
+     * Filter which CloseFriends to update
+     */
+    where?: CloseFriendWhereInput
+  }
+
+  /**
+   * CloseFriend upsert
+   */
+  export type CloseFriendUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CloseFriend
+     */
+    select?: CloseFriendSelect<ExtArgs> | null
+    /**
+     * The filter to search for the CloseFriend to update in case it exists.
+     */
+    where: CloseFriendWhereUniqueInput
+    /**
+     * In case the CloseFriend found by the `where` argument doesn't exist, create a new CloseFriend with this data.
+     */
+    create: XOR<CloseFriendCreateInput, CloseFriendUncheckedCreateInput>
+    /**
+     * In case the CloseFriend was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CloseFriendUpdateInput, CloseFriendUncheckedUpdateInput>
+  }
+
+  /**
+   * CloseFriend delete
+   */
+  export type CloseFriendDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CloseFriend
+     */
+    select?: CloseFriendSelect<ExtArgs> | null
+    /**
+     * Filter which CloseFriend to delete.
+     */
+    where: CloseFriendWhereUniqueInput
+  }
+
+  /**
+   * CloseFriend deleteMany
+   */
+  export type CloseFriendDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CloseFriends to delete
+     */
+    where?: CloseFriendWhereInput
+  }
+
+  /**
+   * CloseFriend without action
+   */
+  export type CloseFriendDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CloseFriend
+     */
+    select?: CloseFriendSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6215,6 +12570,79 @@ export namespace Prisma {
   };
 
   export type SavedPostScalarFieldEnum = (typeof SavedPostScalarFieldEnum)[keyof typeof SavedPostScalarFieldEnum]
+
+
+  export const StoryScalarFieldEnum: {
+    id: 'id',
+    authorId: 'authorId',
+    type: 'type',
+    content: 'content',
+    backgroundColor: 'backgroundColor',
+    fontStyle: 'fontStyle',
+    visibility: 'visibility',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    expiresAt: 'expiresAt',
+    deletedAt: 'deletedAt'
+  };
+
+  export type StoryScalarFieldEnum = (typeof StoryScalarFieldEnum)[keyof typeof StoryScalarFieldEnum]
+
+
+  export const StoryMediaScalarFieldEnum: {
+    id: 'id',
+    storyId: 'storyId',
+    mediaType: 'mediaType',
+    url: 'url',
+    mimeType: 'mimeType',
+    fileSize: 'fileSize',
+    duration: 'duration',
+    createdAt: 'createdAt'
+  };
+
+  export type StoryMediaScalarFieldEnum = (typeof StoryMediaScalarFieldEnum)[keyof typeof StoryMediaScalarFieldEnum]
+
+
+  export const StoryViewScalarFieldEnum: {
+    id: 'id',
+    storyId: 'storyId',
+    viewerId: 'viewerId',
+    viewedAt: 'viewedAt'
+  };
+
+  export type StoryViewScalarFieldEnum = (typeof StoryViewScalarFieldEnum)[keyof typeof StoryViewScalarFieldEnum]
+
+
+  export const StoryReactionScalarFieldEnum: {
+    id: 'id',
+    storyId: 'storyId',
+    userId: 'userId',
+    reactionType: 'reactionType',
+    createdAt: 'createdAt'
+  };
+
+  export type StoryReactionScalarFieldEnum = (typeof StoryReactionScalarFieldEnum)[keyof typeof StoryReactionScalarFieldEnum]
+
+
+  export const StoryAudienceScalarFieldEnum: {
+    id: 'id',
+    storyId: 'storyId',
+    userId: 'userId',
+    type: 'type',
+    createdAt: 'createdAt'
+  };
+
+  export type StoryAudienceScalarFieldEnum = (typeof StoryAudienceScalarFieldEnum)[keyof typeof StoryAudienceScalarFieldEnum]
+
+
+  export const CloseFriendScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    friendId: 'friendId',
+    createdAt: 'createdAt'
+  };
+
+  export type CloseFriendScalarFieldEnum = (typeof CloseFriendScalarFieldEnum)[keyof typeof CloseFriendScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6306,6 +12734,34 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'StoryType'
+   */
+  export type EnumStoryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StoryType'>
+    
+
+
+  /**
+   * Reference to a field of type 'StoryType[]'
+   */
+  export type ListEnumStoryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StoryType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'StoryVisibility'
+   */
+  export type EnumStoryVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StoryVisibility'>
+    
+
+
+  /**
+   * Reference to a field of type 'StoryVisibility[]'
+   */
+  export type ListEnumStoryVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StoryVisibility[]'>
     
 
 
@@ -6623,6 +13079,383 @@ export namespace Prisma {
     savedAt?: DateTimeWithAggregatesFilter<"SavedPost"> | Date | string
   }
 
+  export type StoryWhereInput = {
+    AND?: StoryWhereInput | StoryWhereInput[]
+    OR?: StoryWhereInput[]
+    NOT?: StoryWhereInput | StoryWhereInput[]
+    id?: StringFilter<"Story"> | string
+    authorId?: StringFilter<"Story"> | string
+    type?: EnumStoryTypeFilter<"Story"> | $Enums.StoryType
+    content?: StringNullableFilter<"Story"> | string | null
+    backgroundColor?: StringNullableFilter<"Story"> | string | null
+    fontStyle?: StringNullableFilter<"Story"> | string | null
+    visibility?: EnumStoryVisibilityFilter<"Story"> | $Enums.StoryVisibility
+    createdAt?: DateTimeFilter<"Story"> | Date | string
+    updatedAt?: DateTimeFilter<"Story"> | Date | string
+    expiresAt?: DateTimeFilter<"Story"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Story"> | Date | string | null
+    media?: StoryMediaListRelationFilter
+    views?: StoryViewListRelationFilter
+    reactions?: StoryReactionListRelationFilter
+    audiences?: StoryAudienceListRelationFilter
+  }
+
+  export type StoryOrderByWithRelationInput = {
+    id?: SortOrder
+    authorId?: SortOrder
+    type?: SortOrder
+    content?: SortOrderInput | SortOrder
+    backgroundColor?: SortOrderInput | SortOrder
+    fontStyle?: SortOrderInput | SortOrder
+    visibility?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    expiresAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    media?: StoryMediaOrderByRelationAggregateInput
+    views?: StoryViewOrderByRelationAggregateInput
+    reactions?: StoryReactionOrderByRelationAggregateInput
+    audiences?: StoryAudienceOrderByRelationAggregateInput
+  }
+
+  export type StoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: StoryWhereInput | StoryWhereInput[]
+    OR?: StoryWhereInput[]
+    NOT?: StoryWhereInput | StoryWhereInput[]
+    authorId?: StringFilter<"Story"> | string
+    type?: EnumStoryTypeFilter<"Story"> | $Enums.StoryType
+    content?: StringNullableFilter<"Story"> | string | null
+    backgroundColor?: StringNullableFilter<"Story"> | string | null
+    fontStyle?: StringNullableFilter<"Story"> | string | null
+    visibility?: EnumStoryVisibilityFilter<"Story"> | $Enums.StoryVisibility
+    createdAt?: DateTimeFilter<"Story"> | Date | string
+    updatedAt?: DateTimeFilter<"Story"> | Date | string
+    expiresAt?: DateTimeFilter<"Story"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Story"> | Date | string | null
+    media?: StoryMediaListRelationFilter
+    views?: StoryViewListRelationFilter
+    reactions?: StoryReactionListRelationFilter
+    audiences?: StoryAudienceListRelationFilter
+  }, "id">
+
+  export type StoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    authorId?: SortOrder
+    type?: SortOrder
+    content?: SortOrderInput | SortOrder
+    backgroundColor?: SortOrderInput | SortOrder
+    fontStyle?: SortOrderInput | SortOrder
+    visibility?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    expiresAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    _count?: StoryCountOrderByAggregateInput
+    _max?: StoryMaxOrderByAggregateInput
+    _min?: StoryMinOrderByAggregateInput
+  }
+
+  export type StoryScalarWhereWithAggregatesInput = {
+    AND?: StoryScalarWhereWithAggregatesInput | StoryScalarWhereWithAggregatesInput[]
+    OR?: StoryScalarWhereWithAggregatesInput[]
+    NOT?: StoryScalarWhereWithAggregatesInput | StoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Story"> | string
+    authorId?: StringWithAggregatesFilter<"Story"> | string
+    type?: EnumStoryTypeWithAggregatesFilter<"Story"> | $Enums.StoryType
+    content?: StringNullableWithAggregatesFilter<"Story"> | string | null
+    backgroundColor?: StringNullableWithAggregatesFilter<"Story"> | string | null
+    fontStyle?: StringNullableWithAggregatesFilter<"Story"> | string | null
+    visibility?: EnumStoryVisibilityWithAggregatesFilter<"Story"> | $Enums.StoryVisibility
+    createdAt?: DateTimeWithAggregatesFilter<"Story"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Story"> | Date | string
+    expiresAt?: DateTimeWithAggregatesFilter<"Story"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Story"> | Date | string | null
+  }
+
+  export type StoryMediaWhereInput = {
+    AND?: StoryMediaWhereInput | StoryMediaWhereInput[]
+    OR?: StoryMediaWhereInput[]
+    NOT?: StoryMediaWhereInput | StoryMediaWhereInput[]
+    id?: StringFilter<"StoryMedia"> | string
+    storyId?: StringFilter<"StoryMedia"> | string
+    mediaType?: StringFilter<"StoryMedia"> | string
+    url?: StringFilter<"StoryMedia"> | string
+    mimeType?: StringNullableFilter<"StoryMedia"> | string | null
+    fileSize?: IntNullableFilter<"StoryMedia"> | number | null
+    duration?: FloatNullableFilter<"StoryMedia"> | number | null
+    createdAt?: DateTimeFilter<"StoryMedia"> | Date | string
+    story?: XOR<StoryRelationFilter, StoryWhereInput>
+  }
+
+  export type StoryMediaOrderByWithRelationInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    mediaType?: SortOrder
+    url?: SortOrder
+    mimeType?: SortOrderInput | SortOrder
+    fileSize?: SortOrderInput | SortOrder
+    duration?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    story?: StoryOrderByWithRelationInput
+  }
+
+  export type StoryMediaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: StoryMediaWhereInput | StoryMediaWhereInput[]
+    OR?: StoryMediaWhereInput[]
+    NOT?: StoryMediaWhereInput | StoryMediaWhereInput[]
+    storyId?: StringFilter<"StoryMedia"> | string
+    mediaType?: StringFilter<"StoryMedia"> | string
+    url?: StringFilter<"StoryMedia"> | string
+    mimeType?: StringNullableFilter<"StoryMedia"> | string | null
+    fileSize?: IntNullableFilter<"StoryMedia"> | number | null
+    duration?: FloatNullableFilter<"StoryMedia"> | number | null
+    createdAt?: DateTimeFilter<"StoryMedia"> | Date | string
+    story?: XOR<StoryRelationFilter, StoryWhereInput>
+  }, "id">
+
+  export type StoryMediaOrderByWithAggregationInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    mediaType?: SortOrder
+    url?: SortOrder
+    mimeType?: SortOrderInput | SortOrder
+    fileSize?: SortOrderInput | SortOrder
+    duration?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: StoryMediaCountOrderByAggregateInput
+    _avg?: StoryMediaAvgOrderByAggregateInput
+    _max?: StoryMediaMaxOrderByAggregateInput
+    _min?: StoryMediaMinOrderByAggregateInput
+    _sum?: StoryMediaSumOrderByAggregateInput
+  }
+
+  export type StoryMediaScalarWhereWithAggregatesInput = {
+    AND?: StoryMediaScalarWhereWithAggregatesInput | StoryMediaScalarWhereWithAggregatesInput[]
+    OR?: StoryMediaScalarWhereWithAggregatesInput[]
+    NOT?: StoryMediaScalarWhereWithAggregatesInput | StoryMediaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StoryMedia"> | string
+    storyId?: StringWithAggregatesFilter<"StoryMedia"> | string
+    mediaType?: StringWithAggregatesFilter<"StoryMedia"> | string
+    url?: StringWithAggregatesFilter<"StoryMedia"> | string
+    mimeType?: StringNullableWithAggregatesFilter<"StoryMedia"> | string | null
+    fileSize?: IntNullableWithAggregatesFilter<"StoryMedia"> | number | null
+    duration?: FloatNullableWithAggregatesFilter<"StoryMedia"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"StoryMedia"> | Date | string
+  }
+
+  export type StoryViewWhereInput = {
+    AND?: StoryViewWhereInput | StoryViewWhereInput[]
+    OR?: StoryViewWhereInput[]
+    NOT?: StoryViewWhereInput | StoryViewWhereInput[]
+    id?: StringFilter<"StoryView"> | string
+    storyId?: StringFilter<"StoryView"> | string
+    viewerId?: StringFilter<"StoryView"> | string
+    viewedAt?: DateTimeFilter<"StoryView"> | Date | string
+    story?: XOR<StoryRelationFilter, StoryWhereInput>
+  }
+
+  export type StoryViewOrderByWithRelationInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    viewerId?: SortOrder
+    viewedAt?: SortOrder
+    story?: StoryOrderByWithRelationInput
+  }
+
+  export type StoryViewWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    storyId_viewerId?: StoryViewStoryIdViewerIdCompoundUniqueInput
+    AND?: StoryViewWhereInput | StoryViewWhereInput[]
+    OR?: StoryViewWhereInput[]
+    NOT?: StoryViewWhereInput | StoryViewWhereInput[]
+    storyId?: StringFilter<"StoryView"> | string
+    viewerId?: StringFilter<"StoryView"> | string
+    viewedAt?: DateTimeFilter<"StoryView"> | Date | string
+    story?: XOR<StoryRelationFilter, StoryWhereInput>
+  }, "id" | "storyId_viewerId">
+
+  export type StoryViewOrderByWithAggregationInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    viewerId?: SortOrder
+    viewedAt?: SortOrder
+    _count?: StoryViewCountOrderByAggregateInput
+    _max?: StoryViewMaxOrderByAggregateInput
+    _min?: StoryViewMinOrderByAggregateInput
+  }
+
+  export type StoryViewScalarWhereWithAggregatesInput = {
+    AND?: StoryViewScalarWhereWithAggregatesInput | StoryViewScalarWhereWithAggregatesInput[]
+    OR?: StoryViewScalarWhereWithAggregatesInput[]
+    NOT?: StoryViewScalarWhereWithAggregatesInput | StoryViewScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StoryView"> | string
+    storyId?: StringWithAggregatesFilter<"StoryView"> | string
+    viewerId?: StringWithAggregatesFilter<"StoryView"> | string
+    viewedAt?: DateTimeWithAggregatesFilter<"StoryView"> | Date | string
+  }
+
+  export type StoryReactionWhereInput = {
+    AND?: StoryReactionWhereInput | StoryReactionWhereInput[]
+    OR?: StoryReactionWhereInput[]
+    NOT?: StoryReactionWhereInput | StoryReactionWhereInput[]
+    id?: StringFilter<"StoryReaction"> | string
+    storyId?: StringFilter<"StoryReaction"> | string
+    userId?: StringFilter<"StoryReaction"> | string
+    reactionType?: StringFilter<"StoryReaction"> | string
+    createdAt?: DateTimeFilter<"StoryReaction"> | Date | string
+    story?: XOR<StoryRelationFilter, StoryWhereInput>
+  }
+
+  export type StoryReactionOrderByWithRelationInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    userId?: SortOrder
+    reactionType?: SortOrder
+    createdAt?: SortOrder
+    story?: StoryOrderByWithRelationInput
+  }
+
+  export type StoryReactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    storyId_userId?: StoryReactionStoryIdUserIdCompoundUniqueInput
+    AND?: StoryReactionWhereInput | StoryReactionWhereInput[]
+    OR?: StoryReactionWhereInput[]
+    NOT?: StoryReactionWhereInput | StoryReactionWhereInput[]
+    storyId?: StringFilter<"StoryReaction"> | string
+    userId?: StringFilter<"StoryReaction"> | string
+    reactionType?: StringFilter<"StoryReaction"> | string
+    createdAt?: DateTimeFilter<"StoryReaction"> | Date | string
+    story?: XOR<StoryRelationFilter, StoryWhereInput>
+  }, "id" | "storyId_userId">
+
+  export type StoryReactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    userId?: SortOrder
+    reactionType?: SortOrder
+    createdAt?: SortOrder
+    _count?: StoryReactionCountOrderByAggregateInput
+    _max?: StoryReactionMaxOrderByAggregateInput
+    _min?: StoryReactionMinOrderByAggregateInput
+  }
+
+  export type StoryReactionScalarWhereWithAggregatesInput = {
+    AND?: StoryReactionScalarWhereWithAggregatesInput | StoryReactionScalarWhereWithAggregatesInput[]
+    OR?: StoryReactionScalarWhereWithAggregatesInput[]
+    NOT?: StoryReactionScalarWhereWithAggregatesInput | StoryReactionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StoryReaction"> | string
+    storyId?: StringWithAggregatesFilter<"StoryReaction"> | string
+    userId?: StringWithAggregatesFilter<"StoryReaction"> | string
+    reactionType?: StringWithAggregatesFilter<"StoryReaction"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"StoryReaction"> | Date | string
+  }
+
+  export type StoryAudienceWhereInput = {
+    AND?: StoryAudienceWhereInput | StoryAudienceWhereInput[]
+    OR?: StoryAudienceWhereInput[]
+    NOT?: StoryAudienceWhereInput | StoryAudienceWhereInput[]
+    id?: StringFilter<"StoryAudience"> | string
+    storyId?: StringFilter<"StoryAudience"> | string
+    userId?: StringFilter<"StoryAudience"> | string
+    type?: StringFilter<"StoryAudience"> | string
+    createdAt?: DateTimeFilter<"StoryAudience"> | Date | string
+    story?: XOR<StoryRelationFilter, StoryWhereInput>
+  }
+
+  export type StoryAudienceOrderByWithRelationInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+    story?: StoryOrderByWithRelationInput
+  }
+
+  export type StoryAudienceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    storyId_userId_type?: StoryAudienceStoryIdUserIdTypeCompoundUniqueInput
+    AND?: StoryAudienceWhereInput | StoryAudienceWhereInput[]
+    OR?: StoryAudienceWhereInput[]
+    NOT?: StoryAudienceWhereInput | StoryAudienceWhereInput[]
+    storyId?: StringFilter<"StoryAudience"> | string
+    userId?: StringFilter<"StoryAudience"> | string
+    type?: StringFilter<"StoryAudience"> | string
+    createdAt?: DateTimeFilter<"StoryAudience"> | Date | string
+    story?: XOR<StoryRelationFilter, StoryWhereInput>
+  }, "id" | "storyId_userId_type">
+
+  export type StoryAudienceOrderByWithAggregationInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+    _count?: StoryAudienceCountOrderByAggregateInput
+    _max?: StoryAudienceMaxOrderByAggregateInput
+    _min?: StoryAudienceMinOrderByAggregateInput
+  }
+
+  export type StoryAudienceScalarWhereWithAggregatesInput = {
+    AND?: StoryAudienceScalarWhereWithAggregatesInput | StoryAudienceScalarWhereWithAggregatesInput[]
+    OR?: StoryAudienceScalarWhereWithAggregatesInput[]
+    NOT?: StoryAudienceScalarWhereWithAggregatesInput | StoryAudienceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StoryAudience"> | string
+    storyId?: StringWithAggregatesFilter<"StoryAudience"> | string
+    userId?: StringWithAggregatesFilter<"StoryAudience"> | string
+    type?: StringWithAggregatesFilter<"StoryAudience"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"StoryAudience"> | Date | string
+  }
+
+  export type CloseFriendWhereInput = {
+    AND?: CloseFriendWhereInput | CloseFriendWhereInput[]
+    OR?: CloseFriendWhereInput[]
+    NOT?: CloseFriendWhereInput | CloseFriendWhereInput[]
+    id?: StringFilter<"CloseFriend"> | string
+    userId?: StringFilter<"CloseFriend"> | string
+    friendId?: StringFilter<"CloseFriend"> | string
+    createdAt?: DateTimeFilter<"CloseFriend"> | Date | string
+  }
+
+  export type CloseFriendOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    friendId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CloseFriendWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_friendId?: CloseFriendUserIdFriendIdCompoundUniqueInput
+    AND?: CloseFriendWhereInput | CloseFriendWhereInput[]
+    OR?: CloseFriendWhereInput[]
+    NOT?: CloseFriendWhereInput | CloseFriendWhereInput[]
+    userId?: StringFilter<"CloseFriend"> | string
+    friendId?: StringFilter<"CloseFriend"> | string
+    createdAt?: DateTimeFilter<"CloseFriend"> | Date | string
+  }, "id" | "userId_friendId">
+
+  export type CloseFriendOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    friendId?: SortOrder
+    createdAt?: SortOrder
+    _count?: CloseFriendCountOrderByAggregateInput
+    _max?: CloseFriendMaxOrderByAggregateInput
+    _min?: CloseFriendMinOrderByAggregateInput
+  }
+
+  export type CloseFriendScalarWhereWithAggregatesInput = {
+    AND?: CloseFriendScalarWhereWithAggregatesInput | CloseFriendScalarWhereWithAggregatesInput[]
+    OR?: CloseFriendScalarWhereWithAggregatesInput[]
+    NOT?: CloseFriendScalarWhereWithAggregatesInput | CloseFriendScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CloseFriend"> | string
+    userId?: StringWithAggregatesFilter<"CloseFriend"> | string
+    friendId?: StringWithAggregatesFilter<"CloseFriend"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"CloseFriend"> | Date | string
+  }
+
   export type PostCreateInput = {
     id?: string
     authorId: string
@@ -6921,6 +13754,403 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     postId?: StringFieldUpdateOperationsInput | string
     savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryCreateInput = {
+    id?: string
+    authorId: string
+    type?: $Enums.StoryType
+    content?: string | null
+    backgroundColor?: string | null
+    fontStyle?: string | null
+    visibility?: $Enums.StoryVisibility
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    expiresAt: Date | string
+    deletedAt?: Date | string | null
+    media?: StoryMediaCreateNestedManyWithoutStoryInput
+    views?: StoryViewCreateNestedManyWithoutStoryInput
+    reactions?: StoryReactionCreateNestedManyWithoutStoryInput
+    audiences?: StoryAudienceCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryUncheckedCreateInput = {
+    id?: string
+    authorId: string
+    type?: $Enums.StoryType
+    content?: string | null
+    backgroundColor?: string | null
+    fontStyle?: string | null
+    visibility?: $Enums.StoryVisibility
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    expiresAt: Date | string
+    deletedAt?: Date | string | null
+    media?: StoryMediaUncheckedCreateNestedManyWithoutStoryInput
+    views?: StoryViewUncheckedCreateNestedManyWithoutStoryInput
+    reactions?: StoryReactionUncheckedCreateNestedManyWithoutStoryInput
+    audiences?: StoryAudienceUncheckedCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStoryTypeFieldUpdateOperationsInput | $Enums.StoryType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
+    fontStyle?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: EnumStoryVisibilityFieldUpdateOperationsInput | $Enums.StoryVisibility
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    media?: StoryMediaUpdateManyWithoutStoryNestedInput
+    views?: StoryViewUpdateManyWithoutStoryNestedInput
+    reactions?: StoryReactionUpdateManyWithoutStoryNestedInput
+    audiences?: StoryAudienceUpdateManyWithoutStoryNestedInput
+  }
+
+  export type StoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStoryTypeFieldUpdateOperationsInput | $Enums.StoryType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
+    fontStyle?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: EnumStoryVisibilityFieldUpdateOperationsInput | $Enums.StoryVisibility
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    media?: StoryMediaUncheckedUpdateManyWithoutStoryNestedInput
+    views?: StoryViewUncheckedUpdateManyWithoutStoryNestedInput
+    reactions?: StoryReactionUncheckedUpdateManyWithoutStoryNestedInput
+    audiences?: StoryAudienceUncheckedUpdateManyWithoutStoryNestedInput
+  }
+
+  export type StoryCreateManyInput = {
+    id?: string
+    authorId: string
+    type?: $Enums.StoryType
+    content?: string | null
+    backgroundColor?: string | null
+    fontStyle?: string | null
+    visibility?: $Enums.StoryVisibility
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    expiresAt: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type StoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStoryTypeFieldUpdateOperationsInput | $Enums.StoryType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
+    fontStyle?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: EnumStoryVisibilityFieldUpdateOperationsInput | $Enums.StoryVisibility
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type StoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStoryTypeFieldUpdateOperationsInput | $Enums.StoryType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
+    fontStyle?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: EnumStoryVisibilityFieldUpdateOperationsInput | $Enums.StoryVisibility
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type StoryMediaCreateInput = {
+    id?: string
+    mediaType: string
+    url: string
+    mimeType?: string | null
+    fileSize?: number | null
+    duration?: number | null
+    createdAt?: Date | string
+    story: StoryCreateNestedOneWithoutMediaInput
+  }
+
+  export type StoryMediaUncheckedCreateInput = {
+    id?: string
+    storyId: string
+    mediaType: string
+    url: string
+    mimeType?: string | null
+    fileSize?: number | null
+    duration?: number | null
+    createdAt?: Date | string
+  }
+
+  export type StoryMediaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mediaType?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    duration?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    story?: StoryUpdateOneRequiredWithoutMediaNestedInput
+  }
+
+  export type StoryMediaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storyId?: StringFieldUpdateOperationsInput | string
+    mediaType?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    duration?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryMediaCreateManyInput = {
+    id?: string
+    storyId: string
+    mediaType: string
+    url: string
+    mimeType?: string | null
+    fileSize?: number | null
+    duration?: number | null
+    createdAt?: Date | string
+  }
+
+  export type StoryMediaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mediaType?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    duration?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryMediaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storyId?: StringFieldUpdateOperationsInput | string
+    mediaType?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    duration?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryViewCreateInput = {
+    id?: string
+    viewerId: string
+    viewedAt?: Date | string
+    story: StoryCreateNestedOneWithoutViewsInput
+  }
+
+  export type StoryViewUncheckedCreateInput = {
+    id?: string
+    storyId: string
+    viewerId: string
+    viewedAt?: Date | string
+  }
+
+  export type StoryViewUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewerId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    story?: StoryUpdateOneRequiredWithoutViewsNestedInput
+  }
+
+  export type StoryViewUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storyId?: StringFieldUpdateOperationsInput | string
+    viewerId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryViewCreateManyInput = {
+    id?: string
+    storyId: string
+    viewerId: string
+    viewedAt?: Date | string
+  }
+
+  export type StoryViewUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewerId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryViewUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storyId?: StringFieldUpdateOperationsInput | string
+    viewerId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryReactionCreateInput = {
+    id?: string
+    userId: string
+    reactionType: string
+    createdAt?: Date | string
+    story: StoryCreateNestedOneWithoutReactionsInput
+  }
+
+  export type StoryReactionUncheckedCreateInput = {
+    id?: string
+    storyId: string
+    userId: string
+    reactionType: string
+    createdAt?: Date | string
+  }
+
+  export type StoryReactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reactionType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    story?: StoryUpdateOneRequiredWithoutReactionsNestedInput
+  }
+
+  export type StoryReactionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storyId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reactionType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryReactionCreateManyInput = {
+    id?: string
+    storyId: string
+    userId: string
+    reactionType: string
+    createdAt?: Date | string
+  }
+
+  export type StoryReactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reactionType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryReactionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storyId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reactionType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryAudienceCreateInput = {
+    id?: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+    story: StoryCreateNestedOneWithoutAudiencesInput
+  }
+
+  export type StoryAudienceUncheckedCreateInput = {
+    id?: string
+    storyId: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type StoryAudienceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    story?: StoryUpdateOneRequiredWithoutAudiencesNestedInput
+  }
+
+  export type StoryAudienceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storyId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryAudienceCreateManyInput = {
+    id?: string
+    storyId: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type StoryAudienceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryAudienceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storyId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CloseFriendCreateInput = {
+    id?: string
+    userId: string
+    friendId: string
+    createdAt?: Date | string
+  }
+
+  export type CloseFriendUncheckedCreateInput = {
+    id?: string
+    userId: string
+    friendId: string
+    createdAt?: Date | string
+  }
+
+  export type CloseFriendUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    friendId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CloseFriendUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    friendId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CloseFriendCreateManyInput = {
+    id?: string
+    userId: string
+    friendId: string
+    createdAt?: Date | string
+  }
+
+  export type CloseFriendUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    friendId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CloseFriendUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    friendId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7298,6 +14528,335 @@ export namespace Prisma {
     savedAt?: SortOrder
   }
 
+  export type EnumStoryTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.StoryType | EnumStoryTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.StoryType[] | ListEnumStoryTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StoryType[] | ListEnumStoryTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumStoryTypeFilter<$PrismaModel> | $Enums.StoryType
+  }
+
+  export type EnumStoryVisibilityFilter<$PrismaModel = never> = {
+    equals?: $Enums.StoryVisibility | EnumStoryVisibilityFieldRefInput<$PrismaModel>
+    in?: $Enums.StoryVisibility[] | ListEnumStoryVisibilityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StoryVisibility[] | ListEnumStoryVisibilityFieldRefInput<$PrismaModel>
+    not?: NestedEnumStoryVisibilityFilter<$PrismaModel> | $Enums.StoryVisibility
+  }
+
+  export type StoryMediaListRelationFilter = {
+    every?: StoryMediaWhereInput
+    some?: StoryMediaWhereInput
+    none?: StoryMediaWhereInput
+  }
+
+  export type StoryViewListRelationFilter = {
+    every?: StoryViewWhereInput
+    some?: StoryViewWhereInput
+    none?: StoryViewWhereInput
+  }
+
+  export type StoryReactionListRelationFilter = {
+    every?: StoryReactionWhereInput
+    some?: StoryReactionWhereInput
+    none?: StoryReactionWhereInput
+  }
+
+  export type StoryAudienceListRelationFilter = {
+    every?: StoryAudienceWhereInput
+    some?: StoryAudienceWhereInput
+    none?: StoryAudienceWhereInput
+  }
+
+  export type StoryMediaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StoryViewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StoryReactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StoryAudienceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    authorId?: SortOrder
+    type?: SortOrder
+    content?: SortOrder
+    backgroundColor?: SortOrder
+    fontStyle?: SortOrder
+    visibility?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    expiresAt?: SortOrder
+    deletedAt?: SortOrder
+  }
+
+  export type StoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    authorId?: SortOrder
+    type?: SortOrder
+    content?: SortOrder
+    backgroundColor?: SortOrder
+    fontStyle?: SortOrder
+    visibility?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    expiresAt?: SortOrder
+    deletedAt?: SortOrder
+  }
+
+  export type StoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    authorId?: SortOrder
+    type?: SortOrder
+    content?: SortOrder
+    backgroundColor?: SortOrder
+    fontStyle?: SortOrder
+    visibility?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    expiresAt?: SortOrder
+    deletedAt?: SortOrder
+  }
+
+  export type EnumStoryTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StoryType | EnumStoryTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.StoryType[] | ListEnumStoryTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StoryType[] | ListEnumStoryTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumStoryTypeWithAggregatesFilter<$PrismaModel> | $Enums.StoryType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStoryTypeFilter<$PrismaModel>
+    _max?: NestedEnumStoryTypeFilter<$PrismaModel>
+  }
+
+  export type EnumStoryVisibilityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StoryVisibility | EnumStoryVisibilityFieldRefInput<$PrismaModel>
+    in?: $Enums.StoryVisibility[] | ListEnumStoryVisibilityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StoryVisibility[] | ListEnumStoryVisibilityFieldRefInput<$PrismaModel>
+    not?: NestedEnumStoryVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.StoryVisibility
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStoryVisibilityFilter<$PrismaModel>
+    _max?: NestedEnumStoryVisibilityFilter<$PrismaModel>
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type StoryRelationFilter = {
+    is?: StoryWhereInput
+    isNot?: StoryWhereInput
+  }
+
+  export type StoryMediaCountOrderByAggregateInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    mediaType?: SortOrder
+    url?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    duration?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StoryMediaAvgOrderByAggregateInput = {
+    fileSize?: SortOrder
+    duration?: SortOrder
+  }
+
+  export type StoryMediaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    mediaType?: SortOrder
+    url?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    duration?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StoryMediaMinOrderByAggregateInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    mediaType?: SortOrder
+    url?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    duration?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StoryMediaSumOrderByAggregateInput = {
+    fileSize?: SortOrder
+    duration?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type StoryViewStoryIdViewerIdCompoundUniqueInput = {
+    storyId: string
+    viewerId: string
+  }
+
+  export type StoryViewCountOrderByAggregateInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    viewerId?: SortOrder
+    viewedAt?: SortOrder
+  }
+
+  export type StoryViewMaxOrderByAggregateInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    viewerId?: SortOrder
+    viewedAt?: SortOrder
+  }
+
+  export type StoryViewMinOrderByAggregateInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    viewerId?: SortOrder
+    viewedAt?: SortOrder
+  }
+
+  export type StoryReactionStoryIdUserIdCompoundUniqueInput = {
+    storyId: string
+    userId: string
+  }
+
+  export type StoryReactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    userId?: SortOrder
+    reactionType?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StoryReactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    userId?: SortOrder
+    reactionType?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StoryReactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    userId?: SortOrder
+    reactionType?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StoryAudienceStoryIdUserIdTypeCompoundUniqueInput = {
+    storyId: string
+    userId: string
+    type: string
+  }
+
+  export type StoryAudienceCountOrderByAggregateInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StoryAudienceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StoryAudienceMinOrderByAggregateInput = {
+    id?: SortOrder
+    storyId?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CloseFriendUserIdFriendIdCompoundUniqueInput = {
+    userId: string
+    friendId: string
+  }
+
+  export type CloseFriendCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    friendId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CloseFriendMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    friendId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CloseFriendMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    friendId?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type PostMediaCreateNestedManyWithoutPostInput = {
     create?: XOR<PostMediaCreateWithoutPostInput, PostMediaUncheckedCreateWithoutPostInput> | PostMediaCreateWithoutPostInput[] | PostMediaUncheckedCreateWithoutPostInput[]
     connectOrCreate?: PostMediaCreateOrConnectWithoutPostInput | PostMediaCreateOrConnectWithoutPostInput[]
@@ -7554,6 +15113,254 @@ export namespace Prisma {
     update?: XOR<XOR<PostUpdateToOneWithWhereWithoutSavesInput, PostUpdateWithoutSavesInput>, PostUncheckedUpdateWithoutSavesInput>
   }
 
+  export type StoryMediaCreateNestedManyWithoutStoryInput = {
+    create?: XOR<StoryMediaCreateWithoutStoryInput, StoryMediaUncheckedCreateWithoutStoryInput> | StoryMediaCreateWithoutStoryInput[] | StoryMediaUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryMediaCreateOrConnectWithoutStoryInput | StoryMediaCreateOrConnectWithoutStoryInput[]
+    createMany?: StoryMediaCreateManyStoryInputEnvelope
+    connect?: StoryMediaWhereUniqueInput | StoryMediaWhereUniqueInput[]
+  }
+
+  export type StoryViewCreateNestedManyWithoutStoryInput = {
+    create?: XOR<StoryViewCreateWithoutStoryInput, StoryViewUncheckedCreateWithoutStoryInput> | StoryViewCreateWithoutStoryInput[] | StoryViewUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryViewCreateOrConnectWithoutStoryInput | StoryViewCreateOrConnectWithoutStoryInput[]
+    createMany?: StoryViewCreateManyStoryInputEnvelope
+    connect?: StoryViewWhereUniqueInput | StoryViewWhereUniqueInput[]
+  }
+
+  export type StoryReactionCreateNestedManyWithoutStoryInput = {
+    create?: XOR<StoryReactionCreateWithoutStoryInput, StoryReactionUncheckedCreateWithoutStoryInput> | StoryReactionCreateWithoutStoryInput[] | StoryReactionUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryReactionCreateOrConnectWithoutStoryInput | StoryReactionCreateOrConnectWithoutStoryInput[]
+    createMany?: StoryReactionCreateManyStoryInputEnvelope
+    connect?: StoryReactionWhereUniqueInput | StoryReactionWhereUniqueInput[]
+  }
+
+  export type StoryAudienceCreateNestedManyWithoutStoryInput = {
+    create?: XOR<StoryAudienceCreateWithoutStoryInput, StoryAudienceUncheckedCreateWithoutStoryInput> | StoryAudienceCreateWithoutStoryInput[] | StoryAudienceUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryAudienceCreateOrConnectWithoutStoryInput | StoryAudienceCreateOrConnectWithoutStoryInput[]
+    createMany?: StoryAudienceCreateManyStoryInputEnvelope
+    connect?: StoryAudienceWhereUniqueInput | StoryAudienceWhereUniqueInput[]
+  }
+
+  export type StoryMediaUncheckedCreateNestedManyWithoutStoryInput = {
+    create?: XOR<StoryMediaCreateWithoutStoryInput, StoryMediaUncheckedCreateWithoutStoryInput> | StoryMediaCreateWithoutStoryInput[] | StoryMediaUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryMediaCreateOrConnectWithoutStoryInput | StoryMediaCreateOrConnectWithoutStoryInput[]
+    createMany?: StoryMediaCreateManyStoryInputEnvelope
+    connect?: StoryMediaWhereUniqueInput | StoryMediaWhereUniqueInput[]
+  }
+
+  export type StoryViewUncheckedCreateNestedManyWithoutStoryInput = {
+    create?: XOR<StoryViewCreateWithoutStoryInput, StoryViewUncheckedCreateWithoutStoryInput> | StoryViewCreateWithoutStoryInput[] | StoryViewUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryViewCreateOrConnectWithoutStoryInput | StoryViewCreateOrConnectWithoutStoryInput[]
+    createMany?: StoryViewCreateManyStoryInputEnvelope
+    connect?: StoryViewWhereUniqueInput | StoryViewWhereUniqueInput[]
+  }
+
+  export type StoryReactionUncheckedCreateNestedManyWithoutStoryInput = {
+    create?: XOR<StoryReactionCreateWithoutStoryInput, StoryReactionUncheckedCreateWithoutStoryInput> | StoryReactionCreateWithoutStoryInput[] | StoryReactionUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryReactionCreateOrConnectWithoutStoryInput | StoryReactionCreateOrConnectWithoutStoryInput[]
+    createMany?: StoryReactionCreateManyStoryInputEnvelope
+    connect?: StoryReactionWhereUniqueInput | StoryReactionWhereUniqueInput[]
+  }
+
+  export type StoryAudienceUncheckedCreateNestedManyWithoutStoryInput = {
+    create?: XOR<StoryAudienceCreateWithoutStoryInput, StoryAudienceUncheckedCreateWithoutStoryInput> | StoryAudienceCreateWithoutStoryInput[] | StoryAudienceUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryAudienceCreateOrConnectWithoutStoryInput | StoryAudienceCreateOrConnectWithoutStoryInput[]
+    createMany?: StoryAudienceCreateManyStoryInputEnvelope
+    connect?: StoryAudienceWhereUniqueInput | StoryAudienceWhereUniqueInput[]
+  }
+
+  export type EnumStoryTypeFieldUpdateOperationsInput = {
+    set?: $Enums.StoryType
+  }
+
+  export type EnumStoryVisibilityFieldUpdateOperationsInput = {
+    set?: $Enums.StoryVisibility
+  }
+
+  export type StoryMediaUpdateManyWithoutStoryNestedInput = {
+    create?: XOR<StoryMediaCreateWithoutStoryInput, StoryMediaUncheckedCreateWithoutStoryInput> | StoryMediaCreateWithoutStoryInput[] | StoryMediaUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryMediaCreateOrConnectWithoutStoryInput | StoryMediaCreateOrConnectWithoutStoryInput[]
+    upsert?: StoryMediaUpsertWithWhereUniqueWithoutStoryInput | StoryMediaUpsertWithWhereUniqueWithoutStoryInput[]
+    createMany?: StoryMediaCreateManyStoryInputEnvelope
+    set?: StoryMediaWhereUniqueInput | StoryMediaWhereUniqueInput[]
+    disconnect?: StoryMediaWhereUniqueInput | StoryMediaWhereUniqueInput[]
+    delete?: StoryMediaWhereUniqueInput | StoryMediaWhereUniqueInput[]
+    connect?: StoryMediaWhereUniqueInput | StoryMediaWhereUniqueInput[]
+    update?: StoryMediaUpdateWithWhereUniqueWithoutStoryInput | StoryMediaUpdateWithWhereUniqueWithoutStoryInput[]
+    updateMany?: StoryMediaUpdateManyWithWhereWithoutStoryInput | StoryMediaUpdateManyWithWhereWithoutStoryInput[]
+    deleteMany?: StoryMediaScalarWhereInput | StoryMediaScalarWhereInput[]
+  }
+
+  export type StoryViewUpdateManyWithoutStoryNestedInput = {
+    create?: XOR<StoryViewCreateWithoutStoryInput, StoryViewUncheckedCreateWithoutStoryInput> | StoryViewCreateWithoutStoryInput[] | StoryViewUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryViewCreateOrConnectWithoutStoryInput | StoryViewCreateOrConnectWithoutStoryInput[]
+    upsert?: StoryViewUpsertWithWhereUniqueWithoutStoryInput | StoryViewUpsertWithWhereUniqueWithoutStoryInput[]
+    createMany?: StoryViewCreateManyStoryInputEnvelope
+    set?: StoryViewWhereUniqueInput | StoryViewWhereUniqueInput[]
+    disconnect?: StoryViewWhereUniqueInput | StoryViewWhereUniqueInput[]
+    delete?: StoryViewWhereUniqueInput | StoryViewWhereUniqueInput[]
+    connect?: StoryViewWhereUniqueInput | StoryViewWhereUniqueInput[]
+    update?: StoryViewUpdateWithWhereUniqueWithoutStoryInput | StoryViewUpdateWithWhereUniqueWithoutStoryInput[]
+    updateMany?: StoryViewUpdateManyWithWhereWithoutStoryInput | StoryViewUpdateManyWithWhereWithoutStoryInput[]
+    deleteMany?: StoryViewScalarWhereInput | StoryViewScalarWhereInput[]
+  }
+
+  export type StoryReactionUpdateManyWithoutStoryNestedInput = {
+    create?: XOR<StoryReactionCreateWithoutStoryInput, StoryReactionUncheckedCreateWithoutStoryInput> | StoryReactionCreateWithoutStoryInput[] | StoryReactionUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryReactionCreateOrConnectWithoutStoryInput | StoryReactionCreateOrConnectWithoutStoryInput[]
+    upsert?: StoryReactionUpsertWithWhereUniqueWithoutStoryInput | StoryReactionUpsertWithWhereUniqueWithoutStoryInput[]
+    createMany?: StoryReactionCreateManyStoryInputEnvelope
+    set?: StoryReactionWhereUniqueInput | StoryReactionWhereUniqueInput[]
+    disconnect?: StoryReactionWhereUniqueInput | StoryReactionWhereUniqueInput[]
+    delete?: StoryReactionWhereUniqueInput | StoryReactionWhereUniqueInput[]
+    connect?: StoryReactionWhereUniqueInput | StoryReactionWhereUniqueInput[]
+    update?: StoryReactionUpdateWithWhereUniqueWithoutStoryInput | StoryReactionUpdateWithWhereUniqueWithoutStoryInput[]
+    updateMany?: StoryReactionUpdateManyWithWhereWithoutStoryInput | StoryReactionUpdateManyWithWhereWithoutStoryInput[]
+    deleteMany?: StoryReactionScalarWhereInput | StoryReactionScalarWhereInput[]
+  }
+
+  export type StoryAudienceUpdateManyWithoutStoryNestedInput = {
+    create?: XOR<StoryAudienceCreateWithoutStoryInput, StoryAudienceUncheckedCreateWithoutStoryInput> | StoryAudienceCreateWithoutStoryInput[] | StoryAudienceUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryAudienceCreateOrConnectWithoutStoryInput | StoryAudienceCreateOrConnectWithoutStoryInput[]
+    upsert?: StoryAudienceUpsertWithWhereUniqueWithoutStoryInput | StoryAudienceUpsertWithWhereUniqueWithoutStoryInput[]
+    createMany?: StoryAudienceCreateManyStoryInputEnvelope
+    set?: StoryAudienceWhereUniqueInput | StoryAudienceWhereUniqueInput[]
+    disconnect?: StoryAudienceWhereUniqueInput | StoryAudienceWhereUniqueInput[]
+    delete?: StoryAudienceWhereUniqueInput | StoryAudienceWhereUniqueInput[]
+    connect?: StoryAudienceWhereUniqueInput | StoryAudienceWhereUniqueInput[]
+    update?: StoryAudienceUpdateWithWhereUniqueWithoutStoryInput | StoryAudienceUpdateWithWhereUniqueWithoutStoryInput[]
+    updateMany?: StoryAudienceUpdateManyWithWhereWithoutStoryInput | StoryAudienceUpdateManyWithWhereWithoutStoryInput[]
+    deleteMany?: StoryAudienceScalarWhereInput | StoryAudienceScalarWhereInput[]
+  }
+
+  export type StoryMediaUncheckedUpdateManyWithoutStoryNestedInput = {
+    create?: XOR<StoryMediaCreateWithoutStoryInput, StoryMediaUncheckedCreateWithoutStoryInput> | StoryMediaCreateWithoutStoryInput[] | StoryMediaUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryMediaCreateOrConnectWithoutStoryInput | StoryMediaCreateOrConnectWithoutStoryInput[]
+    upsert?: StoryMediaUpsertWithWhereUniqueWithoutStoryInput | StoryMediaUpsertWithWhereUniqueWithoutStoryInput[]
+    createMany?: StoryMediaCreateManyStoryInputEnvelope
+    set?: StoryMediaWhereUniqueInput | StoryMediaWhereUniqueInput[]
+    disconnect?: StoryMediaWhereUniqueInput | StoryMediaWhereUniqueInput[]
+    delete?: StoryMediaWhereUniqueInput | StoryMediaWhereUniqueInput[]
+    connect?: StoryMediaWhereUniqueInput | StoryMediaWhereUniqueInput[]
+    update?: StoryMediaUpdateWithWhereUniqueWithoutStoryInput | StoryMediaUpdateWithWhereUniqueWithoutStoryInput[]
+    updateMany?: StoryMediaUpdateManyWithWhereWithoutStoryInput | StoryMediaUpdateManyWithWhereWithoutStoryInput[]
+    deleteMany?: StoryMediaScalarWhereInput | StoryMediaScalarWhereInput[]
+  }
+
+  export type StoryViewUncheckedUpdateManyWithoutStoryNestedInput = {
+    create?: XOR<StoryViewCreateWithoutStoryInput, StoryViewUncheckedCreateWithoutStoryInput> | StoryViewCreateWithoutStoryInput[] | StoryViewUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryViewCreateOrConnectWithoutStoryInput | StoryViewCreateOrConnectWithoutStoryInput[]
+    upsert?: StoryViewUpsertWithWhereUniqueWithoutStoryInput | StoryViewUpsertWithWhereUniqueWithoutStoryInput[]
+    createMany?: StoryViewCreateManyStoryInputEnvelope
+    set?: StoryViewWhereUniqueInput | StoryViewWhereUniqueInput[]
+    disconnect?: StoryViewWhereUniqueInput | StoryViewWhereUniqueInput[]
+    delete?: StoryViewWhereUniqueInput | StoryViewWhereUniqueInput[]
+    connect?: StoryViewWhereUniqueInput | StoryViewWhereUniqueInput[]
+    update?: StoryViewUpdateWithWhereUniqueWithoutStoryInput | StoryViewUpdateWithWhereUniqueWithoutStoryInput[]
+    updateMany?: StoryViewUpdateManyWithWhereWithoutStoryInput | StoryViewUpdateManyWithWhereWithoutStoryInput[]
+    deleteMany?: StoryViewScalarWhereInput | StoryViewScalarWhereInput[]
+  }
+
+  export type StoryReactionUncheckedUpdateManyWithoutStoryNestedInput = {
+    create?: XOR<StoryReactionCreateWithoutStoryInput, StoryReactionUncheckedCreateWithoutStoryInput> | StoryReactionCreateWithoutStoryInput[] | StoryReactionUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryReactionCreateOrConnectWithoutStoryInput | StoryReactionCreateOrConnectWithoutStoryInput[]
+    upsert?: StoryReactionUpsertWithWhereUniqueWithoutStoryInput | StoryReactionUpsertWithWhereUniqueWithoutStoryInput[]
+    createMany?: StoryReactionCreateManyStoryInputEnvelope
+    set?: StoryReactionWhereUniqueInput | StoryReactionWhereUniqueInput[]
+    disconnect?: StoryReactionWhereUniqueInput | StoryReactionWhereUniqueInput[]
+    delete?: StoryReactionWhereUniqueInput | StoryReactionWhereUniqueInput[]
+    connect?: StoryReactionWhereUniqueInput | StoryReactionWhereUniqueInput[]
+    update?: StoryReactionUpdateWithWhereUniqueWithoutStoryInput | StoryReactionUpdateWithWhereUniqueWithoutStoryInput[]
+    updateMany?: StoryReactionUpdateManyWithWhereWithoutStoryInput | StoryReactionUpdateManyWithWhereWithoutStoryInput[]
+    deleteMany?: StoryReactionScalarWhereInput | StoryReactionScalarWhereInput[]
+  }
+
+  export type StoryAudienceUncheckedUpdateManyWithoutStoryNestedInput = {
+    create?: XOR<StoryAudienceCreateWithoutStoryInput, StoryAudienceUncheckedCreateWithoutStoryInput> | StoryAudienceCreateWithoutStoryInput[] | StoryAudienceUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: StoryAudienceCreateOrConnectWithoutStoryInput | StoryAudienceCreateOrConnectWithoutStoryInput[]
+    upsert?: StoryAudienceUpsertWithWhereUniqueWithoutStoryInput | StoryAudienceUpsertWithWhereUniqueWithoutStoryInput[]
+    createMany?: StoryAudienceCreateManyStoryInputEnvelope
+    set?: StoryAudienceWhereUniqueInput | StoryAudienceWhereUniqueInput[]
+    disconnect?: StoryAudienceWhereUniqueInput | StoryAudienceWhereUniqueInput[]
+    delete?: StoryAudienceWhereUniqueInput | StoryAudienceWhereUniqueInput[]
+    connect?: StoryAudienceWhereUniqueInput | StoryAudienceWhereUniqueInput[]
+    update?: StoryAudienceUpdateWithWhereUniqueWithoutStoryInput | StoryAudienceUpdateWithWhereUniqueWithoutStoryInput[]
+    updateMany?: StoryAudienceUpdateManyWithWhereWithoutStoryInput | StoryAudienceUpdateManyWithWhereWithoutStoryInput[]
+    deleteMany?: StoryAudienceScalarWhereInput | StoryAudienceScalarWhereInput[]
+  }
+
+  export type StoryCreateNestedOneWithoutMediaInput = {
+    create?: XOR<StoryCreateWithoutMediaInput, StoryUncheckedCreateWithoutMediaInput>
+    connectOrCreate?: StoryCreateOrConnectWithoutMediaInput
+    connect?: StoryWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type StoryUpdateOneRequiredWithoutMediaNestedInput = {
+    create?: XOR<StoryCreateWithoutMediaInput, StoryUncheckedCreateWithoutMediaInput>
+    connectOrCreate?: StoryCreateOrConnectWithoutMediaInput
+    upsert?: StoryUpsertWithoutMediaInput
+    connect?: StoryWhereUniqueInput
+    update?: XOR<XOR<StoryUpdateToOneWithWhereWithoutMediaInput, StoryUpdateWithoutMediaInput>, StoryUncheckedUpdateWithoutMediaInput>
+  }
+
+  export type StoryCreateNestedOneWithoutViewsInput = {
+    create?: XOR<StoryCreateWithoutViewsInput, StoryUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: StoryCreateOrConnectWithoutViewsInput
+    connect?: StoryWhereUniqueInput
+  }
+
+  export type StoryUpdateOneRequiredWithoutViewsNestedInput = {
+    create?: XOR<StoryCreateWithoutViewsInput, StoryUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: StoryCreateOrConnectWithoutViewsInput
+    upsert?: StoryUpsertWithoutViewsInput
+    connect?: StoryWhereUniqueInput
+    update?: XOR<XOR<StoryUpdateToOneWithWhereWithoutViewsInput, StoryUpdateWithoutViewsInput>, StoryUncheckedUpdateWithoutViewsInput>
+  }
+
+  export type StoryCreateNestedOneWithoutReactionsInput = {
+    create?: XOR<StoryCreateWithoutReactionsInput, StoryUncheckedCreateWithoutReactionsInput>
+    connectOrCreate?: StoryCreateOrConnectWithoutReactionsInput
+    connect?: StoryWhereUniqueInput
+  }
+
+  export type StoryUpdateOneRequiredWithoutReactionsNestedInput = {
+    create?: XOR<StoryCreateWithoutReactionsInput, StoryUncheckedCreateWithoutReactionsInput>
+    connectOrCreate?: StoryCreateOrConnectWithoutReactionsInput
+    upsert?: StoryUpsertWithoutReactionsInput
+    connect?: StoryWhereUniqueInput
+    update?: XOR<XOR<StoryUpdateToOneWithWhereWithoutReactionsInput, StoryUpdateWithoutReactionsInput>, StoryUncheckedUpdateWithoutReactionsInput>
+  }
+
+  export type StoryCreateNestedOneWithoutAudiencesInput = {
+    create?: XOR<StoryCreateWithoutAudiencesInput, StoryUncheckedCreateWithoutAudiencesInput>
+    connectOrCreate?: StoryCreateOrConnectWithoutAudiencesInput
+    connect?: StoryWhereUniqueInput
+  }
+
+  export type StoryUpdateOneRequiredWithoutAudiencesNestedInput = {
+    create?: XOR<StoryCreateWithoutAudiencesInput, StoryUncheckedCreateWithoutAudiencesInput>
+    connectOrCreate?: StoryCreateOrConnectWithoutAudiencesInput
+    upsert?: StoryUpsertWithoutAudiencesInput
+    connect?: StoryWhereUniqueInput
+    update?: XOR<XOR<StoryUpdateToOneWithWhereWithoutAudiencesInput, StoryUpdateWithoutAudiencesInput>, StoryUncheckedUpdateWithoutAudiencesInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -7743,6 +15550,83 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStoryTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.StoryType | EnumStoryTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.StoryType[] | ListEnumStoryTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StoryType[] | ListEnumStoryTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumStoryTypeFilter<$PrismaModel> | $Enums.StoryType
+  }
+
+  export type NestedEnumStoryVisibilityFilter<$PrismaModel = never> = {
+    equals?: $Enums.StoryVisibility | EnumStoryVisibilityFieldRefInput<$PrismaModel>
+    in?: $Enums.StoryVisibility[] | ListEnumStoryVisibilityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StoryVisibility[] | ListEnumStoryVisibilityFieldRefInput<$PrismaModel>
+    not?: NestedEnumStoryVisibilityFilter<$PrismaModel> | $Enums.StoryVisibility
+  }
+
+  export type NestedEnumStoryTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StoryType | EnumStoryTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.StoryType[] | ListEnumStoryTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StoryType[] | ListEnumStoryTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumStoryTypeWithAggregatesFilter<$PrismaModel> | $Enums.StoryType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStoryTypeFilter<$PrismaModel>
+    _max?: NestedEnumStoryTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStoryVisibilityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StoryVisibility | EnumStoryVisibilityFieldRefInput<$PrismaModel>
+    in?: $Enums.StoryVisibility[] | ListEnumStoryVisibilityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StoryVisibility[] | ListEnumStoryVisibilityFieldRefInput<$PrismaModel>
+    not?: NestedEnumStoryVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.StoryVisibility
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStoryVisibilityFilter<$PrismaModel>
+    _max?: NestedEnumStoryVisibilityFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type PostMediaCreateWithoutPostInput = {
@@ -8195,6 +16079,552 @@ export namespace Prisma {
     hashtags?: PostHashtagUncheckedUpdateManyWithoutPostNestedInput
   }
 
+  export type StoryMediaCreateWithoutStoryInput = {
+    id?: string
+    mediaType: string
+    url: string
+    mimeType?: string | null
+    fileSize?: number | null
+    duration?: number | null
+    createdAt?: Date | string
+  }
+
+  export type StoryMediaUncheckedCreateWithoutStoryInput = {
+    id?: string
+    mediaType: string
+    url: string
+    mimeType?: string | null
+    fileSize?: number | null
+    duration?: number | null
+    createdAt?: Date | string
+  }
+
+  export type StoryMediaCreateOrConnectWithoutStoryInput = {
+    where: StoryMediaWhereUniqueInput
+    create: XOR<StoryMediaCreateWithoutStoryInput, StoryMediaUncheckedCreateWithoutStoryInput>
+  }
+
+  export type StoryMediaCreateManyStoryInputEnvelope = {
+    data: StoryMediaCreateManyStoryInput | StoryMediaCreateManyStoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StoryViewCreateWithoutStoryInput = {
+    id?: string
+    viewerId: string
+    viewedAt?: Date | string
+  }
+
+  export type StoryViewUncheckedCreateWithoutStoryInput = {
+    id?: string
+    viewerId: string
+    viewedAt?: Date | string
+  }
+
+  export type StoryViewCreateOrConnectWithoutStoryInput = {
+    where: StoryViewWhereUniqueInput
+    create: XOR<StoryViewCreateWithoutStoryInput, StoryViewUncheckedCreateWithoutStoryInput>
+  }
+
+  export type StoryViewCreateManyStoryInputEnvelope = {
+    data: StoryViewCreateManyStoryInput | StoryViewCreateManyStoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StoryReactionCreateWithoutStoryInput = {
+    id?: string
+    userId: string
+    reactionType: string
+    createdAt?: Date | string
+  }
+
+  export type StoryReactionUncheckedCreateWithoutStoryInput = {
+    id?: string
+    userId: string
+    reactionType: string
+    createdAt?: Date | string
+  }
+
+  export type StoryReactionCreateOrConnectWithoutStoryInput = {
+    where: StoryReactionWhereUniqueInput
+    create: XOR<StoryReactionCreateWithoutStoryInput, StoryReactionUncheckedCreateWithoutStoryInput>
+  }
+
+  export type StoryReactionCreateManyStoryInputEnvelope = {
+    data: StoryReactionCreateManyStoryInput | StoryReactionCreateManyStoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StoryAudienceCreateWithoutStoryInput = {
+    id?: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type StoryAudienceUncheckedCreateWithoutStoryInput = {
+    id?: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type StoryAudienceCreateOrConnectWithoutStoryInput = {
+    where: StoryAudienceWhereUniqueInput
+    create: XOR<StoryAudienceCreateWithoutStoryInput, StoryAudienceUncheckedCreateWithoutStoryInput>
+  }
+
+  export type StoryAudienceCreateManyStoryInputEnvelope = {
+    data: StoryAudienceCreateManyStoryInput | StoryAudienceCreateManyStoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StoryMediaUpsertWithWhereUniqueWithoutStoryInput = {
+    where: StoryMediaWhereUniqueInput
+    update: XOR<StoryMediaUpdateWithoutStoryInput, StoryMediaUncheckedUpdateWithoutStoryInput>
+    create: XOR<StoryMediaCreateWithoutStoryInput, StoryMediaUncheckedCreateWithoutStoryInput>
+  }
+
+  export type StoryMediaUpdateWithWhereUniqueWithoutStoryInput = {
+    where: StoryMediaWhereUniqueInput
+    data: XOR<StoryMediaUpdateWithoutStoryInput, StoryMediaUncheckedUpdateWithoutStoryInput>
+  }
+
+  export type StoryMediaUpdateManyWithWhereWithoutStoryInput = {
+    where: StoryMediaScalarWhereInput
+    data: XOR<StoryMediaUpdateManyMutationInput, StoryMediaUncheckedUpdateManyWithoutStoryInput>
+  }
+
+  export type StoryMediaScalarWhereInput = {
+    AND?: StoryMediaScalarWhereInput | StoryMediaScalarWhereInput[]
+    OR?: StoryMediaScalarWhereInput[]
+    NOT?: StoryMediaScalarWhereInput | StoryMediaScalarWhereInput[]
+    id?: StringFilter<"StoryMedia"> | string
+    storyId?: StringFilter<"StoryMedia"> | string
+    mediaType?: StringFilter<"StoryMedia"> | string
+    url?: StringFilter<"StoryMedia"> | string
+    mimeType?: StringNullableFilter<"StoryMedia"> | string | null
+    fileSize?: IntNullableFilter<"StoryMedia"> | number | null
+    duration?: FloatNullableFilter<"StoryMedia"> | number | null
+    createdAt?: DateTimeFilter<"StoryMedia"> | Date | string
+  }
+
+  export type StoryViewUpsertWithWhereUniqueWithoutStoryInput = {
+    where: StoryViewWhereUniqueInput
+    update: XOR<StoryViewUpdateWithoutStoryInput, StoryViewUncheckedUpdateWithoutStoryInput>
+    create: XOR<StoryViewCreateWithoutStoryInput, StoryViewUncheckedCreateWithoutStoryInput>
+  }
+
+  export type StoryViewUpdateWithWhereUniqueWithoutStoryInput = {
+    where: StoryViewWhereUniqueInput
+    data: XOR<StoryViewUpdateWithoutStoryInput, StoryViewUncheckedUpdateWithoutStoryInput>
+  }
+
+  export type StoryViewUpdateManyWithWhereWithoutStoryInput = {
+    where: StoryViewScalarWhereInput
+    data: XOR<StoryViewUpdateManyMutationInput, StoryViewUncheckedUpdateManyWithoutStoryInput>
+  }
+
+  export type StoryViewScalarWhereInput = {
+    AND?: StoryViewScalarWhereInput | StoryViewScalarWhereInput[]
+    OR?: StoryViewScalarWhereInput[]
+    NOT?: StoryViewScalarWhereInput | StoryViewScalarWhereInput[]
+    id?: StringFilter<"StoryView"> | string
+    storyId?: StringFilter<"StoryView"> | string
+    viewerId?: StringFilter<"StoryView"> | string
+    viewedAt?: DateTimeFilter<"StoryView"> | Date | string
+  }
+
+  export type StoryReactionUpsertWithWhereUniqueWithoutStoryInput = {
+    where: StoryReactionWhereUniqueInput
+    update: XOR<StoryReactionUpdateWithoutStoryInput, StoryReactionUncheckedUpdateWithoutStoryInput>
+    create: XOR<StoryReactionCreateWithoutStoryInput, StoryReactionUncheckedCreateWithoutStoryInput>
+  }
+
+  export type StoryReactionUpdateWithWhereUniqueWithoutStoryInput = {
+    where: StoryReactionWhereUniqueInput
+    data: XOR<StoryReactionUpdateWithoutStoryInput, StoryReactionUncheckedUpdateWithoutStoryInput>
+  }
+
+  export type StoryReactionUpdateManyWithWhereWithoutStoryInput = {
+    where: StoryReactionScalarWhereInput
+    data: XOR<StoryReactionUpdateManyMutationInput, StoryReactionUncheckedUpdateManyWithoutStoryInput>
+  }
+
+  export type StoryReactionScalarWhereInput = {
+    AND?: StoryReactionScalarWhereInput | StoryReactionScalarWhereInput[]
+    OR?: StoryReactionScalarWhereInput[]
+    NOT?: StoryReactionScalarWhereInput | StoryReactionScalarWhereInput[]
+    id?: StringFilter<"StoryReaction"> | string
+    storyId?: StringFilter<"StoryReaction"> | string
+    userId?: StringFilter<"StoryReaction"> | string
+    reactionType?: StringFilter<"StoryReaction"> | string
+    createdAt?: DateTimeFilter<"StoryReaction"> | Date | string
+  }
+
+  export type StoryAudienceUpsertWithWhereUniqueWithoutStoryInput = {
+    where: StoryAudienceWhereUniqueInput
+    update: XOR<StoryAudienceUpdateWithoutStoryInput, StoryAudienceUncheckedUpdateWithoutStoryInput>
+    create: XOR<StoryAudienceCreateWithoutStoryInput, StoryAudienceUncheckedCreateWithoutStoryInput>
+  }
+
+  export type StoryAudienceUpdateWithWhereUniqueWithoutStoryInput = {
+    where: StoryAudienceWhereUniqueInput
+    data: XOR<StoryAudienceUpdateWithoutStoryInput, StoryAudienceUncheckedUpdateWithoutStoryInput>
+  }
+
+  export type StoryAudienceUpdateManyWithWhereWithoutStoryInput = {
+    where: StoryAudienceScalarWhereInput
+    data: XOR<StoryAudienceUpdateManyMutationInput, StoryAudienceUncheckedUpdateManyWithoutStoryInput>
+  }
+
+  export type StoryAudienceScalarWhereInput = {
+    AND?: StoryAudienceScalarWhereInput | StoryAudienceScalarWhereInput[]
+    OR?: StoryAudienceScalarWhereInput[]
+    NOT?: StoryAudienceScalarWhereInput | StoryAudienceScalarWhereInput[]
+    id?: StringFilter<"StoryAudience"> | string
+    storyId?: StringFilter<"StoryAudience"> | string
+    userId?: StringFilter<"StoryAudience"> | string
+    type?: StringFilter<"StoryAudience"> | string
+    createdAt?: DateTimeFilter<"StoryAudience"> | Date | string
+  }
+
+  export type StoryCreateWithoutMediaInput = {
+    id?: string
+    authorId: string
+    type?: $Enums.StoryType
+    content?: string | null
+    backgroundColor?: string | null
+    fontStyle?: string | null
+    visibility?: $Enums.StoryVisibility
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    expiresAt: Date | string
+    deletedAt?: Date | string | null
+    views?: StoryViewCreateNestedManyWithoutStoryInput
+    reactions?: StoryReactionCreateNestedManyWithoutStoryInput
+    audiences?: StoryAudienceCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryUncheckedCreateWithoutMediaInput = {
+    id?: string
+    authorId: string
+    type?: $Enums.StoryType
+    content?: string | null
+    backgroundColor?: string | null
+    fontStyle?: string | null
+    visibility?: $Enums.StoryVisibility
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    expiresAt: Date | string
+    deletedAt?: Date | string | null
+    views?: StoryViewUncheckedCreateNestedManyWithoutStoryInput
+    reactions?: StoryReactionUncheckedCreateNestedManyWithoutStoryInput
+    audiences?: StoryAudienceUncheckedCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryCreateOrConnectWithoutMediaInput = {
+    where: StoryWhereUniqueInput
+    create: XOR<StoryCreateWithoutMediaInput, StoryUncheckedCreateWithoutMediaInput>
+  }
+
+  export type StoryUpsertWithoutMediaInput = {
+    update: XOR<StoryUpdateWithoutMediaInput, StoryUncheckedUpdateWithoutMediaInput>
+    create: XOR<StoryCreateWithoutMediaInput, StoryUncheckedCreateWithoutMediaInput>
+    where?: StoryWhereInput
+  }
+
+  export type StoryUpdateToOneWithWhereWithoutMediaInput = {
+    where?: StoryWhereInput
+    data: XOR<StoryUpdateWithoutMediaInput, StoryUncheckedUpdateWithoutMediaInput>
+  }
+
+  export type StoryUpdateWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStoryTypeFieldUpdateOperationsInput | $Enums.StoryType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
+    fontStyle?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: EnumStoryVisibilityFieldUpdateOperationsInput | $Enums.StoryVisibility
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    views?: StoryViewUpdateManyWithoutStoryNestedInput
+    reactions?: StoryReactionUpdateManyWithoutStoryNestedInput
+    audiences?: StoryAudienceUpdateManyWithoutStoryNestedInput
+  }
+
+  export type StoryUncheckedUpdateWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStoryTypeFieldUpdateOperationsInput | $Enums.StoryType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
+    fontStyle?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: EnumStoryVisibilityFieldUpdateOperationsInput | $Enums.StoryVisibility
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    views?: StoryViewUncheckedUpdateManyWithoutStoryNestedInput
+    reactions?: StoryReactionUncheckedUpdateManyWithoutStoryNestedInput
+    audiences?: StoryAudienceUncheckedUpdateManyWithoutStoryNestedInput
+  }
+
+  export type StoryCreateWithoutViewsInput = {
+    id?: string
+    authorId: string
+    type?: $Enums.StoryType
+    content?: string | null
+    backgroundColor?: string | null
+    fontStyle?: string | null
+    visibility?: $Enums.StoryVisibility
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    expiresAt: Date | string
+    deletedAt?: Date | string | null
+    media?: StoryMediaCreateNestedManyWithoutStoryInput
+    reactions?: StoryReactionCreateNestedManyWithoutStoryInput
+    audiences?: StoryAudienceCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryUncheckedCreateWithoutViewsInput = {
+    id?: string
+    authorId: string
+    type?: $Enums.StoryType
+    content?: string | null
+    backgroundColor?: string | null
+    fontStyle?: string | null
+    visibility?: $Enums.StoryVisibility
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    expiresAt: Date | string
+    deletedAt?: Date | string | null
+    media?: StoryMediaUncheckedCreateNestedManyWithoutStoryInput
+    reactions?: StoryReactionUncheckedCreateNestedManyWithoutStoryInput
+    audiences?: StoryAudienceUncheckedCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryCreateOrConnectWithoutViewsInput = {
+    where: StoryWhereUniqueInput
+    create: XOR<StoryCreateWithoutViewsInput, StoryUncheckedCreateWithoutViewsInput>
+  }
+
+  export type StoryUpsertWithoutViewsInput = {
+    update: XOR<StoryUpdateWithoutViewsInput, StoryUncheckedUpdateWithoutViewsInput>
+    create: XOR<StoryCreateWithoutViewsInput, StoryUncheckedCreateWithoutViewsInput>
+    where?: StoryWhereInput
+  }
+
+  export type StoryUpdateToOneWithWhereWithoutViewsInput = {
+    where?: StoryWhereInput
+    data: XOR<StoryUpdateWithoutViewsInput, StoryUncheckedUpdateWithoutViewsInput>
+  }
+
+  export type StoryUpdateWithoutViewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStoryTypeFieldUpdateOperationsInput | $Enums.StoryType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
+    fontStyle?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: EnumStoryVisibilityFieldUpdateOperationsInput | $Enums.StoryVisibility
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    media?: StoryMediaUpdateManyWithoutStoryNestedInput
+    reactions?: StoryReactionUpdateManyWithoutStoryNestedInput
+    audiences?: StoryAudienceUpdateManyWithoutStoryNestedInput
+  }
+
+  export type StoryUncheckedUpdateWithoutViewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStoryTypeFieldUpdateOperationsInput | $Enums.StoryType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
+    fontStyle?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: EnumStoryVisibilityFieldUpdateOperationsInput | $Enums.StoryVisibility
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    media?: StoryMediaUncheckedUpdateManyWithoutStoryNestedInput
+    reactions?: StoryReactionUncheckedUpdateManyWithoutStoryNestedInput
+    audiences?: StoryAudienceUncheckedUpdateManyWithoutStoryNestedInput
+  }
+
+  export type StoryCreateWithoutReactionsInput = {
+    id?: string
+    authorId: string
+    type?: $Enums.StoryType
+    content?: string | null
+    backgroundColor?: string | null
+    fontStyle?: string | null
+    visibility?: $Enums.StoryVisibility
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    expiresAt: Date | string
+    deletedAt?: Date | string | null
+    media?: StoryMediaCreateNestedManyWithoutStoryInput
+    views?: StoryViewCreateNestedManyWithoutStoryInput
+    audiences?: StoryAudienceCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryUncheckedCreateWithoutReactionsInput = {
+    id?: string
+    authorId: string
+    type?: $Enums.StoryType
+    content?: string | null
+    backgroundColor?: string | null
+    fontStyle?: string | null
+    visibility?: $Enums.StoryVisibility
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    expiresAt: Date | string
+    deletedAt?: Date | string | null
+    media?: StoryMediaUncheckedCreateNestedManyWithoutStoryInput
+    views?: StoryViewUncheckedCreateNestedManyWithoutStoryInput
+    audiences?: StoryAudienceUncheckedCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryCreateOrConnectWithoutReactionsInput = {
+    where: StoryWhereUniqueInput
+    create: XOR<StoryCreateWithoutReactionsInput, StoryUncheckedCreateWithoutReactionsInput>
+  }
+
+  export type StoryUpsertWithoutReactionsInput = {
+    update: XOR<StoryUpdateWithoutReactionsInput, StoryUncheckedUpdateWithoutReactionsInput>
+    create: XOR<StoryCreateWithoutReactionsInput, StoryUncheckedCreateWithoutReactionsInput>
+    where?: StoryWhereInput
+  }
+
+  export type StoryUpdateToOneWithWhereWithoutReactionsInput = {
+    where?: StoryWhereInput
+    data: XOR<StoryUpdateWithoutReactionsInput, StoryUncheckedUpdateWithoutReactionsInput>
+  }
+
+  export type StoryUpdateWithoutReactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStoryTypeFieldUpdateOperationsInput | $Enums.StoryType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
+    fontStyle?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: EnumStoryVisibilityFieldUpdateOperationsInput | $Enums.StoryVisibility
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    media?: StoryMediaUpdateManyWithoutStoryNestedInput
+    views?: StoryViewUpdateManyWithoutStoryNestedInput
+    audiences?: StoryAudienceUpdateManyWithoutStoryNestedInput
+  }
+
+  export type StoryUncheckedUpdateWithoutReactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStoryTypeFieldUpdateOperationsInput | $Enums.StoryType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
+    fontStyle?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: EnumStoryVisibilityFieldUpdateOperationsInput | $Enums.StoryVisibility
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    media?: StoryMediaUncheckedUpdateManyWithoutStoryNestedInput
+    views?: StoryViewUncheckedUpdateManyWithoutStoryNestedInput
+    audiences?: StoryAudienceUncheckedUpdateManyWithoutStoryNestedInput
+  }
+
+  export type StoryCreateWithoutAudiencesInput = {
+    id?: string
+    authorId: string
+    type?: $Enums.StoryType
+    content?: string | null
+    backgroundColor?: string | null
+    fontStyle?: string | null
+    visibility?: $Enums.StoryVisibility
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    expiresAt: Date | string
+    deletedAt?: Date | string | null
+    media?: StoryMediaCreateNestedManyWithoutStoryInput
+    views?: StoryViewCreateNestedManyWithoutStoryInput
+    reactions?: StoryReactionCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryUncheckedCreateWithoutAudiencesInput = {
+    id?: string
+    authorId: string
+    type?: $Enums.StoryType
+    content?: string | null
+    backgroundColor?: string | null
+    fontStyle?: string | null
+    visibility?: $Enums.StoryVisibility
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    expiresAt: Date | string
+    deletedAt?: Date | string | null
+    media?: StoryMediaUncheckedCreateNestedManyWithoutStoryInput
+    views?: StoryViewUncheckedCreateNestedManyWithoutStoryInput
+    reactions?: StoryReactionUncheckedCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryCreateOrConnectWithoutAudiencesInput = {
+    where: StoryWhereUniqueInput
+    create: XOR<StoryCreateWithoutAudiencesInput, StoryUncheckedCreateWithoutAudiencesInput>
+  }
+
+  export type StoryUpsertWithoutAudiencesInput = {
+    update: XOR<StoryUpdateWithoutAudiencesInput, StoryUncheckedUpdateWithoutAudiencesInput>
+    create: XOR<StoryCreateWithoutAudiencesInput, StoryUncheckedCreateWithoutAudiencesInput>
+    where?: StoryWhereInput
+  }
+
+  export type StoryUpdateToOneWithWhereWithoutAudiencesInput = {
+    where?: StoryWhereInput
+    data: XOR<StoryUpdateWithoutAudiencesInput, StoryUncheckedUpdateWithoutAudiencesInput>
+  }
+
+  export type StoryUpdateWithoutAudiencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStoryTypeFieldUpdateOperationsInput | $Enums.StoryType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
+    fontStyle?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: EnumStoryVisibilityFieldUpdateOperationsInput | $Enums.StoryVisibility
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    media?: StoryMediaUpdateManyWithoutStoryNestedInput
+    views?: StoryViewUpdateManyWithoutStoryNestedInput
+    reactions?: StoryReactionUpdateManyWithoutStoryNestedInput
+  }
+
+  export type StoryUncheckedUpdateWithoutAudiencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStoryTypeFieldUpdateOperationsInput | $Enums.StoryType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
+    fontStyle?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: EnumStoryVisibilityFieldUpdateOperationsInput | $Enums.StoryVisibility
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    media?: StoryMediaUncheckedUpdateManyWithoutStoryNestedInput
+    views?: StoryViewUncheckedUpdateManyWithoutStoryNestedInput
+    reactions?: StoryReactionUncheckedUpdateManyWithoutStoryNestedInput
+  }
+
   export type PostMediaCreateManyPostInput = {
     id?: string
     mediaId: string
@@ -8283,6 +16713,126 @@ export namespace Prisma {
     postId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type StoryMediaCreateManyStoryInput = {
+    id?: string
+    mediaType: string
+    url: string
+    mimeType?: string | null
+    fileSize?: number | null
+    duration?: number | null
+    createdAt?: Date | string
+  }
+
+  export type StoryViewCreateManyStoryInput = {
+    id?: string
+    viewerId: string
+    viewedAt?: Date | string
+  }
+
+  export type StoryReactionCreateManyStoryInput = {
+    id?: string
+    userId: string
+    reactionType: string
+    createdAt?: Date | string
+  }
+
+  export type StoryAudienceCreateManyStoryInput = {
+    id?: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type StoryMediaUpdateWithoutStoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mediaType?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    duration?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryMediaUncheckedUpdateWithoutStoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mediaType?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    duration?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryMediaUncheckedUpdateManyWithoutStoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mediaType?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    duration?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryViewUpdateWithoutStoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewerId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryViewUncheckedUpdateWithoutStoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewerId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryViewUncheckedUpdateManyWithoutStoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewerId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryReactionUpdateWithoutStoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reactionType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryReactionUncheckedUpdateWithoutStoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reactionType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryReactionUncheckedUpdateManyWithoutStoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reactionType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryAudienceUpdateWithoutStoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryAudienceUncheckedUpdateWithoutStoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryAudienceUncheckedUpdateManyWithoutStoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -8296,6 +16846,10 @@ export namespace Prisma {
      * @deprecated Use HashtagCountOutputTypeDefaultArgs instead
      */
     export type HashtagCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HashtagCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StoryCountOutputTypeDefaultArgs instead
+     */
+    export type StoryCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StoryCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use PostDefaultArgs instead
      */
@@ -8316,6 +16870,30 @@ export namespace Prisma {
      * @deprecated Use SavedPostDefaultArgs instead
      */
     export type SavedPostArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SavedPostDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StoryDefaultArgs instead
+     */
+    export type StoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StoryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StoryMediaDefaultArgs instead
+     */
+    export type StoryMediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StoryMediaDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StoryViewDefaultArgs instead
+     */
+    export type StoryViewArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StoryViewDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StoryReactionDefaultArgs instead
+     */
+    export type StoryReactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StoryReactionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StoryAudienceDefaultArgs instead
+     */
+    export type StoryAudienceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StoryAudienceDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CloseFriendDefaultArgs instead
+     */
+    export type CloseFriendArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CloseFriendDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

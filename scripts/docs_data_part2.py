@@ -245,42 +245,46 @@ def generate_part2():
     ])
     save_document(doc5, "03_BACKEND_SERVICES/Notification_Service_Specification.docx")
 
-    # 6. Post Service
+    # 6. Post & Story Service
     doc6 = create_vietnamese_base_doc(
-        title="Đặc Tả Kỹ Thuật Vi Dịch Vụ Bài Viết (Post Service)",
+        title="Đặc Tả Kỹ Thuật Vi Dịch Vụ Bài Viết & Tin 24 Giờ (Post & Story Service)",
         doc_id="DOC-03-POST-006",
         category_name="03_BACKEND_SERVICES"
     )
-    add_heading_1(doc6, "1. Mục đích & Quản lý Vòng đời Bài Viết")
-    add_p(doc6, "Post Service là trái tim của mạng xã hội, quản lý việc khởi tạo, cập nhật, gắn thẻ hashtag và xóa bỏ các ấn phẩm bài viết.")
-    add_bullet(doc6, "Lưu trữ nội dung văn bản, danh sách thẻ hashtag và danh sách liên kết hình ảnh trong post_db.", "Nội dung & Đa phương tiện")
-    add_bullet(doc6, "Phân quyền xóa bài: Chỉ duy nhất tác giả của bài viết mới có quyền thực hiện xóa bài viết đó.", "Bảo vệ tác giả")
-    add_bullet(doc6, "Tự động phân tích hashtag từ nội dung bài viết và lưu vào bảng hashtags độc lập.", "Quản lý thẻ")
-    add_bullet(doc6, "Xóa bỏ bộ đệm bảng tin liên quan ngay khi bài viết bị chỉnh sửa hoặc gỡ bỏ.", "Đồng bộ hóa")
+    add_heading_1(doc6, "1. Mục đích & Quản lý Vòng đời Bài Viết & Tin 24 Giờ (Stories)")
+    add_p(doc6, "Post & Story Service là trái tim của mạng xã hội, quản lý việc khởi tạo, cập nhật, gắn thẻ hashtag, xóa bỏ các bài viết và toàn bộ hệ thống Tin 24 giờ (Stories).")
+    add_bullet(doc6, "Lưu trữ nội dung bài viết, hashtag và hình ảnh trong post_db.", "Bài viết")
+    add_bullet(doc6, "Hệ thống Story (Tin 24h): Hỗ trợ 3 định dạng: Ảnh, Video (MP4, WebM), Văn bản màu sắc; tự động tính expiresAt = now() + 24 giờ.", "Tin 24 giờ (Stories)")
+    add_bullet(doc6, "Quyền riêng tư 6 cấp độ: PUBLIC, FRIENDS, FRIENDS_EXCEPT, CLOSE_FRIENDS, ONLY_ME, CUSTOM.", "Quyền riêng tư Story")
+    add_bullet(doc6, "Ghi nhận lượt xem (Story Views) duy nhất có mốc thời gian và danh sách người xem chỉ dành riêng cho chủ sở hữu.", "Theo dõi người xem")
+    add_bullet(doc6, "Thả cảm xúc trực tiếp trên Story Viewer và phân quyền xóa tin nghiêm ngặt.", "Tương tác & Phân quyền")
 
     add_ba_notes_section(
         doc6,
-        business_goal="Cung cấp công cụ chia sẻ thông tin mạnh mẽ, trực quan, bảo vệ quyền sở hữu nội dung của tác giả trên không gian mạng.",
+        business_goal="Cung cấp không gian chia sẻ khoảnh khắc ngắn hạn (Ephemeral Content) trong 24 giờ tương tự Facebook, thúc đẩy người dùng tương tác liên tục và bảo mật nội dung tối đa.",
         user_flow_items=[
-            ("Tạo bài viết mới", "Soạn thảo bài viết, đính kèm ảnh, gắn thẻ hashtag và bấm đăng."),
-            ("Xóa bài viết", "Tác giả bấm vào menu bài viết và chọn 'Xóa bài viết'.")
+            ("Tạo Story", "Người dùng nhấn 'Tạo tin' tại đầu bảng tin, chọn loại ảnh, video hoặc văn bản, chọn quyền riêng tư và bấm chia sẻ."),
+            ("Xem Story", "Người dùng lướt thanh Story, mở Story Viewer với thanh tiến trình tự động chạy 5s, vuốt chuyển tin hoặc chạm tạm dừng."),
+            ("Theo dõi người xem", "Chủ sở hữu tin nhấp vào 'X người xem' để thấy danh sách chi tiết avatar, tên và cảm xúc của người đã xem tin.")
         ],
         acceptance_criteria_items=[
-            ("AC-POST-01", "Mọi bài viết sau khi tạo phải tồn tại vĩnh viễn trong cơ sở dữ liệu post_db cho đến khi tác giả chủ động xóa."),
-            ("AC-POST-02", "Người dùng khác cố tình gọi API xóa bài viết của người khác phải nhận mã phản hồi lỗi 403 Forbidden.")
+            ("AC-STORY-01", "Story tự động ẩn khỏi bảng tin sau đúng 24 giờ (expiresAt > now())."),
+            ("AC-STORY-02", "Chỉ chủ sở hữu tin mới được xem danh sách chi tiết người xem (Chặn 403 Forbidden nếu người lạ cố tình truy cập)."),
+            ("AC-STORY-03", "Story chế độ ONLY_ME hoặc CLOSE_FRIENDS chỉ hiển thị với đúng đối tượng được cấp quyền.")
         ],
         implemented_fixes_items=[
-            ("Lưu trữ bài viết vĩnh viễn", "Đã kết nối hoàn chỉnh cơ chế ghi bài viết xuống PostgreSQL, vô hiệu hóa bộ nhớ đệm bảng tin ngay khi bài được tạo."),
-            ("Kiểm tra phân quyền xóa bài", "Bổ sung kiểm tra chặt chẽ quyền tác giả trong PostService.deletePost().")
+            ("Triển khai chức năng Story toàn diện", "Phát triển StoryModule, StoryService, StoryController kết nối trực tiếp PostgreSQL post_db, hỗ trợ upload ảnh/video từ máy tính và giao diện Facebook-grade Story Viewer.")
         ]
     )
     add_user_operations_guide(
         doc6,
         user_instructions=[
-            ("Soạn thảo bài đăng", "Nhấp vào ô 'Bạn đang nghĩ gì thế?' tại trang chủ, nhập nội dung, chọn ảnh và bấm 'Đăng bài'.")
+            ("Đăng tin mới", "Nhấp vào ô 'Tạo tin' ở thanh trên cùng của Trang chủ, chọn ảnh/video từ máy tính hoặc viết văn bản rồi bấm 'Chia sẻ lên tin'."),
+            ("Xem tin bạn bè", "Nhấp vào bất kỳ vòng tròn tin của bạn bè trên thanh tin để xem Story."),
+            ("Quản lý tin", "Khi đang xem tin của chính mình, bạn có thể xem ai đã xem tin hoặc bấm biểu tượng thùng rác để xóa tin.")
         ],
         admin_instructions=[
-            ("Kiểm thử phân quyền", "Chạy kịch bản 'node tests/persistence-e2e.test.js' để kiểm tra tự động quyền tác giả và độ bền vững dữ liệu.")
+            ("Kiểm thử tự động Story", "Chạy lệnh 'node tests/stories-e2e.test.js' để kiểm thử tự động 14 ca kiểm thử toàn diện từ đăng tin, xem tin, quyền riêng tư đến xóa tin.")
         ],
         troubleshooting_items=[
             ("Báo lỗi 'Không có quyền xóa'", "Xác nhận bạn đang đăng nhập đúng tài khoản đã đăng bài viết này.")

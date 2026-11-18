@@ -84,3 +84,112 @@ model SavedPost {
   @@index([userId, savedAt(sort: Desc)])
   @@map("saved_posts")
 }
+
+enum StoryType {
+  IMAGE
+  VIDEO
+  TEXT
+}
+
+enum StoryVisibility {
+  PUBLIC
+  FRIENDS
+  FRIENDS_EXCEPT
+  CLOSE_FRIENDS
+  ONLY_ME
+  CUSTOM
+}
+
+model Story {
+  id              String          @id @default(uuid())
+  authorId        String
+  type            StoryType       @default(IMAGE)
+  content         String?
+  backgroundColor String?
+  fontStyle       String?
+  visibility      StoryVisibility @default(PUBLIC)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  expiresAt       DateTime
+  deletedAt       DateTime?
+
+  media     StoryMedia[]
+  views     StoryView[]
+  reactions StoryReaction[]
+  audiences StoryAudience[]
+
+  @@index([authorId, createdAt(sort: Desc)])
+  @@index([expiresAt])
+  @@index([deletedAt])
+  @@map("stories")
+}
+
+model StoryMedia {
+  id        String   @id @default(uuid())
+  storyId   String
+  mediaType String
+  url       String
+  mimeType  String?
+  fileSize  Int?
+  duration  Float?
+  createdAt DateTime @default(now())
+
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@index([storyId])
+  @@map("story_media")
+}
+
+model StoryView {
+  id       String   @id @default(uuid())
+  storyId  String
+  viewerId String
+  viewedAt DateTime @default(now())
+
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@unique([storyId, viewerId])
+  @@index([storyId, viewedAt(sort: Desc)])
+  @@index([viewerId])
+  @@map("story_views")
+}
+
+model StoryReaction {
+  id           String   @id @default(uuid())
+  storyId      String
+  userId       String
+  reactionType String
+  createdAt    DateTime @default(now())
+
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@unique([storyId, userId])
+  @@index([storyId])
+  @@map("story_reactions")
+}
+
+model StoryAudience {
+  id        String   @id @default(uuid())
+  storyId   String
+  userId    String
+  type      String
+  createdAt DateTime @default(now())
+
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@unique([storyId, userId, type])
+  @@index([storyId])
+  @@index([userId])
+  @@map("story_audiences")
+}
+
+model CloseFriend {
+  id        String   @id @default(uuid())
+  userId    String
+  friendId  String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, friendId])
+  @@index([userId])
+  @@map("close_friends")
+}

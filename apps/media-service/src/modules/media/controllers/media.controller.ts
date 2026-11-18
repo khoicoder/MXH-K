@@ -37,9 +37,11 @@ const storage = diskStorage({
   },
 });
 
-const imageFileFilter = (req: any, file: any, cb: any) => {
-  if (!file.mimetype.match(/\/(jpg|jpeg|png|gif|webp|bmp|svg\+xml)$/)) {
-    return cb(new BadRequestException('Chỉ cho phép tải lên file hình ảnh (JPG, PNG, WEBP, GIF)!'), false);
+const mediaFileFilter = (req: any, file: any, cb: any) => {
+  const isImage = file.mimetype.match(/\/(jpg|jpeg|png|gif|webp|bmp|svg\+xml)$/);
+  const isVideo = file.mimetype.match(/\/(mp4|webm|quicktime|x-msvideo|mpeg|ogg)$/) || file.mimetype.startsWith('video/');
+  if (!isImage && !isVideo) {
+    return cb(new BadRequestException('Chỉ cho phép tải lên file hình ảnh (JPG, PNG, WEBP, GIF) hoặc video (MP4, WEBM, MOV)!'), false);
   }
   cb(null, true);
 };
@@ -50,13 +52,13 @@ export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 
   @Post('upload')
-  @ApiOperation({ summary: 'Upload a single image from user computer' })
+  @ApiOperation({ summary: 'Upload a single media file (image/video) from user computer' })
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('file', {
       storage,
-      fileFilter: imageFileFilter,
-      limits: { fileSize: 15 * 1024 * 1024 }, // 15MB
+      fileFilter: mediaFileFilter,
+      limits: { fileSize: 50 * 1024 * 1024 }, // 50MB max
     }),
   )
   async uploadSingle(
@@ -67,23 +69,25 @@ export class MediaController {
       throw new BadRequestException('Không tìm thấy file tải lên');
     }
     const publicUrl = `/api/uploads/${file.filename}`;
+    const mediaType = file.mimetype.startsWith('video/') ? 'VIDEO' : 'IMAGE';
     return {
       url: publicUrl,
       filename: file.filename,
       originalName: file.originalname,
       size: file.size,
       mimeType: file.mimetype,
+      mediaType,
     };
   }
 
   @Post('upload-multiple')
-  @ApiOperation({ summary: 'Upload multiple images from user computer' })
+  @ApiOperation({ summary: 'Upload multiple media files from user computer' })
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FilesInterceptor('files', 10, {
       storage,
-      fileFilter: imageFileFilter,
-      limits: { fileSize: 15 * 1024 * 1024 },
+      fileFilter: mediaFileFilter,
+      limits: { fileSize: 50 * 1024 * 1024 },
     }),
   )
   async uploadMultiple(
@@ -99,6 +103,7 @@ export class MediaController {
       originalName: file.originalname,
       size: file.size,
       mimeType: file.mimetype,
+      mediaType: file.mimetype.startsWith('video/') ? 'VIDEO' : 'IMAGE',
     }));
     return {
       files: uploaded,

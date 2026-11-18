@@ -245,7 +245,7 @@ def generate_part5():
     master_db_data = [
         ["Auth Service", "auth_db", "Port 4000 (/api/auth)", "Định danh, mật khẩu Argon2id, Google OAuth 2.0, cấp phát JWT"],
         ["User Service", "user_db", "Port 4000 (/api/users)", "Hồ sơ cá nhân, ảnh đại diện, ảnh bìa, cài đặt tài khoản"],
-        ["Post Service", "post_db", "Port 4000 (/api/posts)", "Vòng đời bài viết, phân quyền tác giả, thẻ #Hashtags, ảnh đính kèm"],
+        ["Post & Story Service", "post_db", "Port 4000 (/api/posts, /api/stories)", "Vòng đời bài viết, phân quyền tác giả, thẻ #Hashtags, toàn bộ hệ thống Tin 24h (Stories)"],
         ["Feed Service", "feed_db", "Port 4000 (/api/feed)", "Bảng tin cá nhân hóa, bảng tin công khai, Redis Cache 30s"],
         ["Interaction Service", "interact_db", "Port 4000 (/api/interactions)", "6 loại cảm xúc, bình luận phân cấp, đồng bộ Socket.IO"],
         ["Media Service", "media_db", "Port 4000 (/api/media, /api/uploads)", "Tải ảnh từ máy tính cá nhân, phục vụ tệp tĩnh bền vững"],

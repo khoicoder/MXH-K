@@ -163,6 +163,61 @@ exports.Prisma.SavedPostScalarFieldEnum = {
   savedAt: 'savedAt'
 };
 
+exports.Prisma.StoryScalarFieldEnum = {
+  id: 'id',
+  authorId: 'authorId',
+  type: 'type',
+  content: 'content',
+  backgroundColor: 'backgroundColor',
+  fontStyle: 'fontStyle',
+  visibility: 'visibility',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  expiresAt: 'expiresAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.StoryMediaScalarFieldEnum = {
+  id: 'id',
+  storyId: 'storyId',
+  mediaType: 'mediaType',
+  url: 'url',
+  mimeType: 'mimeType',
+  fileSize: 'fileSize',
+  duration: 'duration',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.StoryViewScalarFieldEnum = {
+  id: 'id',
+  storyId: 'storyId',
+  viewerId: 'viewerId',
+  viewedAt: 'viewedAt'
+};
+
+exports.Prisma.StoryReactionScalarFieldEnum = {
+  id: 'id',
+  storyId: 'storyId',
+  userId: 'userId',
+  reactionType: 'reactionType',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.StoryAudienceScalarFieldEnum = {
+  id: 'id',
+  storyId: 'storyId',
+  userId: 'userId',
+  type: 'type',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CloseFriendScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  friendId: 'friendId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -183,12 +238,33 @@ exports.PostVisibility = exports.$Enums.PostVisibility = {
   PRIVATE: 'PRIVATE'
 };
 
+exports.StoryType = exports.$Enums.StoryType = {
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO',
+  TEXT: 'TEXT'
+};
+
+exports.StoryVisibility = exports.$Enums.StoryVisibility = {
+  PUBLIC: 'PUBLIC',
+  FRIENDS: 'FRIENDS',
+  FRIENDS_EXCEPT: 'FRIENDS_EXCEPT',
+  CLOSE_FRIENDS: 'CLOSE_FRIENDS',
+  ONLY_ME: 'ONLY_ME',
+  CUSTOM: 'CUSTOM'
+};
+
 exports.Prisma.ModelName = {
   Post: 'Post',
   PostMedia: 'PostMedia',
   Hashtag: 'Hashtag',
   PostHashtag: 'PostHashtag',
-  SavedPost: 'SavedPost'
+  SavedPost: 'SavedPost',
+  Story: 'Story',
+  StoryMedia: 'StoryMedia',
+  StoryView: 'StoryView',
+  StoryReaction: 'StoryReaction',
+  StoryAudience: 'StoryAudience',
+  CloseFriend: 'CloseFriend'
 };
 
 /**

@@ -50,6 +50,7 @@ export class JwtAuthGuard implements CanActivate {
       (path.startsWith('/api/reels/feed') && request.method === 'GET') ||
       (path.startsWith('/api/comments') && request.method === 'GET') ||
       (path.startsWith('/api/reactions') && request.method === 'GET') ||
+      (path.startsWith('/api/stories/feed') && request.method === 'GET') ||
       (path.startsWith('/api/posts') && request.method === 'GET' && !path.startsWith('/api/posts/saved'));
 
     const authHeader = request.headers.authorization;
