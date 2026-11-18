@@ -23,6 +23,10 @@ export class JwtAuthGuard implements CanActivate {
       password: redisPassword,
       lazyConnect: true,
       maxRetriesPerRequest: 2,
+      retryStrategy: (times) => Math.min(times * 100, 3000),
+    });
+    this.redis.on('error', (err) => {
+      // Gracefully handle redis reconnection/error events without crashing process
     });
     this.redis.connect().catch(() => {});
   }
@@ -41,6 +45,7 @@ export class JwtAuthGuard implements CanActivate {
       path.startsWith('/api/uploads') ||
       path.startsWith('/api/search') ||
       (path.startsWith('/api/users') && request.method === 'GET' && !path.startsWith('/api/users/me')) ||
+      (path === '/api/feed' && request.method === 'GET') ||
       (path.startsWith('/api/feed/explore') && request.method === 'GET') ||
       (path.startsWith('/api/reels/feed') && request.method === 'GET') ||
       (path.startsWith('/api/comments') && request.method === 'GET') ||

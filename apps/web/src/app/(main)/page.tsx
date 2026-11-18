@@ -11,53 +11,19 @@ export default function HomePage() {
   const [tab, setTab] = useState<'for_you' | 'following'>('for_you');
   const [posts, setPosts] = useState<PostItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchFeed = async () => {
     setIsLoading(true);
+    setError(null);
     try {
       const res: any = await apiClient.get('/api/feed');
       const items = res.items || res.data?.items || [];
-      if (items.length > 0) {
-        setPosts(items);
-      } else {
-        throw new Error('Empty feed');
-      }
-    } catch {
-      // Dữ liệu mẫu khởi đầu bằng Tiếng Việt thân thiện, chuẩn Facebook
-      setPosts([
-        {
-          id: 'post-1',
-          authorId: 'admin_1',
-          authorName: 'Nguyễn Thành Nam',
-          authorAvatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80',
-          content: 'Chào mừng cả nhà đến với mạng xã hội MXH-K! 🚀 Giao diện mới chuẩn phong cách Facebook, tốc độ siêu mượt và hỗ trợ đầy đủ video ngắn #reels, kết bạn và trò chuyện thời gian thực. Cùng chia sẻ cảm nghĩ nhé! #mxhk #congnghe #vietnam',
-          visibility: 'PUBLIC',
-          createdAt: new Date().toISOString(),
-          media: [
-            {
-              id: 'med-1',
-              url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1000&auto=format&fit=crop&q=80',
-              mediaType: 'IMAGE',
-            },
-          ],
-        },
-        {
-          id: 'post-2',
-          authorId: 'author_2',
-          authorName: 'Trần Mai Phương',
-          authorAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&auto=format&fit=crop&q=80',
-          content: 'Hôm nay trời Hà Nội mát mẻ tuyệt đẹp, làm cốc cà phê ngắm phố phường thấy lòng nhẹ tênh ☕ Chúc mọi người một ngày làm việc và học tập tràn đầy năng lượng! #hanoi #coffee #relax',
-          visibility: 'PUBLIC',
-          createdAt: new Date(Date.now() - 3600000).toISOString(),
-          media: [
-            {
-              id: 'med-2',
-              url: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1000&auto=format&fit=crop&q=80',
-              mediaType: 'IMAGE',
-            },
-          ],
-        },
-      ]);
+      setPosts(items);
+    } catch (err: any) {
+      console.error('Failed to fetch feed:', err);
+      setError('Không thể tải bảng tin lúc này. Vui lòng kiểm tra kết nối backend.');
+      setPosts([]);
     } finally {
       setIsLoading(false);
     }
@@ -105,6 +71,17 @@ export default function HomePage() {
         <div className="py-16 flex flex-col items-center justify-center text-slate-400 gap-2">
           <Loader2 className="w-6 h-6 animate-spin text-[#1877f2]" />
           <span className="text-xs">Đang tải bảng tin của bạn...</span>
+        </div>
+      ) : error ? (
+        <div className="bg-white dark:bg-[#242526] rounded-2xl p-8 text-center border border-red-200 dark:border-red-900/40 shadow-sm">
+          <p className="text-sm font-semibold text-red-600 dark:text-red-400 mb-3">{error}</p>
+          <button
+            onClick={fetchFeed}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-all cursor-pointer shadow-sm"
+          >
+            <RefreshCw className="w-4 h-4" />
+            Thử lại
+          </button>
         </div>
       ) : posts.length === 0 ? (
         <div className="bg-white dark:bg-[#242526] rounded-2xl p-10 text-center border border-slate-200/80 dark:border-neutral-800 shadow-sm">

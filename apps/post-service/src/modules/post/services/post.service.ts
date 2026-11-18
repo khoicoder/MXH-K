@@ -69,6 +69,34 @@ export class PostService {
       }
 
       this.logger.log(`Created post ${post.id} by author ${authorId} with ${tags.length} hashtags`);
+
+      // Ingest into feed_db
+      try {
+        const FeedPrisma = require('../../../../../feed-service/src/prisma/client').PrismaClient;
+        const feedPrisma = new FeedPrisma({ datasources: { db: { url: process.env.FEED_DATABASE_URL } } });
+        await feedPrisma.feedItem.upsert({
+          where: { recipientId_postId: { recipientId: authorId, postId: post.id } },
+          create: { recipientId: authorId, postId: post.id, authorId, score: 100, reason: 'AUTHOR' },
+          update: { score: 100 },
+        });
+        await feedPrisma.$disconnect();
+      } catch (e: any) {
+        this.logger.warn(`Could not fan-out feed item: ${e.message}`);
+      }
+
+      // Invalidate Redis feed cache
+      try {
+        const Redis = require('ioredis');
+        const redisHost = process.env.REDIS_HOST || 'localhost';
+        const redisPort = parseInt(process.env.REDIS_PORT || '6380', 10);
+        const redisPassword = process.env.REDIS_PASSWORD || 'redis_secure_pass';
+        const redis = new Redis({ host: redisHost, port: redisPort, password: redisPassword, lazyConnect: true, maxRetriesPerRequest: 1 });
+        await redis.connect();
+        const keys = await redis.keys('feed:*');
+        if (keys.length > 0) await redis.del(...keys);
+        redis.disconnect();
+      } catch {}
+
       return post;
     });
   }
@@ -131,6 +159,25 @@ export class PostService {
       where: { id: postId },
       data: { deletedAt: new Date() },
     });
+
+    try {
+      const FeedPrisma = require('../../../../../feed-service/src/prisma/client').PrismaClient;
+      const feedPrisma = new FeedPrisma({ datasources: { db: { url: process.env.FEED_DATABASE_URL } } });
+      await feedPrisma.feedItem.deleteMany({ where: { postId } });
+      await feedPrisma.$disconnect();
+    } catch {}
+
+    try {
+      const Redis = require('ioredis');
+      const redisHost = process.env.REDIS_HOST || 'localhost';
+      const redisPort = parseInt(process.env.REDIS_PORT || '6380', 10);
+      const redisPassword = process.env.REDIS_PASSWORD || 'redis_secure_pass';
+      const redis = new Redis({ host: redisHost, port: redisPort, password: redisPassword, lazyConnect: true, maxRetriesPerRequest: 1 });
+      await redis.connect();
+      const keys = await redis.keys('feed:*');
+      if (keys.length > 0) await redis.del(...keys);
+      redis.disconnect();
+    } catch {}
 
     return { success: true, message: 'Post deleted' };
   }

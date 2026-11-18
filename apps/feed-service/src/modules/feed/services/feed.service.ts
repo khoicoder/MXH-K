@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
+import Redis from 'ioredis';
 
 let PostPrismaClient: any;
 let UserPrismaClient: any;
@@ -15,8 +16,26 @@ export class FeedService {
   private readonly logger = new Logger(FeedService.name);
   private postPrisma?: any;
   private userPrisma?: any;
+  private redis?: Redis;
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {
+    const redisHost = process.env.REDIS_HOST || 'localhost';
+    const redisPort = parseInt(process.env.REDIS_PORT || '6380', 10);
+    const redisPassword = process.env.REDIS_PASSWORD || 'redis_secure_pass';
+
+    try {
+      this.redis = new Redis({
+        host: redisHost,
+        port: redisPort,
+        password: redisPassword,
+        lazyConnect: true,
+        maxRetriesPerRequest: 1,
+        retryStrategy: () => null,
+      });
+      this.redis.on('error', () => {});
+      this.redis.connect().catch(() => {});
+    } catch {}
+  }
 
   private getPostPrisma(): any {
     if (!this.postPrisma && PostPrismaClient) {
@@ -154,6 +173,18 @@ export class FeedService {
   }
 
   async getUserFeed(userId: string, limit = 20, cursor?: string) {
+    const cacheKey = `feed:${userId || 'public'}:${limit}`;
+
+    // Redis Cache lookup (only for initial page without pagination cursor)
+    if (!cursor && this.redis) {
+      try {
+        const cached = await this.redis.get(cacheKey);
+        if (cached) {
+          return JSON.parse(cached);
+        }
+      } catch {}
+    }
+
     // 1. Get IDs of posts hidden by user
     const hidden = await this.prisma.hiddenPost.findMany({
       where: { userId },
@@ -221,11 +252,19 @@ export class FeedService {
           myReaction: interactionMap[p.id]?.myReaction || null,
         }));
 
-        return {
+        const feedResult = {
           items: enriched,
           nextCursor: null,
           hasMore: false,
         };
+
+        if (!cursor && this.redis && enriched.length > 0) {
+          try {
+            await this.redis.set(cacheKey, JSON.stringify(feedResult), 'EX', 30);
+          } catch {}
+        }
+
+        return feedResult;
       } catch (err: any) {
         this.logger.warn(`Could not hydrate public posts: ${err.message}`);
         return { items: [], nextCursor: null, hasMore: false };
@@ -271,11 +310,19 @@ export class FeedService {
         };
       });
 
-      return {
+      const paginatedResult = {
         items: enrichedItems,
         nextCursor,
         hasMore,
       };
+
+      if (!cursor && this.redis && enrichedItems.length > 0) {
+        try {
+          await this.redis.set(cacheKey, JSON.stringify(paginatedResult), 'EX', 30);
+        } catch {}
+      }
+
+      return paginatedResult;
     } catch {
       return {
         items: paginated,
@@ -417,5 +464,17 @@ export class FeedService {
     });
 
     return { success: true, message: 'Post hidden from your feed' };
+  }
+
+  async invalidateFeedCache(userId?: string) {
+    if (!this.redis) return;
+    try {
+      if (userId) {
+        const keys = await this.redis.keys(`feed:${userId}:*`);
+        if (keys.length > 0) await this.redis.del(...keys);
+      }
+      const pubKeys = await this.redis.keys('feed:public:*');
+      if (pubKeys.length > 0) await this.redis.del(...pubKeys);
+    } catch {}
   }
 }

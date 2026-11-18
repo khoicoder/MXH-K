@@ -17,6 +17,8 @@ build/
 .next/
 out/
 uploads/
+backups/
+scratch/
 *.tsbuildinfo
 .turbo
 

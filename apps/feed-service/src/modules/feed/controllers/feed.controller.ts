@@ -16,14 +16,13 @@ export class FeedController {
   constructor(private readonly feedService: FeedService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Get personalized, ranked news feed with cursor pagination' })
+  @ApiOperation({ summary: 'Get personalized or public news feed with cursor pagination' })
   async getFeed(
     @Headers('x-user-id') userId: string,
     @Query('limit') limit?: number,
     @Query('cursor') cursor?: string,
   ) {
-    if (!userId) throw new UnauthorizedException('User context missing');
-    return this.feedService.getUserFeed(userId, limit ? Number(limit) : 20, cursor);
+    return this.feedService.getUserFeed(userId || '', limit ? Number(limit) : 20, cursor);
   }
 
   @Get('explore')
