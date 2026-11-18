@@ -55,6 +55,20 @@ export class FeedService {
     return this.userPrisma;
   }
 
+  private interactPrisma?: any;
+
+  private getInteractPrisma(): any {
+    if (!this.interactPrisma) {
+      try {
+        const InteractPrisma = require('../../../../../interaction-service/src/prisma/client').PrismaClient;
+        this.interactPrisma = new InteractPrisma({
+          datasources: { db: { url: process.env.INTERACTION_DATABASE_URL } },
+        });
+      } catch {}
+    }
+    return this.interactPrisma;
+  }
+
   private async resolveAuthorProfiles(authorIds: string[]): Promise<Record<string, { displayName: string; avatarUrl: string | null }>> {
     const result: Record<string, { displayName: string; avatarUrl: string | null }> = {};
     if (authorIds.length === 0) return result;
@@ -104,8 +118,8 @@ export class FeedService {
     }
 
     try {
-      const InteractPrisma = require('../../../../../interaction-service/src/prisma/client').PrismaClient;
-      const interactClient = new InteractPrisma({ datasources: { db: { url: process.env.INTERACTION_DATABASE_URL } } });
+      const interactClient = this.getInteractPrisma();
+      if (!interactClient) return result;
 
       const reactions = await interactClient.reaction.findMany({
         where: { targetType: 'POST', targetId: { in: postIds } },
@@ -131,8 +145,6 @@ export class FeedService {
           result[c.postId].commentsCount += 1;
         }
       }
-
-      await interactClient.$disconnect();
     } catch (e: any) {
       this.logger.warn(`Could not resolve interactions: ${e.message}`);
     }

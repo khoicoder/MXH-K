@@ -93,13 +93,15 @@ export function PostCard({ post }: { post: PostItem }) {
     }
   }, [showComments]);
 
-  // Real-time synchronization via Socket.IO + Smart Polling Fallback
+  // Real-time synchronization via Socket.IO only when comments section is open
   useEffect(() => {
+    if (!showComments) return;
+
     let socket: any = null;
     try {
       const socketUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:4000';
       socket = io(`${socketUrl}/interactions`, {
-        transports: ['polling', 'websocket'],
+        transports: ['websocket', 'polling'],
         timeout: 5000,
       });
 
@@ -119,7 +121,7 @@ export function PostCard({ post }: { post: PostItem }) {
       socket.on('comment_created', (data: any) => {
         if (data.postId === post.id) {
           setCommentsCount((c) => c + 1);
-          if (showComments && data.comment) {
+          if (data.comment) {
             setComments((prev) => {
               if (prev.some((c) => c.id === data.comment.id)) return prev;
               return [...prev, data.comment];
@@ -136,30 +138,7 @@ export function PostCard({ post }: { post: PostItem }) {
       });
     } catch {}
 
-    // Polling every 4 seconds to sync interactions across any network
-    const interval = setInterval(async () => {
-      try {
-        const res: any = await apiClient.get(`/api/reactions/POST/${post.id}`);
-        if (res && typeof res.total === 'number') {
-          setReactionTotal(res.total);
-          if (res.myReaction !== undefined) {
-            setCurrentReaction(res.myReaction);
-          }
-        }
-      } catch {}
-
-      if (showComments) {
-        try {
-          const res: any = await apiClient.get(`/api/comments/post/${post.id}`);
-          const items = res.items || res.data?.items || (Array.isArray(res) ? res : []);
-          setComments(items);
-          setCommentsCount(items.length);
-        } catch {}
-      }
-    }, 4000);
-
     return () => {
-      clearInterval(interval);
       if (socket) {
         socket.emit('leave_post', post.id);
         socket.disconnect();

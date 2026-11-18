@@ -58,10 +58,10 @@ export default function NotificationsPage() {
       setNotifications((prev) => [newNotif, ...prev.filter((n) => n.id !== newNotif.id)]);
     });
 
-    // Fallback polling every 5s
+    // Fallback polling every 30s
     const timer = setInterval(() => {
       fetchNotifications();
-    }, 5000);
+    }, 30000);
 
     return () => {
       socket.disconnect();

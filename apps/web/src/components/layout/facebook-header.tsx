@@ -64,7 +64,7 @@ export function FacebookHeader() {
       setUnreadCount((prev) => prev + 1);
     });
 
-    // Smart polling fallback every 8 seconds
+    // Smart polling fallback every 60 seconds
     const timer = setInterval(() => {
       apiClient.get('/api/notifications/unread-count')
         .then((res: any) => {
@@ -73,7 +73,7 @@ export function FacebookHeader() {
           }
         })
         .catch(() => {});
-    }, 8000);
+    }, 60000);
 
     return () => {
       socket.disconnect();

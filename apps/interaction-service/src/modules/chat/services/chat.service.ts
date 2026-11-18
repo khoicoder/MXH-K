@@ -17,11 +17,38 @@ export class ChatService {
   private userProfileCache = new Map<string, { profile: any; timestamp: number }>();
   private readonly CACHE_TTL_MS = 60 * 1000; // 1 minute cache for user profiles
 
+  private userPrisma?: any;
+  private socialPrisma?: any;
+
   constructor(
     private readonly prisma: PrismaService,
     @Inject(forwardRef(() => ChatGateway))
     private readonly chatGateway: ChatGateway,
   ) {}
+
+  private getUserPrisma(): any {
+    if (!this.userPrisma) {
+      try {
+        const UserPrisma = require('../../../../../user-service/src/prisma/client').PrismaClient;
+        this.userPrisma = new UserPrisma({
+          datasources: { db: { url: process.env.USER_DATABASE_URL } },
+        });
+      } catch {}
+    }
+    return this.userPrisma;
+  }
+
+  private getSocialPrisma(): any {
+    if (!this.socialPrisma) {
+      try {
+        const SocialPrisma = require('../../../../../social-graph-service/src/prisma/client').PrismaClient;
+        this.socialPrisma = new SocialPrisma({
+          datasources: { db: { url: process.env.SOCIAL_DATABASE_URL } },
+        });
+      } catch {}
+    }
+    return this.socialPrisma;
+  }
 
   // Helper to fetch user profile from user_db
   async getUserProfile(userId: string): Promise<any> {
@@ -31,14 +58,10 @@ export class ChatService {
     }
 
     try {
-      const UserPrisma = require('../../../../../user-service/src/prisma/client').PrismaClient;
-      const userClient = new UserPrisma({
-        datasources: { db: { url: process.env.USER_DATABASE_URL } },
-      });
-      const profile = await userClient.userProfile.findUnique({
-        where: { userId },
-      });
-      await userClient.$disconnect();
+      const userClient = this.getUserPrisma();
+      const profile = userClient
+        ? await userClient.userProfile.findUnique({ where: { userId } })
+        : null;
 
       const result = profile || {
         userId,
@@ -63,10 +86,9 @@ export class ChatService {
   // Helper to check if userA blocked userB or vice versa
   async isBlocked(userAId: string, userBId: string): Promise<boolean> {
     try {
-      const SocialPrisma = require('../../../../../social-graph-service/src/prisma/client').PrismaClient;
-      const socialClient = new SocialPrisma({
-        datasources: { db: { url: process.env.SOCIAL_DATABASE_URL } },
-      });
+      const socialClient = this.getSocialPrisma();
+      if (!socialClient) return false;
+
       const block = await socialClient.block.findFirst({
         where: {
           OR: [
@@ -75,7 +97,6 @@ export class ChatService {
           ],
         },
       });
-      await socialClient.$disconnect();
       return !!block;
     } catch (err) {
       this.logger.warn(`Failed to check block status between ${userAId} and ${userBId}`, err);
