@@ -154,6 +154,54 @@ exports.Prisma.ReportScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ConversationScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  title: 'title',
+  avatar: 'avatar',
+  lastMessageText: 'lastMessageText',
+  lastMessageAt: 'lastMessageAt',
+  lastSenderId: 'lastSenderId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ConversationMemberScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  userId: 'userId',
+  joinedAt: 'joinedAt',
+  lastReadAt: 'lastReadAt',
+  isArchived: 'isArchived',
+  isMuted: 'isMuted'
+};
+
+exports.Prisma.MessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  senderId: 'senderId',
+  clientMessageId: 'clientMessageId',
+  content: 'content',
+  type: 'type',
+  status: 'status',
+  replyToMessageId: 'replyToMessageId',
+  recalledAt: 'recalledAt',
+  deletedForUserIds: 'deletedForUserIds',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MessageAttachmentScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  fileName: 'fileName',
+  fileKey: 'fileKey',
+  mimeType: 'mimeType',
+  size: 'size',
+  url: 'url',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -177,10 +225,33 @@ exports.ReactionType = exports.$Enums.ReactionType = {
   ANGRY: 'ANGRY'
 };
 
+exports.ConversationType = exports.$Enums.ConversationType = {
+  DIRECT: 'DIRECT',
+  GROUP: 'GROUP'
+};
+
+exports.MessageType = exports.$Enums.MessageType = {
+  TEXT: 'TEXT',
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO',
+  FILE: 'FILE',
+  SYSTEM: 'SYSTEM'
+};
+
+exports.MessageStatus = exports.$Enums.MessageStatus = {
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  READ: 'READ'
+};
+
 exports.Prisma.ModelName = {
   Reaction: 'Reaction',
   Comment: 'Comment',
-  Report: 'Report'
+  Report: 'Report',
+  Conversation: 'Conversation',
+  ConversationMember: 'ConversationMember',
+  Message: 'Message',
+  MessageAttachment: 'MessageAttachment'
 };
 
 /**

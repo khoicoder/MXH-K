@@ -8,15 +8,15 @@ export function RightPanel() {
   const [friendRequests, setFriendRequests] = useState([
     {
       id: 'req-1',
-      name: 'Nguyễn Thu Trang',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
+      name: 'Sơn Tùng M-TP',
+      avatar: 'https://i.pinimg.com/1200x/28/ed/68/28ed6863418004827265c6188017ed49.jpg',
       mutualFriends: 12,
       time: '3 giờ trước',
     },
     {
       id: 'req-2',
-      name: 'Trần Quang Huy',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
+      name: 'Phùng Thanh Độ',
+      avatar: 'https://i.pinimg.com/736x/a7/64/5f/a7645f9cc84777fbfe0d56e0ca15adbe.jpg',
       mutualFriends: 5,
       time: '1 ngày trước',
     },
@@ -132,7 +132,7 @@ export function RightPanel() {
           {onlineContacts.map((contact) => (
             <Link
               key={contact.id}
-              href="/profile"
+              href={`/messages?userId=${contact.id}`}
               className="flex items-center gap-3 px-2 py-2 rounded-xl hover:bg-[#e4e6eb]/70 dark:hover:bg-[#3a3b3c] transition-colors group cursor-pointer"
             >
               <div className="relative shrink-0">

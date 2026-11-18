@@ -23,21 +23,27 @@ import {
 } from 'lucide-react';
 import { Logo } from '../ui/logo';
 import { useAuthStore } from '../../stores/auth.store';
+import { useChatStore } from '../../stores/chat.store';
 import { apiClient } from '../../lib/api-client';
 
 export function FacebookHeader() {
   const pathname = usePathname();
   const router = useRouter();
   const { user, clearAuth } = useAuthStore();
+  const { unreadTotal, fetchUnreadCount, initSocket: initChatSocket } = useChatStore();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [isDark, setIsDark] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Sync unread notification count
+  // Sync unread notification count & chat
   useEffect(() => {
     if (!user?.id) return;
+
+    fetchUnreadCount();
+    const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') || undefined : undefined;
+    initChatSocket(user.id, token);
 
     // Fetch initial unread count
     apiClient.get('/api/notifications/unread-count')
@@ -192,13 +198,18 @@ export function FacebookHeader() {
         </button>
 
         {/* Messenger Button */}
-        <button
-          title="Tin nhắn"
+        <Link
+          href="/messages"
+          title="Tin nhắn (Messenger)"
           className="w-10 h-10 rounded-full bg-[#e4e6eb] dark:bg-[#3a3b3c] hover:bg-[#d8dadf] dark:hover:bg-[#4e4f50] flex items-center justify-center text-slate-800 dark:text-slate-100 transition-colors cursor-pointer relative"
         >
           <MessageCircle className="w-5 h-5" />
-          <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-[#1877f2] rounded-full border-2 border-white dark:border-[#242526]" />
-        </button>
+          {unreadTotal > 0 && (
+            <span className="absolute -top-1 -right-1 min-w-[20px] h-5 px-1 bg-[#e41e3f] text-white text-[11px] font-bold rounded-full border-2 border-white dark:border-[#242526] flex items-center justify-center">
+              {unreadTotal > 9 ? '9+' : unreadTotal}
+            </span>
+          )}
+        </Link>
 
         {/* User Avatar & Dropdown Menu */}
         <div className="relative">

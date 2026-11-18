@@ -13,6 +13,7 @@ import {
   Shield,
   HelpCircle,
   Flag,
+  MessageCircle,
 } from 'lucide-react';
 import { useAuthStore } from '../../stores/auth.store';
 
@@ -32,6 +33,12 @@ export function Sidebar() {
       icon: Users,
       badge: '2 mới',
       color: 'bg-blue-500 text-white',
+    },
+    {
+      label: 'Đoạn chat (Messenger)',
+      href: '/messages',
+      icon: MessageCircle,
+      color: 'bg-[#0084ff] text-white',
     },
     {
       label: 'Thước phim (Reels)',

@@ -17,6 +17,25 @@ enum ReactionType {
   ANGRY
 }
 
+enum ConversationType {
+  DIRECT
+  GROUP
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  VIDEO
+  FILE
+  SYSTEM
+}
+
+enum MessageStatus {
+  SENT
+  DELIVERED
+  READ
+}
+
 model Reaction {
   id         String       @id @default(uuid())
   userId     String
@@ -59,4 +78,77 @@ model Report {
 
   @@index([status])
   @@map("reports")
+}
+
+model Conversation {
+  id              String            @id @default(uuid())
+  type            ConversationType  @default(DIRECT)
+  title           String?
+  avatar          String?
+  lastMessageText String?
+  lastMessageAt   DateTime?
+  lastSenderId    String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  members         ConversationMember[]
+  messages        Message[]
+
+  @@map("conversations")
+}
+
+model ConversationMember {
+  id              String        @id @default(uuid())
+  conversationId  String
+  userId          String
+  joinedAt        DateTime      @default(now())
+  lastReadAt      DateTime      @default(now())
+  isArchived      Boolean       @default(false)
+  isMuted         Boolean       @default(false)
+
+  conversation    Conversation  @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+  @@index([userId])
+  @@index([conversationId])
+  @@map("conversation_members")
+}
+
+model Message {
+  id                String              @id @default(uuid())
+  conversationId    String
+  senderId          String
+  clientMessageId   String?
+  content           String
+  type              MessageType         @default(TEXT)
+  status            MessageStatus       @default(SENT)
+  replyToMessageId  String?
+  recalledAt        DateTime?
+  deletedForUserIds String[]            @default([])
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  conversation      Conversation        @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  attachments       MessageAttachment[]
+
+  @@index([conversationId, createdAt(sort: Desc)])
+  @@index([senderId])
+  @@index([clientMessageId])
+  @@map("messages")
+}
+
+model MessageAttachment {
+  id          String   @id @default(uuid())
+  messageId   String
+  fileName    String
+  fileKey     String?
+  mimeType    String
+  size        Int
+  url         String
+  createdAt   DateTime @default(now())
+
+  message     Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@index([messageId])
+  @@map("message_attachments")
 }
