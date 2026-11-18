@@ -1,6 +1,7 @@
 import {
   WebSocketGateway,
   WebSocketServer,
+  OnGatewayInit,
   OnGatewayConnection,
   OnGatewayDisconnect,
   SubscribeMessage,
@@ -20,7 +21,7 @@ import { SendMessageDto } from '../dto/chat.dto';
   },
   namespace: 'chat',
 })
-export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
+export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server!: Server;
 
@@ -32,43 +33,44 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private readonly chatService: ChatService,
   ) {}
 
+  afterInit(server: Server) {
+    // Socket.IO Handshake Middleware: Strictly block unauthenticated connections at handshake level
+    server.use((socket, next) => {
+      try {
+        const token =
+          socket.handshake.auth?.token ||
+          (socket.handshake.headers?.authorization?.startsWith('Bearer ')
+            ? socket.handshake.headers.authorization.slice(7)
+            : null) ||
+          socket.handshake.query?.token;
+
+        if (!token || typeof token !== 'string') {
+          return next(new Error('Chức năng chat yêu cầu đăng nhập tài khoản hợp lệ (Thiếu authentication token).'));
+        }
+
+        const payload = JwtSecurityService.verifyAccessToken(token);
+        if (!payload || !payload.sub) {
+          return next(new Error('Token không hợp lệ hoặc đã hết hạn.'));
+        }
+
+        // Attach authenticated userId to socket session
+        socket.data.userId = payload.sub;
+        return next();
+      } catch (err: any) {
+        return next(new Error('Xác thực thất bại: ' + (err?.message || 'Token không hợp lệ')));
+      }
+    });
+  }
+
   handleConnection(client: Socket) {
     try {
-      let userId: string | null = null;
-
-      // 1. Try to extract and verify JWT token
-      const token =
-        client.handshake.auth?.token ||
-        (client.handshake.headers?.authorization?.startsWith('Bearer ')
-          ? client.handshake.headers.authorization.slice(7)
-          : null) ||
-        client.handshake.query?.token;
-
-      if (token && typeof token === 'string') {
-        try {
-          const payload = JwtSecurityService.verifyAccessToken(token);
-          if (payload && payload.sub) {
-            userId = payload.sub;
-          }
-        } catch (jwtErr) {
-          this.logger.debug(`JWT verification failed on socket handshake: ${(jwtErr as any)?.message}`);
-        }
-      }
-
-      // 2. Fallback to userId from auth/query (for direct dev client / test scenarios)
-      if (!userId) {
-        userId =
-          (client.handshake.auth?.userId as string) ||
-          (client.handshake.query?.userId as string);
-      }
+      const userId = client.data?.userId;
 
       if (!userId) {
-        this.logger.warn(`Unauthenticated socket connection rejected: ${client.id}`);
+        this.logger.warn(`Rejecting unauthenticated connection to chat socket: ${client.id}`);
         client.disconnect(true);
         return;
       }
-
-      client.data.userId = userId;
 
       // Join personal user room for direct messaging & notifications
       client.join(`user_${userId}`);
@@ -80,7 +82,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       }
       this.userSockets.get(userId)!.add(client.id);
 
-      this.logger.log(`User ${userId} connected to chat socket ${client.id}`);
+      this.logger.log(`Authenticated user ${userId} connected to chat socket ${client.id}`);
 
       // Broadcast online status if this is their first active socket
       if (isFirstConnection && this.server) {

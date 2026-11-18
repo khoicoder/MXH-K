@@ -23,7 +23,7 @@ export class ChatController {
   private extractUserId(req: any, headerUserId?: string): string {
     const userId = headerUserId || req.user?.id || req.user?.sub;
     if (!userId) {
-      throw new UnauthorizedException('Thông tin người dùng không hợp lệ');
+      throw new UnauthorizedException('Bạn cần đăng nhập tài khoản để sử dụng chức năng chat');
     }
     return userId;
   }
@@ -111,7 +111,7 @@ export class MessageController {
   private extractUserId(req: any, headerUserId?: string): string {
     const userId = headerUserId || req.user?.id || req.user?.sub;
     if (!userId) {
-      throw new UnauthorizedException('Thông tin người dùng không hợp lệ');
+      throw new UnauthorizedException('Bạn cần đăng nhập tài khoản để sử dụng chức năng chat');
     }
     return userId;
   }

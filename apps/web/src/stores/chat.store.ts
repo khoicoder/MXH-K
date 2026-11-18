@@ -40,15 +40,25 @@ export const useChatStore = create<ChatState>((set, get) => ({
   isLoadingMessages: false,
 
   initSocket: (userId: string, token?: string) => {
+    // Only authenticated users with a valid token are permitted to connect
+    if (!token || !userId) {
+      console.warn('Chat requires an authenticated user with a valid access token.');
+      return;
+    }
+
     const currentSocket = get().socket;
     if (currentSocket && currentSocket.connected) return;
 
     const socketBase = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:4000';
     const socket = io(`${socketBase}/chat`, {
-      auth: { token, userId },
-      query: { userId },
+      auth: { token },
       transports: ['websocket', 'polling'],
       reconnectionAttempts: 5,
+    });
+
+    socket.on('auth_error', (data) => {
+      console.warn('Chat authentication error from server:', data);
+      get().disconnectSocket();
     });
 
     socket.on('connect', () => {
@@ -195,7 +205,13 @@ export const useChatStore = create<ChatState>((set, get) => ({
     const socket = get().socket;
     if (socket) {
       socket.disconnect();
-      set({ socket: null });
+      set({
+        socket: null,
+        conversations: [],
+        messages: {},
+        unreadTotal: 0,
+        activeConversationId: null,
+      });
     }
   },
 

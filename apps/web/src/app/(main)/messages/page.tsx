@@ -20,6 +20,7 @@ import {
   Undo2,
   MessageCircle,
   Circle,
+  Lock,
 } from 'lucide-react';
 import { useAuthStore } from '../../../stores/auth.store';
 import { useChatStore } from '../../../stores/chat.store';
@@ -29,7 +30,8 @@ import { apiClient } from '../../../lib/api-client';
 function MessagesContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { user } = useAuthStore();
+  const { user, isAuthenticated, accessToken } = useAuthStore();
+  const [hasMounted, setHasMounted] = useState(false);
   const {
     conversations,
     activeConversationId,
@@ -56,14 +58,17 @@ function MessagesContent() {
 
   const targetUserIdParam = searchParams.get('userId');
 
-  // 1. Initialize socket connection
   useEffect(() => {
-    if (user?.id) {
-      const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') || undefined : undefined;
-      initSocket(user.id, token);
+    setHasMounted(true);
+  }, []);
+
+  // 1. Initialize socket connection (strictly when authenticated)
+  useEffect(() => {
+    if (user?.id && accessToken) {
+      initSocket(user.id, accessToken);
       fetchConversations();
     }
-  }, [user?.id, initSocket, fetchConversations]);
+  }, [user?.id, accessToken, initSocket, fetchConversations]);
 
   // 2. Handle URL ?userId= parameter (e.g. from right-panel or user profile)
   useEffect(() => {
@@ -163,6 +168,61 @@ function MessagesContent() {
   const filteredConversations = conversations.filter((c) =>
     (c.title || c.peerUser?.displayName || '').toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Loading spinner while client auth state hydrates
+  if (!hasMounted) {
+    return (
+      <div className="h-[calc(100vh-56px)] w-full flex items-center justify-center bg-[#f0f2f5] dark:bg-[#18191a]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0084ff]" />
+      </div>
+    );
+  }
+
+  // Strict Authentication Guard: Only authenticated users can access Messenger
+  if (!isAuthenticated || !user || !accessToken) {
+    return (
+      <div className="h-[calc(100vh-56px)] w-full flex items-center justify-center bg-[#f0f2f5] dark:bg-[#18191a] p-4 select-none">
+        <div className="bg-white dark:bg-[#242526] p-8 sm:p-10 rounded-2xl shadow-xl border border-slate-200/80 dark:border-neutral-800 max-w-md w-full text-center space-y-6">
+          <div className="relative mx-auto w-20 h-20 rounded-full bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-[#0084ff] shadow-inner">
+            <MessageCircle className="w-10 h-10 stroke-[2px]" />
+            <div className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center shadow-md border-2 border-white dark:border-[#242526]">
+              <Lock className="w-3.5 h-3.5 stroke-[2.5px]" />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+              Yêu cầu đăng nhập tài khoản
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+              Chức năng nhắn tin Messenger chỉ dành riêng cho thành viên đã đăng nhập. Vui lòng đăng nhập để xem các cuộc trò chuyện và kết nối thời gian thực với bạn bè.
+            </p>
+          </div>
+
+          <div className="space-y-2.5 pt-2">
+            <button
+              onClick={() => router.push('/login?redirect=/messages')}
+              className="w-full py-2.5 px-4 bg-[#1877f2] hover:bg-blue-600 text-white font-semibold text-sm rounded-xl transition-all shadow-sm active:scale-98 cursor-pointer flex items-center justify-center gap-2"
+            >
+              <span>Đăng nhập ngay</span>
+            </button>
+            <button
+              onClick={() => router.push('/register?redirect=/messages')}
+              className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50] text-slate-700 dark:text-slate-200 font-semibold text-sm rounded-xl transition-all cursor-pointer"
+            >
+              <span>Tạo tài khoản mới</span>
+            </button>
+            <button
+              onClick={() => router.push('/')}
+              className="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors pt-1 cursor-pointer block mx-auto"
+            >
+              Quay lại Bảng tin
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-[calc(100vh-56px)] bg-[#f0f2f5] dark:bg-[#18191a] text-slate-900 dark:text-slate-100 overflow-hidden select-none">

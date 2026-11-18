@@ -29,7 +29,7 @@ import { apiClient } from '../../lib/api-client';
 export function FacebookHeader() {
   const pathname = usePathname();
   const router = useRouter();
-  const { user, clearAuth } = useAuthStore();
+  const { user, accessToken, isAuthenticated, clearAuth } = useAuthStore();
   const { unreadTotal, fetchUnreadCount, initSocket: initChatSocket } = useChatStore();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -39,11 +39,10 @@ export function FacebookHeader() {
 
   // Sync unread notification count & chat
   useEffect(() => {
-    if (!user?.id) return;
+    if (!user?.id || !accessToken) return;
 
     fetchUnreadCount();
-    const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') || undefined : undefined;
-    initChatSocket(user.id, token);
+    initChatSocket(user.id, accessToken);
 
     // Fetch initial unread count
     apiClient.get('/api/notifications/unread-count')
